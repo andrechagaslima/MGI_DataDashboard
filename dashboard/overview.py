@@ -30,7 +30,7 @@ def render_overview():
         )
 
     with col2:
-        st.subheader("Gráfico de Respostas Positivas e Negativas")
+        st.subheader("Distribuição de Respostas Positivas e Negativas")
         sentiment_counts = {"Negativo": 40, "Positivo": 60}
         labels, values = list(sentiment_counts.keys()), list(sentiment_counts.values())
         fig = px.pie(
