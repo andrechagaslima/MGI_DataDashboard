@@ -3,10 +3,11 @@ import pandas as pd
 import multiple_choice_answers
 import SUS
 import topic_modeling
+import overview  
 
 st.set_page_config(
     page_title="MGI - Protótipo",
-    layout="centered",
+    layout="wide",  # Alterado para 'wide' para melhor responsividade
     initial_sidebar_state="expanded"
 )
 
@@ -21,10 +22,14 @@ if __name__ == "__main__":
 
     # Navigation
     st.sidebar.title("Navegação")
-    selection = st.sidebar.radio("Ir para", ["Análises Gerais", "Modelagem de Tópicos"])
+    selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises Gerais", "Modelagem de Tópicos"])
+
+    if selection == "Visão Geral":
+        # Renderizar tela de Visão Geral
+        overview.render_overview()
 
     # Import and render the selected option
-    if selection == "Análises Gerais":
+    elif selection == "Análises Gerais":
         # Create tabs for different analyses
         tab1, tab2 = st.tabs(["Afirmações de Concordância/Discordância", "Métrica SUS"])
         
