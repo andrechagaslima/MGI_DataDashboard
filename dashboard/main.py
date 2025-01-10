@@ -22,14 +22,14 @@ if __name__ == "__main__":
 
     # Navigation
     st.sidebar.title("Navegação")
-    selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises Gerais", "Modelagem de Tópicos"])
+    selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises", "Modelagem de Tópicos"])
 
     if selection == "Visão Geral":
         # Renderizar tela de Visão Geral
         overview.render_overview()
 
     # Import and render the selected option
-    elif selection == "Análises Gerais":
+    elif selection == "Análises":
         # Create tabs for different analyses
         tab1, tab2 = st.tabs(["Afirmações de Concordância/Discordância", "Métrica SUS"])
         
