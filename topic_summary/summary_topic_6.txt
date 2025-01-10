@@ -1,0 +1,19 @@
+Com base nas sugestões e críticas recebidas, aqui estão algumas melhorias que poderiam ser implementadas no simulador de aposentadoria:
+
+1. **Incluir a simulação do Benefício Especial**: O simulador deveria incluir a simulação do Benefício Especial para os servidores que migraram para o RPC.
+2. **Mostrar o valor líquido**: O simulador deveria mostrar o valor líquido do salário de aposentadoria, incluindo os descontos de imposto de renda e previdência.
+3. **Incluir a simulação de aposentadoria proporcional**: O simulador deveria incluir a simulação de aposentadoria proporcional, para os servidores que desejam se aposentar antes de atingir os requisitos necessários.
+4. **Incluir a simulação de aposentadoria por incapacidade e acidente de trabalho**: O simulador deveria incluir a simulação de aposentadoria por incapacidade e acidente de trabalho, com seus respectivos valores de salário.
+5. **Incluir a simulação de tempo de RGPS**: O simulador deveria incluir a simulação de tempo de RGPS, mesmo sem averbação, para que os servidores possam ter uma ideia do tempo total de contribuição.
+6. **Incluir a simulação de valor da remuneração estimada da aposentadoria**: O simulador deveria incluir a simulação de valor da remuneração estimada da aposentadoria, com base nos dados do sistema.
+7. **Incluir a simulação de descontos previstos**: O simulador deveria incluir a simulação de descontos previstos, como imposto de renda e previdência, para que os servidores possam ter uma ideia do valor líquido do salário de aposentadoria.
+8. **Incluir a simulação de valor da remuneração atualizada**: O simulador deveria incluir a simulação de valor da remuneração atualizada, para que os servidores possam ter uma ideia do valor do salário de aposentadoria em diferentes cenários.
+9. **Incluir a simulação de tempo de serviço**: O simulador deveria incluir a simulação de tempo de serviço, para que os servidores possam ter uma ideia do tempo total de contribuição.
+10. **Melhorar a interface do usuário**: O simulador deveria ter uma interface mais intuitiva e fácil de usar, para que os servidores possam entender melhor as opções e simulações disponíveis.
+11. **Incluir a simulação de valor do benefício financeiro atualizado**: O simulador deveria incluir a simulação de valor do benefício financeiro atualizado, para que os servidores possam ter uma ideia do valor do salário de aposentadoria em diferentes cenários.
+12. **Incluir a simulação de valor da remuneração estimada da aposentadoria com base na tabela de GDAS**: O simulador deveria incluir a simulação de valor da remuneração estimada da aposentadoria com base na tabela de GDAS, para que os servidores possam ter uma ideia do valor do salário de aposentadoria em diferentes cenários.
+13. **Incluir a simulação de valor do benefício especial**: O simulador deveria incluir a simulação de valor do benefício especial, para que os servidores possam ter uma ideia do valor do salário de aposentadoria em diferentes cenários.
+14. **Incluir a simulação de valor da remuneração estimada da aposentadoria com base na lei**: O simulador deveria incluir a simulação de valor da remuneração estimada da aposentadoria com base na lei, para que os servidores possam ter uma ideia do valor do salário de aposentadoria em diferentes cenários.
+15. **Melhorar a documentação e a explicação das opções e simulações**: O simulador deveria ter uma documentação e explicação mais detalhadas e claras das opções e simulações disponíveis, para que os servidores possam entender melhor as opções e simulações disponíveis.
+
+Essas são apenas algumas das melhorias que poderiam ser implementadas no simulador de aposentadoria. É importante lembrar que o simulador deve ser atualizado e melhorado constantemente para atender às necessidades dos servidores.

@@ -1,0 +1,19 @@
+**Resumo do Simulador de Aposentadoria**
+
+O simulador de aposentadoria é uma ferramenta útil e prática para os servidores públicos brasileiros. No entanto, alguns usuários relataram dificuldades em usar o simulador, especialmente quando se trata de incluir tempo de serviço pretérito ou tempo de serviço não averbado. Alguns usuários também relataram que o simulador não considera a aposentadoria especial ou a aposentadoria compulsória.
+
+**Requisitos e Sugestões**
+
+* Incluir tempo de serviço pretérito e tempo de serviço não averbado na simulação;
+* Melhorar a explicação das opções de aposentadoria e dos requisitos para cada opção;
+* Incluir o valor estimado dos proventos na aposentadoria;
+* Incluir o link das leis que amparam a aposentadoria;
+* Melhorar a integração com outros sistemas, como o INSS;
+* Incluir a opção de simulação sem a averbação do RGPS.
+
+**Opiniões Gerais**
+
+* O simulador é útil e prático para os servidores públicos brasileiros;
+* Alguns usuários relataram dificuldades em usar o simulador;
+* O simulador não considera a aposentadoria especial ou a aposentadoria compulsória;
+* O simulador é uma ferramenta útil para os servidores públicos brasileiros, mas precisa ser melhorado.

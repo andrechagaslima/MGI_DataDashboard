@@ -1,0 +1,12 @@
+Com base nas sugestões e críticas recebidas, posso resumir as principais necessidades e melhorias para o simulador de aposentadoria:
+
+1. **Inclusão de tempo de RGPS**: Permitir a inclusão de tempo de contribuição no RGPS para simulação correta.
+2. **Inclusão de tempo de CTC**: Permitir a inclusão de tempo de CTC (RGPS) ainda não averbado para simulação correta.
+3. **Consideração de vínculos do RGPS**: Considerar os vínculos do RGPS ao lado dos vínculos do RPPS.
+4. **Simulação para servidores PCD**: Permitir a simulação para servidores com deficiência (PCD).
+5. **Inclusão de tempo de serviço**: Permitir a inclusão de tempo de serviço manualmente para simulação correta.
+6. **Consideração de períodos de contribuição**: Considerar períodos de contribuição no RGPS e RPPS para simulação correta.
+7. **Melhoria da interface**: Melhorar a interface do simulador para torná-lo mais fácil de usar e entender.
+8. **Inclusão de opções de simulação**: Incluir opções de simulação para permitir que os usuários escolham como querem simular a aposentadoria.
+
+Essas melhorias podem ajudar a tornar o simulador de aposentadoria mais útil e preciso para os servidores públicos.

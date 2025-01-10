@@ -1,0 +1,15 @@
+**Resumo do Simulador de Aposentadoria**
+
+O simulador de aposentadoria é uma ferramenta útil e fácil de usar, que ajuda os servidores a simular suas opções de aposentadoria. No entanto, alguns usuários relataram dificuldades em entender as opções e as regras aplicadas. Alguns sugeriram a inclusão de recursos adicionais, como:
+
+*   Instruções mais claras e acessíveis
+*   Opção para incluir tempo de serviço anterior a entrada no cargo atual
+*   Espaço para adicionarmos tempo de serviço passível de averbação
+*   Exibição clara da previsão de valor da aposentadoria
+*   Opção para excluir ou incluir vínculos com um ícone mais visível
+*   Detalhamento mais claro de cada caso, especialmente para os que entraram antes de 2003
+*   Linguagem menos técnica para cada tipo de aposentadoria a escolher para simular
+
+Alguns usuários também relataram problemas técnicos, como a impossibilidade de abrir o programa ou a mensagem de que não possui parcelas suficientes. É importante resolver esses problemas para garantir que o simulador seja uma ferramenta eficaz e confiável para os servidores.
+
+Em geral, o simulador de aposentadoria é uma ferramenta útil e fácil de usar, mas pode ser melhorado com a inclusão de recursos adicionais e a resolução de problemas técnicos.

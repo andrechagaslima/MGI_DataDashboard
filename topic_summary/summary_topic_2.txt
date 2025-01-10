@@ -1,0 +1,28 @@
+**Resumo da Simulação de Aposentadoria**
+
+O simulador de aposentadoria apresentou várias inconsistências e dificuldades para os usuários. Alguns pontos destacados incluem:
+
+* Falta de opções para simulação de aposentadoria especial para servidores deficientes;
+* Dificuldade em entender as opções e escolher a melhor para a aposentadoria;
+* Falta de detalhamento nas opções apresentadas;
+* Inconsistência de informação e não interligação dos dados do INSS;
+* Falta de orientação especializada para decisões;
+* Simulação de aposentadoria não funciona corretamente para servidores deficientes;
+* Falta de opções para simular casos de aposentadoria de servidores deficientes;
+* Dificuldade em entender as opções e escolher a melhor para a aposentadoria;
+* Falta de detalhamento nas opções apresentadas;
+* Inconsistência de informação e não interligação dos dados do INSS;
+* Falta de orientação especializada para decisões;
+* Simulação de aposentadoria não funciona corretamente para servidores deficientes.
+
+**Recomendações**
+
+Para melhorar o simulador de aposentadoria, é recomendável:
+
+* Incluir opções para simulação de aposentadoria especial para servidores deficientes;
+* Aumentar a clareza e detalhamento nas opções apresentadas;
+* Interligar os dados do INSS para evitar inconsistências;
+* Oferecer orientação especializada para decisões;
+* Corrigir a simulação de aposentadoria para servidores deficientes.
+
+Essas recomendações visam melhorar a experiência do usuário e fornecer informações precisas e úteis para a simulação de aposentadoria.

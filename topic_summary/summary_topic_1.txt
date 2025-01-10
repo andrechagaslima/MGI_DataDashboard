@@ -1,0 +1,11 @@
+Parece que há uma série de problemas com o simulador de aposentadoria, incluindo:
+
+* Não considerar tempo de serviço anterior ao serviço público federal
+* Não considerar tempo de contribuição ao INSS
+* Não considerar tempo de serviço prestado às Forças Armadas
+* Não considerar tempo de serviço prestado em outras esferas do serviço público (municipal, estadual)
+* Não permitir a inclusão manual de tempo de contribuição anterior ao vínculo atual
+* Não exibir a memória de cálculo da aposentadoria na tela do simulador
+* Não considerar tempo de contribuição em outros órgãos públicos
+
+Esses problemas podem levar a simulações inacuradas e dificultar a tomada de decisões sobre a aposentadoria. É importante que o simulador seja atualizado e aprimorado para refletir a realidade dos servidores públicos.

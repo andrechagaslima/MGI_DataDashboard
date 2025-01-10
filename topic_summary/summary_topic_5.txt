@@ -1,0 +1,22 @@
+**Simulador de Aposentadoria:**
+
+* É uma ferramenta importante e útil para os servidores públicos.
+* Ajuda a calcular o tempo de aposentadoria e o valor dos proventos.
+* É uma ferramenta de planejamento financeiro e de vida para os servidores.
+* É uma iniciativa necessária e bem-vinda.
+
+**Melhorias sugeridas:**
+
+* Integrar os dados do INSS e do NIS.
+* Incluir a possibilidade de simular a aposentadoria com requisitos ainda não preenchidos.
+* Esclarecer melhor as alternativas para aposentadoria.
+* Incluir uma simulação de valores, como no SIAPE.
+* Integrar os valores e a projeção futura.
+* Incluir a possibilidade de solicitar a aposentadoria diretamente do simulador.
+
+**Comentários gerais:**
+
+* A ferramenta é útil e importante para os servidores.
+* É uma ferramenta de apoio para os servidores.
+* É uma iniciativa necessária e bem-vinda.
+* É uma ferramenta que pode ajudar a melhorar a vida dos servidores.
