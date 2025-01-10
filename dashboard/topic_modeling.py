@@ -11,8 +11,7 @@ colors_labels = {
     1: "#c8e6c9"
 }
 
-def docs_by_word(labels, df):
-    
+def docs_by_word(labels, df, topic_number):
     # Selecting all comments or only some comments
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
@@ -23,7 +22,7 @@ def docs_by_word(labels, df):
         docs_text = df[df['clean_text'].str.contains(word, case=False, na=False)][['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.', 'flair_result', 'Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.', 'ID']]
     else:
         docs_text = df[['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.', 'flair_result', 'Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.', 'ID']]
-    
+
     # Selecting only positive comments, only negative comments, or all comments
     type_of_comment = st.selectbox(
         "Escolha o tipo de comentário que deseja visualizar:", 
@@ -34,6 +33,27 @@ def docs_by_word(labels, df):
         docs_text = docs_text[docs_text['flair_result'] == 1]
     elif type_of_comment == 'Apenas Negativos':
         docs_text = docs_text[docs_text['flair_result'] == -1]
+    
+    # Display chart only for "Positivos e Negativos"
+    if type_of_comment == 'Positivos e Negativos':
+        # Count positive and negative comments
+        positive_count = len(docs_text[docs_text['flair_result'] == 1])
+        negative_count = len(docs_text[docs_text['flair_result'] == -1])
+
+        # Plotting the count of positive and negative comments
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=['Positivos', 'Negativos'],
+            y=[positive_count, negative_count],
+            marker_color=['#c8e6c9', '#ffcccc']
+        ))
+        fig.update_layout(
+            title=f"Quantidade de Comentários Positivos e Negativos no Tópico {int(topic_number)+1}",
+            xaxis_title="Tipo de Comentário",
+            yaxis_title="Quantidade",
+            plot_bgcolor="white"
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
     # Printing information
     st.markdown(
@@ -41,14 +61,14 @@ def docs_by_word(labels, df):
         unsafe_allow_html=True
     )
     for _, d in docs_text.iterrows():
-            text = d['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.']
-            label = d['flair_result']
-            sus = d['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.']
-            ID = d['ID']
+        text = d['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.']
+        label = d['flair_result']
+        sus = d['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.']
+        ID = d['ID']
 
-            st.markdown(f"<div style='background-color: {colors_labels[label]}; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
-                        f"<strong>Participante {ID} (SUS: {sus})</strong><br>{text}</div>",
-                        unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color: {colors_labels[label]}; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
+                    f"<strong>Participante {ID} (SUS: {sus})</strong><br>{text}</div>",
+                    unsafe_allow_html=True)
     
 def get_topic_graphic(topic_number, labels, values):
 
@@ -165,6 +185,6 @@ def render(topic_number):
     with tab2:
          get_topic_summary(topic_number)
     with tab3:  
-        docs_by_word(labels[::-1], df_data)
+        docs_by_word(labels[::-1], df_data, topic_number)
     with tab4:
         multiple_choice_answers.render(df_data.drop(columns=['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.']), topic_modeling=True, labels=labels[::-1])           
