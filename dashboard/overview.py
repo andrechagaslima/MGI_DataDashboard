@@ -16,7 +16,7 @@ def render_overview():
         st.subheader("Resumo da Pergunta Mais Polêmica")
         most_polemic_question = "Qual a sua opinião sobre a implementação do Simulador de Aposentadoria?"
         st.markdown(
-            f"<div style='background-color: #f9f9f9; padding: 15px; border-radius: 10px;'>"
+            f"<div style='background-color: #000; padding: 15px; border-radius: 10px;'>"
             f"{most_polemic_question}</div>",
             unsafe_allow_html=True,
         )
@@ -24,7 +24,7 @@ def render_overview():
         st.subheader("Reclamação Mais Pertinente")
         pertinent_complaint = "O simulador apresenta resultados inconsistentes em algumas simulações complexas."
         st.markdown(
-            f"<div style='background-color: #ffcccc; padding: 15px; border-radius: 10px;'>"
+            f"<div style='background-color: #B22222; padding: 15px; border-radius: 10px;'>"
             f"{pertinent_complaint}</div>",
             unsafe_allow_html=True,
         )
