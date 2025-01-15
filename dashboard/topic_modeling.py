@@ -46,10 +46,10 @@ def docs_by_word(labels, df, topic_number):
           x=[negative_count, positive_count],
           y=['Negative', 'Positive'],
           marker_color=['#ffcccc', '#c8e6c9'],
-          orientation='h',  # Setting horizontal orientation
-          text=[negative_count, positive_count],  # Adding values to the bars
-          textposition='inside',  # Positioning the text inside the bars
-          insidetextanchor='middle'  # Centering text inside the bars
+          orientation='h',  
+          text=[negative_count, positive_count],  
+          textposition='inside',  
+          insidetextanchor='middle'  
         ))
 
      # Updating layout
@@ -64,8 +64,8 @@ def docs_by_word(labels, df, topic_number):
           plot_bgcolor="white",
           dragmode=False,  # Disabling zoom and pan
           showlegend=False,  # Disabling legends
-          xaxis=dict(fixedrange=True, range=[0, 150]),  # Locking zoom on X-axis and setting max range
-          yaxis=dict(fixedrange=True)   # Locking zoom on Y-axis
+          xaxis=dict(fixedrange=True, range=[0, 150]),  
+          yaxis=dict(fixedrange=True)   
         )
 
      # Displaying the chart in Streamlit
