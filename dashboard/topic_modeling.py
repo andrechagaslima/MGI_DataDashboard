@@ -96,7 +96,7 @@ def get_topic_graphic(topic_number, labels, values):
         y=labels,
         x=values,
         orientation='h',
-        marker=dict(color='blue')
+        marker=dict(color='#6699CC')
     ))
 
     # Updating the layout of the chart
