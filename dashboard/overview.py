@@ -62,13 +62,13 @@ def render_positive_analysis():
         st.markdown("###### Resumo dos Comentários Positivos")
         create_card(
             content="Os usuários elogiaram a simplicidade e a clareza da interface.",
-            background_color="#C0FFC0"
+            background_color="#98FB98"
         )
 
     with col2:
         sentiment_counts = {"Negativo": 20, "Positivo": 80}
         fig = create_pie_chart(sentiment_counts)
-        st.markdown("### Distribuição de Respostas Positivas", unsafe_allow_html=True)
+        st.markdown("###### Distribuição de Respostas Positivas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_negative_analysis():
@@ -101,7 +101,7 @@ def render_negative_analysis():
     with col2:
         sentiment_counts = {"Negativo": 60, "Positivo": 40}
         fig = create_pie_chart(sentiment_counts)
-        st.markdown("### Distribuição de Respostas Negativas", unsafe_allow_html=True)
+        st.markdown("###### Distribuição de Respostas Negativas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_overview():
@@ -115,14 +115,14 @@ def render_overview():
 
     with col1:
         st.markdown(
-            f"<div style='background-color: #D3D3D3; padding: 5px; border-radius: 10px; text-align: center;'>"
+            f"<div style='background-color: whitesmoke; padding: 5px; border-radius: 10px; text-align: center;'>"
             f"<strong>Total de Participantes:</strong> 200</div>",
             unsafe_allow_html=True
         )
 
     with col2:
         st.markdown(
-            f"<div style='background-color: #D3D3D3; padding: 5px; border-radius: 10px; text-align: center;'>"
+            f"<div style='background-color: whitesmoke; padding: 5px; border-radius: 10px; text-align: center;'>"
             f"<strong>Total de Comentários:</strong> 150</div>",
             unsafe_allow_html=True
         )
