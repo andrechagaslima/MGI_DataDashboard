@@ -9,6 +9,7 @@ colors_labels = {
 }
 
 df_topic_modeling = pd.read_csv('topic_modeling/data_topic_modeling/documents_scores.csv')
+df_flair = pd.read_csv('data/results_labels/flair.csv')
 
 def load_topic_summary(file):
     with open(file, 'r', encoding='utf-8') as f:
@@ -47,6 +48,36 @@ def calculate_means(df):
 
     return means, (max_mean_question, means[max_mean_question]), (min_mean_question, means[min_mean_question])
 
+def calculate_sentiment_totals(df_topic_modeling, df_flair):
+    """
+    Calcula o total de comentários positivos e negativos por tópico,
+    retornando as taxas de positividade e negatividade.
+    """
+    # Mesclar os dataframes
+    df_combined = df_topic_modeling.merge(
+        df_flair, left_on='document_id', right_on='ID', how='inner'
+    )
+
+    # Agrupar por tópico e calcular contagens de positivos e negativos
+    grouped = df_combined.groupby('dominant_topic')['flair_result'].value_counts().unstack(fill_value=0)
+
+    # Calcular taxas positivas e negativas
+    grouped['total'] = grouped[1] + grouped[-1]  # Total de comentários por tópico
+    grouped['positive_rate'] = grouped[1] / grouped['total']  # Taxa de positividade
+    grouped['negative_rate'] = grouped[-1] / grouped['total']  # Taxa de negatividade
+
+    # Identificar o tópico com a maior taxa positiva e negativa
+    most_positive_topic = grouped['positive_rate'].idxmax()
+    most_negative_topic = grouped['negative_rate'].idxmax()
+
+    most_positive_rate = grouped.loc[most_positive_topic, 'positive_rate']
+    most_negative_rate = grouped.loc[most_negative_topic, 'negative_rate']
+
+    print(f"Tópico mais positivo: {most_positive_topic} ({most_positive_rate:.2%})")
+    print(f"Tópico mais negativo: {most_negative_topic} ({most_negative_rate:.2%})")
+
+    return grouped, most_positive_topic, most_negative_topic
+
 def create_card(content, background_color):
     """Cria um card estilizado para exibição em Streamlit."""
     return st.markdown(
@@ -72,7 +103,7 @@ def create_pie_chart(sentiment_counts):
     )
     return fig
 
-def render_positive_analysis(max):
+def render_positive_analysis(max, most_positive_topic, positives, negatives):
     # Primeira linha: pergunta com melhor nota
     best_question = max[0]
     best_score = max[1]  # Exemplo de nota
@@ -90,7 +121,7 @@ def render_positive_analysis(max):
     with col1:
         st.markdown("###### Tópico com Mais Comentários Positivos")
         create_card(
-            content="Interface do Aplicativo",
+            content=f"Tópico {most_positive_topic+1}",
             background_color="#98FB98"
         )
 
@@ -101,12 +132,12 @@ def render_positive_analysis(max):
         )
 
     with col2:
-        sentiment_counts = {"Negativo": 20, "Positivo": 80}
+        sentiment_counts = {"Negativo": negatives, "Positivo": positives}
         fig = create_pie_chart(sentiment_counts)
         st.markdown("###### Distribuição de Respostas Positivas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
-def render_negative_analysis(min):
+def render_negative_analysis(min, most_negative_topic, positives, negatives):
     # Primeira linha: pergunta com pior nota
     worst_question = min[0]
     worst_score = min[1]  # Exemplo de nota
@@ -123,7 +154,7 @@ def render_negative_analysis(min):
     with col1:
         st.markdown("###### Tópico com Mais Comentários Negativos")
         create_card(
-            content="Performance do Simulador",
+            content=f"Tópico {most_negative_topic+1}",
             background_color="#FFC0CB"
         )
 
@@ -135,7 +166,7 @@ def render_negative_analysis(min):
         )
 
     with col2:
-        sentiment_counts = {"Negativo": 60, "Positivo": 40}
+        sentiment_counts = {"Negativo": negatives, "Positivo": positives}
         fig = create_pie_chart(sentiment_counts)
         st.markdown("###### Distribuição de Respostas Negativas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
@@ -143,6 +174,12 @@ def render_negative_analysis(min):
 def render_overview(df):
     # Calcular médias das perguntas
     means, max, min = calculate_means(df)
+
+    grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, df_flair)
+
+    st.write("Análise por Tópico", grouped.loc[most_positive_topic, 1])
+    st.write(f"Tópico mais positivo: {most_positive_topic}")
+    st.write(f"Tópico mais negativo: {most_negative_topic}")
 
     """Renderiza a visão geral com tabs para análises positivas e negativas."""
     st.markdown(
@@ -169,10 +206,10 @@ def render_overview(df):
     tab1, tab2 = st.tabs(["Análise Positiva", "Análise Negativa"])
 
     with tab1:
-        render_positive_analysis(max)
+        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1])
 
     with tab2:
-        render_negative_analysis(min)
+        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1])
 
 if __name__ == "__main__":
     render_overview()
