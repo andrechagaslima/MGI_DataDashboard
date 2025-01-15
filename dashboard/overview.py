@@ -38,7 +38,7 @@ def calculate_means(df):
         mean = df[column].mean()
         # Ajustar médias para índices ímpares
         if idx % 2 != 0:
-            mean = 5 - mean
+            mean = 6 - mean
         means[column] = mean
 
     # Identificar a maior e menor média
@@ -89,7 +89,7 @@ def create_pie_chart(sentiment_counts):
         color=labels, 
         color_discrete_map={"Negativo": colors_labels[-1], "Positivo": colors_labels[1]},
     )
-    fig.update_traces(textinfo="percent+label")
+    fig.update_traces(textinfo="percent")
     fig.update_layout(
         height=200,  
         width=200,   
@@ -153,7 +153,7 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
         )
 
         negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
-        st.markdown("###### Resumo dos Comentários Negativos")
+        st.markdown(f"###### Resumo dos Comentários do Tópico {most_negative_topic+1}")
         create_card(
             content=f"{negative_summary}",
             background_color="#FFA6B1"
