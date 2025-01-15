@@ -38,7 +38,7 @@ def calculate_means(df):
         mean = df[column].mean()
         # Ajustar médias para índices ímpares
         if idx % 2 != 0:
-            mean = 6 - mean
+            mean = 5 - mean
         means[column] = mean
 
     # Identificar a maior e menor média
@@ -89,7 +89,7 @@ def create_pie_chart(sentiment_counts):
         color=labels, 
         color_discrete_map={"Negativo": colors_labels[-1], "Positivo": colors_labels[1]},
     )
-    fig.update_traces(textinfo="percent")
+    fig.update_traces(textinfo="percent+label")
     fig.update_layout(
         height=200,  
         width=200,   
@@ -99,7 +99,8 @@ def create_pie_chart(sentiment_counts):
 
 def render_positive_analysis(max, most_positive_topic, positives, negatives):
     # Primeira linha: pergunta com melhor nota
-    best_question = max[0][1:].strip()  # Remove o primeiro caractere e espaços extras
+    best_question = max[0][2:].strip()  # Remove o primeiro caractere e espaços extras
+
     best_score = max[1]  # Nota formatada para 2 casas decimais
     st.markdown("##### Pergunta com a Melhor Nota")
     create_card_with_score(
@@ -119,7 +120,7 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
             background_color="#86E886"
         )
 
-        st.markdown(f"###### Resumo dos Comentários do Tópico {most_positive_topic+1}")
+        st.markdown("###### Resumo dos Comentários Positivos")
         create_card(
             content=f"{positive_summary}",
             background_color="#86E886"
@@ -153,7 +154,7 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
         )
 
         negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
-        st.markdown(f"###### Resumo dos Comentários do Tópico {most_negative_topic+1}")
+        st.markdown("###### Resumo dos Comentários Negativos")
         create_card(
             content=f"{negative_summary}",
             background_color="#FFA6B1"
