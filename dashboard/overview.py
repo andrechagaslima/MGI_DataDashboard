@@ -35,7 +35,11 @@ def create_pie_chart(sentiment_counts):
         color_discrete_map={"Negativo": colors_labels[-1], "Positivo": colors_labels[1]},
     )
     fig.update_traces(textinfo="percent+label")
-    fig.update_layout(height=350, width=350)
+    fig.update_layout(
+        height=200,  # Altura total do gráfico
+        width=200,   # Largura total do gráfico
+        margin=dict(t=10, b=10, l=10, r=10)  # Margens superiores e inferiores ajustadas
+    )
     return fig
 
 def render_positive_analysis():
