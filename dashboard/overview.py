@@ -17,12 +17,35 @@ def load_topic_summary(file):
 def create_card_with_score(question, score, background_color):
     """Cria um card estilizado com a pergunta e a nota alinhada à direita."""
     return st.markdown(
-        f"<div style='background-color: {background_color}; padding: 15px; margin-bottom: 40px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;'>"
+        f"<div style='background-color: {background_color}; padding: 10px 15px; margin-bottom: 40px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;'>"
         f"<span style='font-size: 18px;'><strong>{question}</strong></span>"
         f"<span style='font-size: 24px;'><strong>{score}</strong></span>"
         f"</div>",
         unsafe_allow_html=True,
     )
+
+def calculate_means(df):
+    """Calcula as médias de todas as perguntas numéricas, excluindo elementos indesejados e ajustando índices ímpares."""
+    # Selecionar colunas numéricas
+    numeric_columns = df.select_dtypes(include=["number"]).columns
+
+    # Remover os três elementos indesejados (ajustar conforme necessário)
+    numeric_columns = numeric_columns[1:-2]  # Exclui a primeira coluna e as duas últimas
+
+    # Calcular médias para as colunas restantes
+    means = {}
+    for idx, column in enumerate(numeric_columns):
+        mean = df[column].mean()
+        # Ajustar médias para índices ímpares
+        if idx % 2 != 0:
+            mean = 5 - mean
+        means[column] = mean
+
+    # Identificar a maior e menor média
+    max_mean_question = max(means, key=means.get)
+    min_mean_question = min(means, key=means.get)
+
+    return means, (max_mean_question, means[max_mean_question]), (min_mean_question, means[min_mean_question])
 
 def create_card(content, background_color):
     """Cria um card estilizado para exibição em Streamlit."""
@@ -45,14 +68,14 @@ def create_pie_chart(sentiment_counts):
     fig.update_layout(
         height=200,  # Altura total do gráfico
         width=200,   # Largura total do gráfico
-        margin=dict(t=10, b=10, l=10, r=10)  # Margens superiores e inferiores ajustadas
+        margin=dict(t=25, b=10, l=10, r=10)  # Margens superiores e inferiores ajustadas
     )
     return fig
 
-def render_positive_analysis():
+def render_positive_analysis(max):
     # Primeira linha: pergunta com melhor nota
-    best_question = "Qual a sua opinião sobre a interface do aplicativo?"
-    best_score = 4.8  # Exemplo de nota
+    best_question = max[0]
+    best_score = max[1]  # Exemplo de nota
     st.markdown("##### Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
@@ -83,10 +106,10 @@ def render_positive_analysis():
         st.markdown("###### Distribuição de Respostas Positivas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
-def render_negative_analysis():
+def render_negative_analysis(min):
     # Primeira linha: pergunta com pior nota
-    worst_question = "Qual a sua opinião sobre o Simulador de Aposentadoria?"
-    worst_score = 2.1  # Exemplo de nota
+    worst_question = min[0]
+    worst_score = min[1]  # Exemplo de nota
     st.markdown("##### Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
@@ -118,6 +141,9 @@ def render_negative_analysis():
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_overview(df):
+    # Calcular médias das perguntas
+    means, max, min = calculate_means(df)
+
     """Renderiza a visão geral com tabs para análises positivas e negativas."""
     st.markdown(
         "<h1 style='text-align: center; font-size: 28px;'>Visão Geral</h1>",
@@ -143,10 +169,10 @@ def render_overview(df):
     tab1, tab2 = st.tabs(["Análise Positiva", "Análise Negativa"])
 
     with tab1:
-        render_positive_analysis()
+        render_positive_analysis(max)
 
     with tab2:
-        render_negative_analysis()
+        render_negative_analysis(min)
 
 if __name__ == "__main__":
     render_overview()
