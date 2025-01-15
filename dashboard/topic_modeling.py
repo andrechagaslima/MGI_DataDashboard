@@ -39,21 +39,37 @@ def docs_by_word(labels, df, topic_number):
         # Count positive and negative comments
         positive_count = len(docs_text[docs_text['flair_result'] == 1])
         negative_count = len(docs_text[docs_text['flair_result'] == -1])
-
-        # Plotting the count of positive and negative comments
+     
+     # Creating the horizontal bar chart
         fig = go.Figure()
         fig.add_trace(go.Bar(
-            x=['Positivos', 'Negativos'],
-            y=[positive_count, negative_count],
-            marker_color=['#c8e6c9', '#ffcccc']
+          x=[negative_count, positive_count],
+          y=['Negative', 'Positive'],
+          marker_color=['#ffcccc', '#c8e6c9'],
+          orientation='h',  # Setting horizontal orientation
+          text=[negative_count, positive_count],  # Adding values to the bars
+          textposition='inside',  # Positioning the text inside the bars
+          insidetextanchor='middle'  # Centering text inside the bars
         ))
+
+     # Updating layout
         fig.update_layout(
-            title=f"Quantidade de Comentários Positivos e Negativos no Tópico {int(topic_number)+1}",
-            xaxis_title="Tipo de Comentário",
-            yaxis_title="Quantidade",
-            plot_bgcolor="white"
+          title={
+               'text': f"Quantidade de comentários Positivos e Negativos do Tópico {int(topic_number)+1}",
+               'x': 0.5,  # Centering the title
+               'xanchor': 'center',
+               'yanchor': 'top'
+          },
+          xaxis_title="Quantidade",
+          plot_bgcolor="white",
+          dragmode=False,  # Disabling zoom and pan
+          showlegend=False,  # Disabling legends
+          xaxis=dict(fixedrange=True, range=[0, 150]),  # Locking zoom on X-axis and setting max range
+          yaxis=dict(fixedrange=True)   # Locking zoom on Y-axis
         )
-        st.plotly_chart(fig, use_container_width=True)
+
+     # Displaying the chart in Streamlit
+        st.plotly_chart(fig, use_container_width=True, config={'staticPlot': True})
 
     # Printing information
     st.markdown(
@@ -163,6 +179,8 @@ def render(topic_number):
     # Removing unnecessary data
     df_topic_modeling = df_topic_modeling.drop(columns=['Unnamed: 0'])
     df_data = df_data.dropna(subset=['clean_text']).reset_index(drop=True)
+
+    docs_len = len(df_topic_modeling)
 
     # Getting data from the topic in question
     td_sorted = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)].sort_values(by='document_score', ascending=False)
