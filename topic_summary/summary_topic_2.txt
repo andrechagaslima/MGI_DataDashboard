@@ -1,28 +1,36 @@
-**Resumo da Simulação de Aposentadoria**
+**Pontos Positivos**:
 
-O simulador de aposentadoria apresentou várias inconsistências e dificuldades para os usuários. Alguns pontos destacados incluem:
+1. O simulador é excelente.
+2. É bom, pois deu visibilidade a uma coisa que eu nunca imaginei que pudesse acontecer com o vinculo de RJU.
+3. O simulador é fácil.
+4. Achei válido o simulador e parabenizo quem o idealizou.
+5. O simulador é fácil o que dificulta é conhecer as regras divergentas e tantas possibilidades de data.
 
-* Falta de opções para simulação de aposentadoria especial para servidores deficientes;
-* Dificuldade em entender as opções e escolher a melhor para a aposentadoria;
-* Falta de detalhamento nas opções apresentadas;
-* Inconsistência de informação e não interligação dos dados do INSS;
-* Falta de orientação especializada para decisões;
-* Simulação de aposentadoria não funciona corretamente para servidores deficientes;
-* Falta de opções para simular casos de aposentadoria de servidores deficientes;
-* Dificuldade em entender as opções e escolher a melhor para a aposentadoria;
-* Falta de detalhamento nas opções apresentadas;
-* Inconsistência de informação e não interligação dos dados do INSS;
-* Falta de orientação especializada para decisões;
-* Simulação de aposentadoria não funciona corretamente para servidores deficientes.
+**Pontos Negativos**:
 
-**Recomendações**
+1. O meu simulador não levou em conta o tempo de averbação que eu já fiz, fiquei desesperado.
+2. Acho que seria interessante que o simulador escolhesse ou ajudasse a escolher a melhor lei para a gente optar na hora de se aposentar.
+3. O simulador não retornou nada, nem mesmo a prévia que o mesmo informa, então para mim não houve utilidade do mesmo.
+4. Não gostei, causou-me estranheza e insegurança, dessa forma me estimulou a não prosseguir até o fim!
+5. O sistema traz diversas opções e não sei qual delas é mais benéfica.
+6. Faltou adicionar ao simulador a opção para cálculo de aposentadoria especial para servidor com deficiência ou que desempenha suas atividades em ambiente insalubre ou perigoso.
+7. Faltam os valores da aposentadoria.
+8. O simulador não leva em conta a aposentadoria de servidor com deficiência, que é APOSENTADORIA ESPECIAL. Para mim é uma falha séria.
+9. O simulador não apresenta opções de aposentadoria do servidor com deficiência, previsto na Reforma da Previdência. Importante colocar esta opção para os servidores que se encaixam nesta opção.
+10. O simulador não contempla os servidores com deficiência que tem uma aposentadoria diferenciada, sou servidora com deficiência, já recebo abono de permanência (que também foi difícil conseguir, pois os servidores não estão preparados ou não entendem a legislação), e não consegui fazer a simulação, diz que não tenho tempo para aposentadoria.
+11. Os valores informados estão totalmente fora do que a realidade. Não simula o valor real. Irá confundir uma pessoa mau instruida e irá pensar que o valor informado lá é real;
+12. Apareceram 3 opções para aposentadoria. Utilizando apenas o artigo da EC mostrado, eu discordei de algumas contas....
+13. O simulador não apresenta nenhum resultado.
+14. O simulador não apresenta opções de aposentadoria por invalidez no caso de servidor com doença relacionada e não relacionada ao trabalho.
+15. O que não entendi é que tem que escolher uma das opções no simulador para então verificar qual a melhor para minha aposentadoria Ficando assim difícil, o sistema é fácil mas um pouco complicado na escolha.
+16. O simulador apresentou muita inconsistência, em relação ao tempo de serviço.
+17. A dificuldade não é com o simulador em si, é com a Legislação, que mudou muito nesses últimos anos. Fica uma insegurança para escolher as opções. Um manual para explicar detalhadamente cada opção seria fundamental para orientar as escolhas.
+18. Ainda há inconsistência de informação, pois não interliga os dados do INSS que o servidor por ventura venha a ter de tempo de serviço, gerando dúvidas se poderão entrar na contagem de tempo para a aposentadoria e modificar a adequação do servidor na regra mais específica.
+19. Não consegui simular minha aposentadoria como pessoa com deficiência. Aposentadoria especial. Deveria ter essa função.
+20. Não é intuitivo. Ainda mais pq aparece muitas opções.
 
-Para melhorar o simulador de aposentadoria, é recomendável:
+**Sugestões**:
 
-* Incluir opções para simulação de aposentadoria especial para servidores deficientes;
-* Aumentar a clareza e detalhamento nas opções apresentadas;
-* Interligar os dados do INSS para evitar inconsistências;
-* Oferecer orientação especializada para decisões;
-* Corrigir a simulação de aposentadoria para servidores deficientes.
-
-Essas recomendações visam melhorar a experiência do usuário e fornecer informações precisas e úteis para a simulação de aposentadoria.
+1. Acho que seria interessante que o simulador escolhesse ou ajudasse a escolher a melhor lei para a gente optar na hora de se aposentar.
+2. Poderia ter uma opção para fazer a simulação com a averbação de tempo de contribuição em outros regimes de previdência.
+3. Faltou acrescentar opções para aqueles que ganham insalubridade e periculosidade se isso muda

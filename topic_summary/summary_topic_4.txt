@@ -1,9 +1,33 @@
-Com base nas sugestões e críticas apresentadas, é possível identificar algumas áreas de melhoria para o Simulador de Aposentadoria:
+**Pontos Positivos**:
 
-1. **Melhoria na interface e usabilidade**: Alguns usuários relataram dificuldade em entender a interface e usar o simulador.
-2. **Inclusão de informações adicionais**: Alguns usuários pediram para incluir informações adicionais, como o valor previsto da aposentadoria, o tempo de contribuição anterior e a possibilidade de incluir vínculos de outros regimes de previdência.
-3. **Correção de inconsistências**: Alguns usuários relataram inconsistências no simulador, como a falta de consideração do tempo de contribuição anterior ou a inclusão de informações erradas.
-4. **Melhoria na explicação dos resultados**: Alguns usuários pediram para que o simulador forneça mais detalhes sobre os resultados, como o tipo de aposentadoria e o valor previsto.
-5. **Inclusão de recursos adicionais**: Alguns usuários pediram para incluir recursos adicionais, como a possibilidade de enviar o resultado para o RH da unidade ou a inclusão de um canal de dúvidas.
+1. Ferramenta fácil de usar e intuitiva.
+2. Simulador de aposentadoria é uma ferramenta útil para os servidores.
+3. O simulador é uma ótima ferramenta para auxiliar na prestação de informação para esse fim.
+4. Simulador é uma ferramenta espetacular e de muita valia para os contribuintes.
+5. O simulador é muito útil ao servidor por simplificar o processo de informações sobre a aposentadoria.
+6. Simulador é uma ferramenta muito positiva para subsidiar a decisão do servidor nessa questão de extrema importância.
+7. O simulador é fácil e prático de usar.
+8. Simulador é uma ferramenta muito útil para os servidores que estão próximos ou mesmo àqueles que ainda falta muito tempo para aposentar.
+9. O simulador é uma ferramenta muito boa para os servidores.
+10. Simulador é uma ferramenta que contribui para transparência dos direitos vinculado às respostas rápidas e eficiente das dúvidas de cálculos de aposentadoria.
 
-Além disso, é importante lembrar que o simulador é uma ferramenta que pode ser útil para os servidores, mas não é uma substituição para a orientação de um servidor capacitado para tal. É importante que os usuários entendam as regras de aposentadoria e os requisitos para se aposentar antes de usar o simulador.
+**Pontos Negativos**:
+
+1. Simulador não está puxando a memória de cálculo.
+2. O simulador não está ligado ao tempo de contribuição do INSS o que provoca inconsistência nos prazos.
+3. Simulador não está claro e não atende o que se deseja.
+4. O simulador não é preciso e não confiável.
+5. Simulador não apresenta os dados do BE, com a devida memória de cálculo.
+6. O simulador não é eficaz para os servidores que têm vínculos em outros órgãos.
+7. Simulador não é fácil de entender para os servidores que não dominam o assunto.
+8. O simulador não é preciso e não confiável.
+9. Simulador não apresenta as informações de forma clara e objetiva.
+10. O simulador não é uma ferramenta confiável para os servidores.
+
+**Sugestões**:
+
+1. Incluir opção para calcular o tempo de serviço ainda não averbado.
+2. Incluir campo para informação de tempo de serviço no Regime Geral averbado ou a ser averbado para o Regime Próprio.
+3. Incluir opção para enviar o resultado direto para o RH da unidade verificar se há alguma inconsistência ou se posso confiar plenamente no resultado da simulação.
+4. Incluir opção para incluir vínculos de outros regimes sem a devida averbação.
+5. Incluir opção para calcular o valor do benefício com base no salário atual e considerar as progressões por tempo de trabalho, as regras de reajuste, as condições de aposentadoria e as informações de tempo de serviço no Regime Geral averbado ou a ser averbado para o Regime Próprio.

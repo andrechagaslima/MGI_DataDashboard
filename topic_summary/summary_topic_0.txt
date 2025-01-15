@@ -1,19 +1,43 @@
-**Resumo do Simulador de Aposentadoria**
+**Pontos Positivos**:
 
-O simulador de aposentadoria é uma ferramenta útil e prática para os servidores públicos brasileiros. No entanto, alguns usuários relataram dificuldades em usar o simulador, especialmente quando se trata de incluir tempo de serviço pretérito ou tempo de serviço não averbado. Alguns usuários também relataram que o simulador não considera a aposentadoria especial ou a aposentadoria compulsória.
+1. fácil de usar
+2. útil
+3. prático
+4. rápido
+5. bem ilustrativo
+6. útil para servidores públicos
+7. não precisa ocupar um servidor para esse serviço
+8. apresenta opções de aposentadoria
+9. simples
+10. acessível a qualquer momento
+11. não precisa esperar um servidor calcular
+12. apresenta informações claras
+13. útil para simular a aposentadoria
+14. fácil de entender
+15. útil para servidores que precisam saber se vão se aposentar
 
-**Requisitos e Sugestões**
+**Pontos Negativos**:
 
-* Incluir tempo de serviço pretérito e tempo de serviço não averbado na simulação;
-* Melhorar a explicação das opções de aposentadoria e dos requisitos para cada opção;
-* Incluir o valor estimado dos proventos na aposentadoria;
-* Incluir o link das leis que amparam a aposentadoria;
-* Melhorar a integração com outros sistemas, como o INSS;
-* Incluir a opção de simulação sem a averbação do RGPS.
+1. não considera o tempo de contribuição em alguns casos
+2. apresenta imprecisões nos dados
+3. não apresenta o valor dos proventos no momento da aposentadoria
+4. não apresenta situações da LC 142
+5. não contempla a aposentadoria compulsória
+6. não funciona corretamente em alguns casos
+7. não apresenta o valor em $ estimado de aposentadoria
+8. não é autoexplicativo
+9. não apresenta informações claras sobre as opções de aposentadoria
+10. não é fácil de entender para todos
 
-**Opiniões Gerais**
+**Sugestões**:
 
-* O simulador é útil e prático para os servidores públicos brasileiros;
-* Alguns usuários relataram dificuldades em usar o simulador;
-* O simulador não considera a aposentadoria especial ou a aposentadoria compulsória;
-* O simulador é uma ferramenta útil para os servidores públicos brasileiros, mas precisa ser melhorado.
+1. Simplificar o simulador
+2. Puxar o tempo de CLT para melhor visualização dos requisitos para aposentadoria
+3. Apresentar o valor em $ estimado de aposentadoria
+4. Apresentar situações da LC 142
+5. Contemplar a aposentadoria compulsória
+6. Melhorar a explicação das opções de aposentadoria
+7. Apresentar o link da lei que ampara a aposentadoria
+8. Melhorar a interface do usuário
+9. Apresentar informações claras sobre as opções de aposentadoria
+10. Melhorar a funcionalidade do simulador

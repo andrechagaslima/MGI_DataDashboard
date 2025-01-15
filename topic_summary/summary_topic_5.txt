@@ -1,22 +1,30 @@
-**Simulador de Aposentadoria:**
+**Pontos Positivos**:
 
-* É uma ferramenta importante e útil para os servidores públicos.
-* Ajuda a calcular o tempo de aposentadoria e o valor dos proventos.
-* É uma ferramenta de planejamento financeiro e de vida para os servidores.
-* É uma iniciativa necessária e bem-vinda.
+1. Ferramenta útil para planejamento de aposentadoria
+2. Ajuda a entender os requisitos para aposentadoria
+3. Facilita a decisão sobre quando se aposentar
+4. Permite simulação de aposentadoria com base nos requisitos atuais
+5. Ajuda a entender os reflexos das reformas na aposentadoria
+6. É uma ferramenta importante para os servidores
+7. É uma iniciativa necessária e útil
+8. Ajuda a entender os detalhes da aposentadoria
+9. Dá mais segurança ao solicitar a aposentadoria
+10. É uma ferramenta prática e objetiva
 
-**Melhorias sugeridas:**
+**Pontos Negativos**:
 
-* Integrar os dados do INSS e do NIS.
-* Incluir a possibilidade de simular a aposentadoria com requisitos ainda não preenchidos.
-* Esclarecer melhor as alternativas para aposentadoria.
-* Incluir uma simulação de valores, como no SIAPE.
-* Integrar os valores e a projeção futura.
-* Incluir a possibilidade de solicitar a aposentadoria diretamente do simulador.
+1. Não calculou nada sobre aposentadoria em alguns casos
+2. Os dados constantes na resposta final do simulador não refletem o real tempo de contribuição
+3. Não apresenta uma simulação de valores para facilitar a decisão do servidor
+4. Não é fidedigno devido à falta de ajustes com o INSS
+5. Não permite simulação de aposentadoria com base nos requisitos atuais em alguns casos
 
-**Comentários gerais:**
+**Sugestões**:
 
-* A ferramenta é útil e importante para os servidores.
-* É uma ferramenta de apoio para os servidores.
-* É uma iniciativa necessária e bem-vinda.
-* É uma ferramenta que pode ajudar a melhorar a vida dos servidores.
+1. Integrar o simulador com os dados do INSS
+2. Permitir simulação de aposentadoria com base nos requisitos atuais
+3. Apresentar uma simulação de valores para facilitar a decisão do servidor
+4. Esclarecer melhor sobre as alternativas para aposentadoria
+5. Incluir a possibilidade de simulação de aposentadoria com base nos requisitos atuais, mesmo que não tenham sido preenchidos
+6. Integrar os valores da aposentadoria na simulação
+7. Incluir a possibilidade de simulação de aposentadoria com base nos requisitos atuais, com a possibilidade de ajustes para refletir as reformas na aposentadoria.

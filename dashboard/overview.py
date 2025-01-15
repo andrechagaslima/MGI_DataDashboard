@@ -119,7 +119,7 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
             background_color="#86E886"
         )
 
-        st.markdown("###### Resumo dos Comentários Positivos")
+        st.markdown(f"###### Resumo dos Comentários do Tópico {most_positive_topic+1}")
         create_card(
             content=f"{positive_summary}",
             background_color="#86E886"

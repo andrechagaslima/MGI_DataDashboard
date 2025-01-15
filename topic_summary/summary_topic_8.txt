@@ -1,19 +1,38 @@
-Com base nas sugestões fornecidas, aqui está uma lista de melhorias que podem ser implementadas no simulador de aposentadoria do SouGov:
+**Pontos Positivos**:
 
-1. **Explicação mais clara das regras e leis**: Incluir explicações mais detalhadas e claras sobre as regras e leis que fundamentam as opções de aposentadoria.
-2. **Exibição de valores iniciais de benefício**: Mostrar os valores iniciais de benefício de aposentadoria em cada regra, caso o servidor solicite hoje.
-3. **Inclusão de tempo de contribuição anterior**: Permitir a inclusão de tempo de contribuição anterior, como tempo de contribuição na iniciativa privada.
-4. **Consideração de licenças não desfrutadas**: Considerar as licenças não desfrutadas, como licenças de estudo ou licenças de saúde.
-5. **Exibição de opções de aposentadoria mais vantajosas**: Mostrar as opções de aposentadoria mais vantajosas para o servidor, com base nos critérios de valor e benefícios.
-6. **Inclusão de informações sobre abono de permanência**: Incluir informações sobre o abono de permanência e como solicitar.
-7. **Botão de esclarecimentos**: Incluir um botão com uma interrogação ("?") ou informação ("i") para obter esclarecimentos mais específicos de cada regra (lei) de aposentadoria e um link para o fundamento legal.
-8. **Correção de erros de tempo de contribuição**: Corrigir erros de tempo de contribuição e garantir que os resultados sejam precisos.
-9. **Inclusão de regras de transição**: Incluir regras de transição e como elas afetam as opções de aposentadoria.
-10. **Melhoria da interface**: Melhorar a interface do simulador para torná-la mais fácil de usar e entender.
-11. **Inclusão de informações sobre consequências e benefícios**: Incluir informações sobre as consequências e benefícios de cada opção de aposentadoria, em linguagem acessível.
-12. **Correção de erros de datas**: Corrigir erros de datas e garantir que os resultados sejam precisos.
-13. **Inclusão de informações sobre direito adquirido**: Incluir informações sobre o direito adquirido e como ele afeta as opções de aposentadoria.
-14. **Melhoria da segurança**: Melhorar a segurança do simulador para garantir que os dados dos servidores sejam protegidos.
-15. **Inclusão de informações sobre atualizações**: Incluir informações sobre atualizações e mudanças nas regras de aposentadoria.
+1. O simulador é fácil de usar.
+2. É uma ferramenta útil para simular a aposentadoria.
+3. Pode ser útil para entender as diferentes opções de aposentadoria.
+4. Pode ser útil para entender as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+5. Pode ser útil para entender as regras de transição.
+6. Pode ser útil para entender as licenças não desfrutadas.
+7. Pode ser útil para entender as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+8. Pode ser útil para entender as regras de aposentadoria para servidores com deficiência.
+9. Pode ser útil para entender as regras de aposentadoria para servidores que ingressaram no serviço público antes da EC 20/1998.
+10. Pode ser útil para entender as regras de aposentadoria para servidores que completaram 35 anos/30 anos antes da publicação da EC 103/2019.
 
-Essas melhorias podem ajudar a tornar o simulador de aposentadoria do SouGov mais preciso, fácil de usar e útil para os servidores.
+**Pontos Negativos**:
+
+1. O simulador não considera o tempo que passamos afastado para estudos de pós-graduação.
+2. O simulador não considera as licenças não desfrutadas.
+3. O simulador não apresenta resultados para destacar as diferentes opções da simulação.
+4. O simulador não apresenta consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+5. O simulador não apresenta informações sobre as regras de transição.
+6. O simulador não apresenta informações sobre as regras de aposentadoria para servidores com deficiência.
+7. O simulador não apresenta informações sobre as regras de aposentadoria para servidores que ingressaram no serviço público antes da EC 20/1998.
+8. O simulador não apresenta informações sobre as regras de aposentadoria para servidores que completaram 35 anos/30 anos antes da publicação da EC 103/2019.
+9. O simulador não apresenta informações sobre as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+10. O simulador não apresenta informações sobre as regras de aposentadoria para servidores que têm direito a licenças não desfrutadas.
+
+**Sugestões**:
+
+1. Incluir informações sobre as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+2. Incluir informações sobre as regras de transição.
+3. Incluir informações sobre as regras de aposentadoria para servidores com deficiência.
+4. Incluir informações sobre as regras de aposentadoria para servidores que ingressaram no serviço público antes da EC 20/1998.
+5. Incluir informações sobre as regras de aposentadoria para servidores que completaram 35 anos/30 anos antes da publicação da EC 103/2019.
+6. Incluir informações sobre as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
+7. Incluir informações sobre as regras de aposentadoria para servidores que têm direito a licenças não desfrutadas.
+8. Incluir um botão com uma interrogação ("?"), ou informação ("i") ou algo similar onde fosse possível clicar para obter esclarecimentos mais específicos de cada regra (lei) de aposentadoria e um LINK para o fundamento legal.
+9. Incluir informações sobre as regras de aposentadoria para servidores que têm direito a abono permanência.
+10. Incluir informações sobre as consequências/benefícios entre as possibilidades de escolha entre os fundamento legais aplicados/utilizados.
