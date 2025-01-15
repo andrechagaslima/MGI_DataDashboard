@@ -10,6 +10,10 @@ colors_labels = {
 
 df_topic_modeling = pd.read_csv('topic_modeling/data_topic_modeling/documents_scores.csv')
 
+def load_topic_summary(file):
+    with open(file, 'r', encoding='utf-8') as f:
+        return f.read()
+
 def create_card_with_score(question, score, background_color):
     """Cria um card estilizado com a pergunta e a nota alinhada à direita."""
     return st.markdown(
@@ -58,6 +62,7 @@ def render_positive_analysis():
 
     # Segunda linha: tópicos positivos, resumo e gráfico
     col1, col2 = st.columns(2, gap="large")
+    positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
 
     with col1:
         st.markdown("###### Tópico com Mais Comentários Positivos")
@@ -68,7 +73,7 @@ def render_positive_analysis():
 
         st.markdown("###### Resumo dos Comentários Positivos")
         create_card(
-            content="Os usuários elogiaram a simplicidade e a clareza da interface.",
+            content=f"{positive_summary}",
             background_color="#98FB98"
         )
 
@@ -99,9 +104,10 @@ def render_negative_analysis():
             background_color="#FFC0CB"
         )
 
+        negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
         st.markdown("###### Resumo dos Comentários Negativos")
         create_card(
-            content="Muitos usuários relataram lentidão ao carregar os resultados.",
+            content=f"{negative_summary}",
             background_color="#FFB6C1"
         )
 
