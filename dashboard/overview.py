@@ -1,11 +1,14 @@
 import streamlit as st
 import plotly.express as px
+import pandas as pd
 
 # Define cores para os labels
 colors_labels = {
     -1: "#d73027",  # Negativo
     1: "#1a9850",   # Positivo
 }
+
+df_topic_modeling = pd.read_csv('topic_modeling/data_topic_modeling/documents_scores.csv')
 
 def create_card_with_score(question, score, background_color):
     """Cria um card estilizado com a pergunta e a nota alinhada à direita."""
@@ -35,11 +38,7 @@ def create_pie_chart(sentiment_counts):
         color_discrete_map={"Negativo": colors_labels[-1], "Positivo": colors_labels[1]},
     )
     fig.update_traces(textinfo="percent+label")
-    fig.update_layout(
-        height=200,  # Altura total do gráfico
-        width=200,   # Largura total do gráfico
-        margin=dict(t=10, b=10, l=10, r=10)  # Margens superiores e inferiores ajustadas
-    )
+    fig.update_layout(height=350, width=350)
     return fig
 
 def render_positive_analysis():
@@ -108,7 +107,7 @@ def render_negative_analysis():
         st.markdown("###### Distribuição de Respostas Negativas", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
-def render_overview():
+def render_overview(df):
     """Renderiza a visão geral com tabs para análises positivas e negativas."""
     st.markdown(
         "<h1 style='text-align: center; font-size: 28px;'>Visão Geral</h1>",
@@ -120,14 +119,14 @@ def render_overview():
     with col1:
         st.markdown(
             f"<div style='background-color: whitesmoke; padding: 5px; border-radius: 10px; text-align: center;'>"
-            f"<strong>Total de Participantes:</strong> 200</div>",
+            f"<strong>Total de Participantes:</strong> {len(df)}</div>",
             unsafe_allow_html=True
         )
 
     with col2:
         st.markdown(
             f"<div style='background-color: whitesmoke; padding: 5px; border-radius: 10px; text-align: center;'>"
-            f"<strong>Total de Comentários:</strong> 150</div>",
+            f"<strong>Total de Comentários:</strong> {len(df_topic_modeling)}</div>",
             unsafe_allow_html=True
         )
 

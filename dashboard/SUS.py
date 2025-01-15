@@ -93,11 +93,11 @@ def render(df, topic_modeling=False, labels=[]):
     # For the case where the selected main tab is topic modeling
     if topic_modeling:
         word = st.selectbox(
-            "Escolha 'Considear todas as palavras' ou selecione uma palavra do tópico como filtro:", 
-            ['Considear todas as palavras'] + labels,
+            "Escolha 'Considerar todas as palavras' ou selecione uma palavra do tópico como filtro:", 
+            ['Considerar todas as palavras'] + labels,
             key='aba4'
             )
-        if word != 'Considear todas as palavras':
+        if word != 'Considerar todas as palavras':
             df = df[df['clean_text'].str.contains(word, case=False, na=False)]
     
     # Converting numbers from Portuguese to English

@@ -175,12 +175,10 @@ def render(topic_number):
         path_topic_modeling='topic_modeling/data_topic_modeling/documents_scores.csv',
         data_sentiment_path='data/results_labels/flair.csv'
         )
-    
+
     # Removing unnecessary data
     df_topic_modeling = df_topic_modeling.drop(columns=['Unnamed: 0'])
     df_data = df_data.dropna(subset=['clean_text']).reset_index(drop=True)
-
-    docs_len = len(df_topic_modeling)
 
     # Getting data from the topic in question
     td_sorted = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)].sort_values(by='document_score', ascending=False)

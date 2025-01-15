@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     if selection == "Visão Geral":
         # Renderizar tela de Visão Geral
-        overview.render_overview()
+        overview.render_overview(df)
 
     # Import and render the selected option
     elif selection == "Análises":
