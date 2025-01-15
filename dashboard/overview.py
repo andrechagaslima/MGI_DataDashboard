@@ -2,10 +2,9 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
-# Define cores para os labels
 colors_labels = {
-    -1: "#d73027",  # Negativo
-    1: "#1a9850",   # Positivo
+    -1: "#FFA6B1",  # Negativo
+    1: "#86E886",   # Positivo
 }
 
 df_topic_modeling = pd.read_csv('topic_modeling/data_topic_modeling/documents_scores.csv')
@@ -20,7 +19,7 @@ def create_card_with_score(question, score, background_color):
     return st.markdown(
         f"<div style='background-color: {background_color}; padding: 10px 15px; margin-bottom: 40px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;'>"
         f"<span style='font-size: 18px;'><strong>{question}</strong></span>"
-        f"<span style='font-size: 24px;'><strong>{score}</strong></span>"
+        f"<span style='font-size: 24px;'><strong>{score:.2f}</strong></span>"
         f"</div>",
         unsafe_allow_html=True,
     )
@@ -70,12 +69,6 @@ def calculate_sentiment_totals(df_topic_modeling, df_flair):
     most_positive_topic = grouped['positive_rate'].idxmax()
     most_negative_topic = grouped['negative_rate'].idxmax()
 
-    most_positive_rate = grouped.loc[most_positive_topic, 'positive_rate']
-    most_negative_rate = grouped.loc[most_negative_topic, 'negative_rate']
-
-    print(f"Tópico mais positivo: {most_positive_topic} ({most_positive_rate:.2%})")
-    print(f"Tópico mais negativo: {most_negative_topic} ({most_negative_rate:.2%})")
-
     return grouped, most_positive_topic, most_negative_topic
 
 def create_card(content, background_color):
@@ -93,25 +86,26 @@ def create_pie_chart(sentiment_counts):
     fig = px.pie(
         values=values,
         names=labels,
+        color=labels, 
         color_discrete_map={"Negativo": colors_labels[-1], "Positivo": colors_labels[1]},
     )
     fig.update_traces(textinfo="percent+label")
     fig.update_layout(
-        height=200,  # Altura total do gráfico
-        width=200,   # Largura total do gráfico
-        margin=dict(t=25, b=10, l=10, r=10)  # Margens superiores e inferiores ajustadas
+        height=200,  
+        width=200,   
+        margin=dict(t=25, b=10, l=10, r=10)  
     )
     return fig
 
 def render_positive_analysis(max, most_positive_topic, positives, negatives):
     # Primeira linha: pergunta com melhor nota
-    best_question = max[0]
-    best_score = max[1]  # Exemplo de nota
+    best_question = max[0][1:].strip()  # Remove o primeiro caractere e espaços extras
+    best_score = max[1]  # Nota formatada para 2 casas decimais
     st.markdown("##### Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
         score=best_score,
-        background_color="#98FB98"
+        background_color="#86E886"
     )
 
     # Segunda linha: tópicos positivos, resumo e gráfico
@@ -122,13 +116,13 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
         st.markdown("###### Tópico com Mais Comentários Positivos")
         create_card(
             content=f"Tópico {most_positive_topic+1}",
-            background_color="#98FB98"
+            background_color="#86E886"
         )
 
         st.markdown("###### Resumo dos Comentários Positivos")
         create_card(
             content=f"{positive_summary}",
-            background_color="#98FB98"
+            background_color="#86E886"
         )
 
     with col2:
@@ -139,13 +133,13 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
 
 def render_negative_analysis(min, most_negative_topic, positives, negatives):
     # Primeira linha: pergunta com pior nota
-    worst_question = min[0]
-    worst_score = min[1]  # Exemplo de nota
+    worst_question = min[0][1:].strip()  # Remove o primeiro caractere e espaços extras
+    worst_score = min[1]  # Nota formatada para 2 casas decimais
     st.markdown("##### Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
         score=worst_score,
-        background_color="#FFC0CB"
+        background_color="#FFA6B1"
     )
 
     # Segunda linha: tópicos negativos, resumo e gráfico
@@ -155,14 +149,14 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
         st.markdown("###### Tópico com Mais Comentários Negativos")
         create_card(
             content=f"Tópico {most_negative_topic+1}",
-            background_color="#FFC0CB"
+            background_color="#FFA6B1"
         )
 
         negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
         st.markdown("###### Resumo dos Comentários Negativos")
         create_card(
             content=f"{negative_summary}",
-            background_color="#FFB6C1"
+            background_color="#FFA6B1"
         )
 
     with col2:
@@ -172,14 +166,9 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_overview(df):
-    # Calcular médias das perguntas
     means, max, min = calculate_means(df)
 
     grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, df_flair)
-
-    st.write("Análise por Tópico", grouped.loc[most_positive_topic, 1])
-    st.write(f"Tópico mais positivo: {most_positive_topic}")
-    st.write(f"Tópico mais negativo: {most_negative_topic}")
 
     """Renderiza a visão geral com tabs para análises positivas e negativas."""
     st.markdown(
