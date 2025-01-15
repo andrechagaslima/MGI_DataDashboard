@@ -128,7 +128,7 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
     with col2:
         sentiment_counts = {"Negativo": negatives, "Positivo": positives}
         fig = create_pie_chart(sentiment_counts)
-        st.markdown("###### Distribuição de Respostas Positivas", unsafe_allow_html=True)
+        st.markdown(f"###### Taxa de Comentários Positivos e Negativos do Tópico {most_positive_topic+1}", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_negative_analysis(min, most_negative_topic, positives, negatives):
@@ -162,7 +162,7 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
     with col2:
         sentiment_counts = {"Negativo": negatives, "Positivo": positives}
         fig = create_pie_chart(sentiment_counts)
-        st.markdown("###### Distribuição de Respostas Negativas", unsafe_allow_html=True)
+        st.markdown(f"###### Taxa de Comentários Positivos e Negativos do Tópico {most_negative_topic+1}", unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True, height=400)
 
 def render_overview(df):
