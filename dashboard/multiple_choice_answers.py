@@ -1,7 +1,6 @@
 import streamlit as st
 import plotly.express as px
 
-# Define the default color palette
 color_mapping_normal = {
     "Concordo totalmente": '#1a9850',  # Green
     "Concordo parcialmente": '#98df8a',  # Light green
@@ -10,7 +9,6 @@ color_mapping_normal = {
     "Discordo totalmente": '#d73027'  # Red
 }
 
-# Define the inverted color palette
 color_mapping_inverted = {
     "Concordo totalmente": '#d73027',  # Red
     "Concordo parcialmente": '#fc8d59',  # Orange
@@ -20,26 +18,23 @@ color_mapping_inverted = {
 }
 
 def create_pie_chart(responses_counts, color_mapping):
-    # Create the chart
     fig = px.pie(
         names=responses_counts.index,
         values=responses_counts.values
     )
 
-    # Assign the correct colors to each label and adjust hover
     fig.update_traces(
         marker=dict(colors=[color_mapping[response] for response in responses_counts.index]),
         hovertemplate='<br>Total de Participantes: %{value}<extra></extra>'
     )
 
-    # Display the chart in Streamlit
     st.plotly_chart(fig)
 
 def split_columns_by_type(df):
     questions_str = []
     questions_numerical = []
 
-    for column in list(df.columns)[2:-4]:  # Select only the multiple-choice columns
+    for column in list(df.columns)[2:-4]: 
         if not any(str(value) in column for value in range(10)):
             questions_str.append(column)
         else:
@@ -59,11 +54,9 @@ def render(df, topic_modeling=False, labels=[]):
     # Filter the questions (without numerical values in the column name)
     questions_str, questions_numerical = split_columns_by_type(df)
 
-    # Selector for choosing the question
     selected_question = st.selectbox("Escolha uma afirmação:", questions_str)
     selected_question_index = questions_str.index(selected_question)
 
-    # Choose the appropriate color mapping based on the topic index
     color_mapping = color_mapping_inverted if selected_question_index % 2 == 1 else color_mapping_normal
 
     # For the case where the selected main tab is topic modeling
@@ -82,5 +75,4 @@ def render(df, topic_modeling=False, labels=[]):
                       std=df[questions_numerical[selected_question_index]].std()
                      )
 
-    # Create the interactive pie chart
     create_pie_chart(responses_counts=df[selected_question].value_counts(), color_mapping=color_mapping)

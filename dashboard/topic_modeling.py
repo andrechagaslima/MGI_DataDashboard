@@ -7,12 +7,11 @@ import multiple_choice_answers
 import SUS
 
 colors_labels = {
-    -1: "#ffcccc",
-    1: "#c8e6c9"
+    -1: "#ffcccc",  #Negative
+    1: "#c8e6c9"  #Positive
 }
 
 def docs_by_word(labels, df, topic_number):
-    # Selecting all comments or only some comments
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
         ['Ver todos os comentários'] + labels,
@@ -36,15 +35,13 @@ def docs_by_word(labels, df, topic_number):
     
     # Display chart only for "Positivos e Negativos"
     if type_of_comment == 'Positivos e Negativos':
-        # Count positive and negative comments
         positive_count = len(docs_text[docs_text['flair_result'] == 1])
         negative_count = len(docs_text[docs_text['flair_result'] == -1])
      
-     # Creating the horizontal bar chart
         fig = go.Figure()
         fig.add_trace(go.Bar(
           x=[negative_count, positive_count],
-          y=['Negative', 'Positive'],
+          y=['Negativos', 'Positivos'],
           marker_color=['#ffcccc', '#c8e6c9'],
           orientation='h',  
           text=[negative_count, positive_count],  
@@ -52,7 +49,6 @@ def docs_by_word(labels, df, topic_number):
           insidetextanchor='middle'  
         ))
 
-     # Updating layout
         fig.update_layout(
           title={
                'text': f"Quantidade de comentários Positivos e Negativos do Tópico {int(topic_number)+1}",
@@ -62,16 +58,14 @@ def docs_by_word(labels, df, topic_number):
           },
           xaxis_title="Quantidade",
           plot_bgcolor="white",
-          dragmode=False,  # Disabling zoom and pan
-          showlegend=False,  # Disabling legends
+          dragmode=False,  
+          showlegend=False,  
           xaxis=dict(fixedrange=True, range=[0, 150]),  
           yaxis=dict(fixedrange=True)   
         )
 
-     # Displaying the chart in Streamlit
         st.plotly_chart(fig, use_container_width=True, config={'staticPlot': True})
 
-    # Printing information
     st.markdown(
         f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(docs_text)}</div>",
         unsafe_allow_html=True
@@ -88,10 +82,8 @@ def docs_by_word(labels, df, topic_number):
     
 def get_topic_graphic(topic_number, labels, values):
 
-    # Creating a chart of words and their importance in the topic
     fig = go.Figure()
 
-    # Adding the bar chart trace
     fig.add_trace(go.Bar(
         y=labels,
         x=values,
@@ -99,7 +91,6 @@ def get_topic_graphic(topic_number, labels, values):
         marker=dict(color='#6699CC')
     ))
 
-    # Updating the layout of the chart
     fig.update_layout(
         title={
             'text': f'Análise das Palavras do Tópico {int(topic_number)+1} e Suas Respectivas Pontuações*',
@@ -117,29 +108,25 @@ def get_topic_graphic(topic_number, labels, values):
             'font': {'color': 'black'}
         },
         xaxis=dict(
-            tickfont=dict(color='black')  # Color of the X axis labels
+            tickfont=dict(color='black')  
         ),
         yaxis=dict(
-            tickfont=dict(color='black')  # Color of the Y axis labels
+            tickfont=dict(color='black')  
         ),
         dragmode=False,
-        plot_bgcolor="white",  # White background for the chart
+        plot_bgcolor="white",  
         autosize=True
     )
 
-    # Disabling zoom on the X and Y axes
     fig.update_xaxes(fixedrange=True)
     fig.update_yaxes(fixedrange=True)
 
-    # Display the chart in Streamlit
     st.plotly_chart(fig, use_container_width=True)
 
-    # Text explaining the scores
     text = """
 <p style="font-size: 16px; color: black">*A pontuação exibida reflete a <strong>importância</strong> de <strong>cada palavra</strong> dentro do tópico. 
 Assim, quanto <strong>maior</strong> a <strong>pontuação</strong> de uma palavra, <strong>mais relevante</strong> ela é para o tópico em questão.</p>"""
 
-    # Display the text in Streamlit
     st.markdown(text, unsafe_allow_html=True)
 
 
@@ -150,16 +137,13 @@ def load_topic_summary(file):
     
 def get_topic_summary(topic_number):
 
-    # Loading summarization
     topic_summary = load_topic_summary(f'topic_summary/summary_topic_{topic_number}.txt')
     
-    # Printing summarization
     st.markdown(f"<div style='background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
                 f"\n\n{topic_summary}"
                 f"</div>",
                 unsafe_allow_html=True)
 
-# Function for loading data
 @st.cache_data
 def load_data(path_topic_model, path_topic_modeling, data_sentiment_path):
     return (json.load(open(path_topic_model, 'r')),
@@ -169,7 +153,6 @@ def load_data(path_topic_model, path_topic_modeling, data_sentiment_path):
             
 def render(topic_number):
 
-    # Carregar os dados
     topics_model, df_topic_modeling, df_data = load_data(
         path_topic_model='topic_modeling/data_topic_modeling/topics_kmeans2.json',
         path_topic_modeling='topic_modeling/data_topic_modeling/documents_scores.csv',
@@ -191,7 +174,6 @@ def render(topic_number):
     labels, values = zip(*sorted_word_and_importance)
     labels = list(labels)
 
-    # Navigation tab for the topics
     tab1, tab2, tab3, tab4 = st.tabs([f"Análise do Tópico", "Sumarização do Tópico", "Análise dos Comentários", "Afirmações de Concordância/Discordância"])
     with tab1:
         get_topic_graphic(topic_number, labels, values)
