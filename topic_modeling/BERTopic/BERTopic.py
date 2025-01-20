@@ -2,6 +2,7 @@ from bertopic import BERTopic as BERTopic_
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import json
 import matplotlib.pyplot as plt
 
 class BERTopic(BERTopic_):
@@ -14,14 +15,23 @@ class BERTopic(BERTopic_):
         for key, value in self.__dict__.items():
             print(f"{key}: {value}")
             
-    def save_txt(self, filename: str) -> None:
-        with open(filename, 'w') as f:
+    def save_txt(self, pathfile: str) -> None:
+        with open(pathfile, 'w') as f:
             for i in range(len(self.get_topic_info())):
                 t = self.get_topic_info()['Topic'][i]
                 f.write(f'\ntopico {t}:\n')
                 words = self.get_topic_info()['Representation'][i]
                 for word in words:
                     f.write(f'{word} ')
+                    
+    def save_json(self, pathfile: str) -> None:
+        topics = self.get_topics()
+        result = {}
+        for topic_id, words in topics.items():
+            result[topic_id] = [[word, value] for word, value in words if word != ""]
+
+        with open(pathfile, "w", encoding="utf-8") as file:
+            json.dump(result, file, ensure_ascii=False, indent=4)
                     
     def dominant_topics(self, data: list, path: str, ids: list) -> None:
         
