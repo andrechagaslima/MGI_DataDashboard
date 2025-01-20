@@ -88,7 +88,7 @@ def get_topic_graphic(topic_number, labels, values):
         y=labels,
         x=values,
         orientation='h',
-        marker=dict(color='#6699CC')
+        marker=dict(color='#3BCBDE')
     ))
 
     fig.update_layout(

@@ -1,6 +1,9 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import json
+import plotly.graph_objects as go
+
 
 colors_labels = {
     -1: "#FFA6B1",  # Negative
@@ -82,7 +85,51 @@ def create_pie_chart(sentiment_counts):
     return fig
 
 def render_overview_topics():
-    st.markdown("Tópicos")
+    st.markdown("### Análise Geral dos Tópicos")
+    
+    # Carregar os dados de tópicos
+    try:
+        with open('topic_modeling/data_topic_modeling/topics_kmeans2.json', 'r') as file:
+            topics_model = json.load(file)
+    except Exception as e:
+        st.error(f"Erro ao carregar os dados dos tópicos: {e}")
+        return
+
+    # Iterar sobre cada tópico
+    for topic_number, words_importance in topics_model.items():
+        # Verificar se os dados do tópico estão no formato correto
+        if not isinstance(words_importance, list) or len(words_importance) == 0:
+            st.warning(f"Tópico {topic_number} não contém dados válidos.")
+            continue
+
+        # Ordenar palavras por relevância
+        valid_words_importance = [
+            item for item in words_importance if isinstance(item, list) and len(item) == 2
+        ]
+        if len(valid_words_importance) == 0:
+            st.warning(f"Tópico {topic_number} não possui palavras com relevância.")
+            continue
+
+        labels, values = zip(*valid_words_importance)
+        
+        # Criar gráfico de barras horizontal
+        fig = go.Figure(go.Bar(
+            y=list(labels),
+            x=list(values),
+            orientation='h',
+            marker=dict(color='#3BCBDE')
+        ))
+
+        fig.update_layout(
+            title=f"Tópico {int(topic_number) + 1}: Relevância das Palavras",
+            xaxis_title="Relevância",
+            yaxis_title="Palavras",
+            plot_bgcolor="white"
+        )
+
+        # Exibir o gráfico
+        st.plotly_chart(fig, use_container_width=True)
+
 
 def render_positive_analysis(max, most_positive_topic, positives, negatives):
     
