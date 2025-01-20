@@ -22,6 +22,8 @@ if __name__ == "__main__":
     st.sidebar.title("Navegação")
     selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises", "Modelagem de Tópicos"])
 
+    topic_amount = st.sidebar.selectbox("Selecione a Quantidade de Tópicos", (5, 10, 15))
+
     if selection == "Visão Geral":
         overview.render_overview(df)
 

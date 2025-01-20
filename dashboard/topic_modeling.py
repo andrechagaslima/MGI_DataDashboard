@@ -12,6 +12,7 @@ colors_labels = {
 }
 
 def docs_by_word(labels, df, topic_number):
+    
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
         ['Ver todos os comentários'] + labels,
@@ -22,6 +23,8 @@ def docs_by_word(labels, df, topic_number):
     else:
         docs_text = df[['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.', 'flair_result', 'Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.', 'ID']]
 
+    max_words = len(docs_text)
+ 
     # Selecting only positive comments, only negative comments, or all comments
     type_of_comment = st.selectbox(
         "Escolha o tipo de comentário que deseja visualizar:", 
@@ -60,14 +63,16 @@ def docs_by_word(labels, df, topic_number):
           plot_bgcolor="white",
           dragmode=False,  
           showlegend=False,  
-          xaxis=dict(fixedrange=True, range=[0, 150]),  
+          xaxis=dict(fixedrange=True, range=[0, max_words]),  
           yaxis=dict(fixedrange=True)   
         )
 
         st.plotly_chart(fig, use_container_width=True, config={'staticPlot': True})
 
+    percentage = len(docs_text)/max_words*100
+
     st.markdown(
-        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(docs_text)}</div>",
+        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(docs_text)} ({percentage:.2f})%</div>",
         unsafe_allow_html=True
     )
     for _, d in docs_text.iterrows():
