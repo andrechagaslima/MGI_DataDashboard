@@ -72,7 +72,7 @@ def docs_by_word(labels, df, topic_number):
     percentage = len(docs_text)/max_words*100
 
     st.markdown(
-        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(docs_text)} ({percentage:.2f})%</div>",
+        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(docs_text)} ({percentage:.2f}%)</div>",
         unsafe_allow_html=True
     )
     for _, d in docs_text.iterrows():

@@ -25,7 +25,7 @@ if __name__ == "__main__":
     topic_amount = st.sidebar.selectbox("Selecione a Quantidade de Tópicos", (5, 10, 15))
 
     if selection == "Visão Geral":
-        overview.render_overview(df)
+        overview.render_overview(df, topic_amount)
 
     elif selection == "Análises":
         # Create tabs for different analyses
@@ -39,6 +39,6 @@ if __name__ == "__main__":
     elif selection == "Modelagem de Tópicos":     
         # Sidebar for topic selection
         topic_number = st.sidebar.selectbox("Selecione um Tópico:", range(1, 11)) - 1
-        
+
         # Render content based on the active topic
         topic_modeling.render(topic_number=str(topic_number))

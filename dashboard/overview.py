@@ -29,11 +29,14 @@ def create_card_with_score(question, score, background_color):
 def calculate_means(df):
     numeric_columns = df.select_dtypes(include=["number"]).columns
 
-    numeric_columns = numeric_columns[1:-2]  
+    numeric_columns = numeric_columns[1:-2] 
 
     means = {}
+    original_means = {}  
+
     for idx, column in enumerate(numeric_columns):
         mean = df[column].mean()
+        original_means[column] = mean  
         if idx % 2 != 0:
             mean = 6 - mean
         means[column] = mean
@@ -41,7 +44,12 @@ def calculate_means(df):
     max_mean_question = max(means, key=means.get)
     min_mean_question = min(means, key=means.get)
 
-    return means, (max_mean_question, means[max_mean_question]), (min_mean_question, means[min_mean_question])
+    return (
+        means,
+        (max_mean_question, means[max_mean_question]),
+        (min_mean_question, means[min_mean_question]),
+        original_means,  
+    )
 
 def calculate_sentiment_totals(df_topic_modeling, df_flair):
 
@@ -178,15 +186,16 @@ def render_topic_words(topic_number):
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True})
 
 
-def render_overview_topics():
+def render_overview_topics(topic_amount):
     st.markdown("### Análise Geral dos Tópicos")
     
-    # Carregar os dados de tópicos
+    # Carregar os dados de tópicos de acordo com a quantidade selecionada
     try:
-        with open('topic_modeling/data_topic_modeling/topics_kmeans2.json', 'r') as file:
+        file_path = f'topic_modeling/data_num_topics/{topic_amount}/topics_{topic_amount}.json'
+        with open(file_path, 'r') as file:
             topics_model = json.load(file)
     except Exception as e:
-        st.error(f"Erro ao carregar os dados dos tópicos: {e}")
+        st.error(f"Erro ao carregar os dados dos tópicos para {topic_amount} tópicos: {e}")
         return
 
     topic_numbers = list(topics_model.keys())
@@ -231,10 +240,9 @@ def render_overview_topics():
                 st.plotly_chart(fig, use_container_width=True)
 
 
-def render_positive_analysis(max, most_positive_topic, positives, negatives):
+def render_positive_analysis(max, most_positive_topic, positives, negatives, original_means):
     best_question = max[0][2:].strip()
-    best_score = max[1]
-
+    best_score = original_means[max[0]]  
     st.markdown("##### Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
@@ -265,10 +273,11 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives):
         # Adicionando gráfico de palavras
         render_topic_words(most_positive_topic)
 
-def render_negative_analysis(min, most_negative_topic, positives, negatives):
-    worst_question = min[0][1:].strip()
-    worst_score = min[1]
+def render_negative_analysis(min, most_negative_topic, positives, negatives, original_means):
 
+    worst_question = min[0][2:].strip()
+    worst_score = original_means[min[0]]  
+    
     st.markdown("##### Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
@@ -299,8 +308,8 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives):
         # Adicionando gráfico de palavras
         render_topic_words(most_negative_topic)
 
-def render_overview(df):
-    means, max, min = calculate_means(df)
+def render_overview(df, topic_amount):
+    means, max, min, original_means = calculate_means(df)
 
     grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, df_flair)
 
@@ -325,16 +334,16 @@ def render_overview(df):
             unsafe_allow_html=True
         )
 
-    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos","Análise Positiva", "Análise Negativa"])
+    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Positiva", "Análise Negativa"])
 
-    with tab1: 
-        render_overview_topics()  
+    with tab1:
+        render_overview_topics(topic_amount)  
 
     with tab2:
-        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1])
+        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1], original_means)
 
     with tab3:
-        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1])
+        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1], original_means)
 
 if __name__ == "__main__":
     render_overview()
