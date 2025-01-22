@@ -4,13 +4,11 @@ import pandas as pd
 import json
 import plotly.graph_objects as go
 
-
 colors_labels = {
     -1: "#FFA6B1",  # Negative
     1: "#86E886",   # Positive
 }
 
-df_topic_modeling = pd.read_csv('topic_modeling/data_topic_modeling/documents_scores.csv')
 df_flair = pd.read_csv('data/results_labels/flair.csv')
 
 def load_topic_summary(file):
@@ -51,10 +49,10 @@ def calculate_means(df):
         original_means,  
     )
 
-def calculate_sentiment_totals(df_topic_modeling, df_flair):
+def calculate_sentiment_totals(df_topic_modeling, df_flair, topic_amount):
 
     df_combined = df_topic_modeling.merge(
-        df_flair, left_on='document_id', right_on='ID', how='inner'
+        df_flair, left_on='papers', right_on='ID', how='inner'
     )
 
     grouped = df_combined.groupby('dominant_topic')['flair_result'].value_counts().unstack(fill_value=0)
@@ -148,9 +146,9 @@ def create_percentage_bar_chart(positives, negatives, reverse_colors=False):
 
     return fig
 
-def render_topic_words(topic_number):
+def render_topic_words(topic_number, topic_amount):
     try:
-        with open('topic_modeling/data_topic_modeling/topics_kmeans2.json', 'r') as file:
+       with open(f'topic_modeling/data_num_topics/{topic_amount}/topics_{topic_amount}.json', 'r') as file:
             topics_model = json.load(file)
     except Exception as e:
         st.error(f"Erro ao carregar os dados dos tópicos: {e}")
@@ -195,52 +193,73 @@ def render_overview_topics(topic_amount):
         with open(file_path, 'r') as file:
             topics_model = json.load(file)
     except Exception as e:
-        st.error(f"Erro ao carregar os dados dos tópicos para {topic_amount} tópicos: {e}")
+        st.error(f"Erro ao carregar os dados dos tópicos para {topic_amount + 1} tópicos: {e}")
         return
+
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')
 
     topic_numbers = list(topics_model.keys())
     
-    # Iterar pelos tópicos em pares
-    for i in range(0, len(topic_numbers), 2):
+    # Carregar os dados de sentimentos
+    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, df_flair, topic_amount)
+    
+    # Iterar pelos tópicos
+    for topic_number in topic_numbers:
+        st.markdown(f"#### Tópico {int(topic_number) + 1}")
         col1, col2 = st.columns(2, gap="medium")
-        
-        for col, topic_number in zip([col1, col2], topic_numbers[i:i+2]):
-            with col:
-                words_importance = topics_model[topic_number]
-                
-                # Verificar se os dados do tópico estão no formato correto
-                valid_words_importance = [
-                    item for item in words_importance if isinstance(item, list) and len(item) == 2
-                ]
-                if len(valid_words_importance) == 0:
-                    st.warning(f"Tópico {topic_number} não possui palavras com relevância.")
-                    continue
-                
-                # Ordenar palavras por relevância
-                valid_words_importance = sorted(valid_words_importance, key=lambda x: x[1], reverse=True)
-                labels, values = zip(*valid_words_importance)
-                
-                # Criar gráfico de barras horizontal
-                fig = go.Figure(go.Bar(
-                    y=list(reversed(labels)),  # Reverter para que a mais relevante fique no topo
-                    x=list(reversed(values)),
-                    orientation='h',
-                    marker=dict(color='#3BCBDE')  # Azul pastel escuro
-                ))
 
-                fig.update_layout(
-                    title=f"Tópico {int(topic_number) + 1}: Relevância das Palavras",
-                    xaxis_title="Relevância",
-                    yaxis_title="Palavras",
-                    plot_bgcolor="white",
-                    height=400
+        with col1:
+            words_importance = topics_model[topic_number]
+            
+            # Verificar se os dados do tópico estão no formato correto
+            valid_words_importance = [
+                item for item in words_importance if isinstance(item, list) and len(item) == 2
+            ]
+            if len(valid_words_importance) == 0:
+                st.warning(f"Tópico {topic_number} não possui palavras com relevância.")
+                continue
+            
+            # Ordenar palavras por relevância
+            valid_words_importance = sorted(valid_words_importance, key=lambda x: x[1], reverse=True)
+            labels, values = zip(*valid_words_importance)
+            
+            # Criar gráfico de relevância de palavras
+            fig_words = go.Figure(go.Bar(
+                y=list(reversed(labels)),  # Reverter para que a mais relevante fique no topo
+                x=list(reversed(values)),
+                orientation='h',
+                marker=dict(color='#3BCBDE')  # Azul pastel escuro
+            ))
+
+            fig_words.update_layout(
+                title="Relevância das Palavras",
+                xaxis_title="Relevância",
+                yaxis_title="Palavras",
+                plot_bgcolor="white",
+                height=400
+            )
+
+            # Exibir o gráfico de palavras
+            st.plotly_chart(fig_words, use_container_width=True)
+        
+        with col2:
+            # Adicionar gráfico de sentimentos para o tópico atual
+            if int(topic_number) in grouped.index:
+                positives = grouped.loc[int(topic_number), 1]
+                negatives = grouped.loc[int(topic_number), -1]
+                fig_sentiments = create_percentage_bar_chart(positives, negatives, reverse_colors=True)
+
+                st.markdown(
+                    """
+                    <div style="padding-top: 36px; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                    """,
+                    unsafe_allow_html=True,
                 )
 
-                # Exibir o gráfico
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig_sentiments, use_container_width=True, config={"staticPlot": True})
+                st.markdown("</div>", unsafe_allow_html=True)
 
-
-def render_positive_analysis(max, most_positive_topic, positives, negatives, original_means):
+def render_positive_analysis(max, most_positive_topic, positives, negatives, original_means, topic_amount):
     best_question = max[0][2:].strip()
     best_score = original_means[max[0]]  
     st.markdown("##### Pergunta com a Melhor Nota")
@@ -267,13 +286,14 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives, ori
         )
 
     with col2:
+        # Garantindo que cada gráfico tenha uma chave única
         fig = create_percentage_bar_chart(positives, negatives, reverse_colors=True)
-        st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True})
+        st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"positives_bar_chart_{most_positive_topic}")
 
-        # Adicionando gráfico de palavras
-        render_topic_words(most_positive_topic)
+        # Adicionando gráfico de palavras com uma chave única
+        render_topic_words(most_positive_topic, topic_amount)
 
-def render_negative_analysis(min, most_negative_topic, positives, negatives, original_means):
+def render_negative_analysis(min, most_negative_topic, positives, negatives, original_means, topic_amount):
 
     worst_question = min[0][2:].strip()
     worst_score = original_means[min[0]]  
@@ -306,12 +326,14 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives, ori
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True})
 
         # Adicionando gráfico de palavras
-        render_topic_words(most_negative_topic)
+        render_topic_words(most_negative_topic, topic_amount)
 
 def render_overview(df, topic_amount):
     means, max, min, original_means = calculate_means(df)
 
-    grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, df_flair)
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')      
+
+    grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, df_flair, topic_amount)
 
     st.markdown(
         "<h1 style='text-align: center; font-size: 28px;'>Visão Geral</h1>",
@@ -340,10 +362,10 @@ def render_overview(df, topic_amount):
         render_overview_topics(topic_amount)  
 
     with tab2:
-        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1], original_means)
+        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1], original_means, topic_amount)
 
     with tab3:
-        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1], original_means)
+        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1], original_means, topic_amount)
 
 if __name__ == "__main__":
     render_overview()
