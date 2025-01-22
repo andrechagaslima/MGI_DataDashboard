@@ -156,21 +156,17 @@ def load_data(path_topic_model, path_topic_modeling, data_sentiment_path):
             pd.read_csv(data_sentiment_path)
     )
             
-def render(topic_number):
+def render(topic_number, topic_amount):
 
     topics_model, df_topic_modeling, df_data = load_data(
-        path_topic_model='topic_modeling/data_topic_modeling/topics_kmeans2.json',
-        path_topic_modeling='topic_modeling/data_topic_modeling/documents_scores.csv',
+        path_topic_model=f'topic_modeling/data_num_topics/{topic_amount}/topics_{topic_amount}.json',
+        path_topic_modeling=f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv',
         data_sentiment_path='data/results_labels/flair.csv'
         )
-
-    # Removing unnecessary data
-    df_topic_modeling = df_topic_modeling.drop(columns=['Unnamed: 0'])
-    df_data = df_data.dropna(subset=['clean_text']).reset_index(drop=True)
-
+    
     # Getting data from the topic in question
-    td_sorted = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)].sort_values(by='document_score', ascending=False)
-    ids = np.array(td_sorted['document_id'].tolist())
+    td_sorted = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)]
+    ids = np.array(td_sorted['papers'].tolist())
     df_data = df_data[df_data['ID'].isin(ids)]
 
     # Getting the words and their importance from the topic

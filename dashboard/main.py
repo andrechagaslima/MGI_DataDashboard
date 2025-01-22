@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     elif selection == "Modelagem de Tópicos":     
         # Sidebar for topic selection
-        topic_number = st.sidebar.selectbox("Selecione um Tópico:", range(1, 11)) - 1
+        topic_number = st.sidebar.selectbox("Selecione um Tópico:", range(1, topic_amount+1)) - 1
 
         # Render content based on the active topic
-        topic_modeling.render(topic_number=str(topic_number))
+        topic_modeling.render(topic_number=str(topic_number),topic_amount = topic_amount)
