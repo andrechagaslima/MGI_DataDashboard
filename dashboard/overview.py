@@ -259,15 +259,55 @@ def render_overview_topics(topic_amount):
                 st.plotly_chart(fig_sentiments, use_container_width=True, config={"staticPlot": True})
                 st.markdown("</div>", unsafe_allow_html=True)
 
-def render_positive_analysis(max, most_positive_topic, positives, negatives, original_means, topic_amount):
+def render_response_percentages(df, question):
+    """Exibe as respostas e percentuais com base no dataset enviado, substituindo os números pelas respostas completas."""
+    # Mapeamento de números para respostas completas (com base no dataset)
+    response_labels = {
+        1: "Discordo Totalmente",
+        2: "Discordo Parcialmente",
+        3: "Não concordo, nem discordo",
+        4: "Concordo Parcialmente",
+        5: "Concordo Totalmente"
+    }
+
+    # Conta as respostas e calcula os percentuais
+    response_counts = df[question].value_counts(normalize=True) * 100
+
+    # Ordena conforme a ordem natural dos índices
+    response_counts = response_counts.sort_index()
+
+    responses_html = ""
+    for resposta, percentual in response_counts.items():
+        # Substitui o índice pelo rótulo do mapeamento
+        label = response_labels.get(resposta, resposta)  # Garante que algo será exibido, mesmo sem mapeamento
+        responses_html += (
+            f"<div style='display: flex; justify-content: space-between; margin-bottom: 10px;'>"
+            f"<span>{label}</span>"
+            f"<span>{percentual:.2f}%</span>"
+            f"</div>"
+        )
+
+    st.markdown(
+        f"<div style='background-color: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 40px;'>"
+        f"<strong>Distribuição das Respostas:</strong>"
+        f"<div style='margin-top: 10px;'>{responses_html}</div>"
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
+def render_positive_analysis(max, most_positive_topic, positives, negatives, original_means, topic_amount, df):
     best_question = max[0][2:].strip()
-    best_score = original_means[max[0]]  
+    best_score = original_means[max[0]]
+
     st.markdown("##### Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
         score=best_score,
         background_color="#86E886"
     )
+
+    # Exibir a distribuição das respostas
+    render_response_percentages(df, max[0])
 
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
@@ -286,24 +326,24 @@ def render_positive_analysis(max, most_positive_topic, positives, negatives, ori
         )
 
     with col2:
-        # Garantindo que cada gráfico tenha uma chave única
         fig = create_percentage_bar_chart(positives, negatives, reverse_colors=True)
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"positives_bar_chart_{most_positive_topic}")
 
-        # Adicionando gráfico de palavras com uma chave única
         render_topic_words(most_positive_topic, topic_amount)
 
-def render_negative_analysis(min, most_negative_topic, positives, negatives, original_means, topic_amount):
-
+def render_negative_analysis(min, most_negative_topic, positives, negatives, original_means, topic_amount, df):
     worst_question = min[0][2:].strip()
-    worst_score = original_means[min[0]]  
-    
+    worst_score = original_means[min[0]]
+
     st.markdown("##### Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
         score=worst_score,
         background_color="#FFA6B1"
     )
+
+    # Exibir a distribuição das respostas
+    render_response_percentages(df, min[0])
 
     col1, col2 = st.columns(2, gap="large")
     negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
@@ -325,7 +365,6 @@ def render_negative_analysis(min, most_negative_topic, positives, negatives, ori
         fig = create_percentage_bar_chart(positives, negatives)
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True})
 
-        # Adicionando gráfico de palavras
         render_topic_words(most_negative_topic, topic_amount)
 
 def render_overview(df, topic_amount):
@@ -362,10 +401,10 @@ def render_overview(df, topic_amount):
         render_overview_topics(topic_amount)  
 
     with tab2:
-        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1], original_means, topic_amount)
+        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 1], grouped.loc[most_positive_topic, -1], original_means, topic_amount, df)
 
     with tab3:
-        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1], original_means, topic_amount)
+        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 1], grouped.loc[most_negative_topic, -1], original_means, topic_amount, df)
 
 if __name__ == "__main__":
     render_overview()
