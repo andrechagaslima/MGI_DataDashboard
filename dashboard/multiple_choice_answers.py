@@ -9,27 +9,6 @@ color_mapping_normal = {
     "Discordo totalmente": '#d73027'  # Red
 }
 
-color_mapping_inverted = {
-    "Concordo totalmente": '#d73027',  # Red
-    "Concordo parcialmente": '#fc8d59',  # Orange
-    "Não concordo, nem discordo": '#fee08b',  # Yellow
-    "Discordo parcialmente": '#98df8a',  # Light green
-    "Discordo totalmente": '#1a9850'  # Green
-}
-
-def create_pie_chart(responses_counts, color_mapping):
-    fig = px.pie(
-        names=responses_counts.index,
-        values=responses_counts.values
-    )
-
-    fig.update_traces(
-        marker=dict(colors=[color_mapping[response] for response in responses_counts.index]),
-        hovertemplate='<br>Total de Participantes: %{value}<extra></extra>'
-    )
-
-    st.plotly_chart(fig)
-
 def split_columns_by_type(df):
     questions_str = []
     questions_numerical = []
@@ -50,16 +29,82 @@ def print_information(number_of_users, mean, std):
         unsafe_allow_html=True
     )
 
+import streamlit as st
+
+color_mapping = {
+    "Concordo totalmente": '#1a9850',     # Verde
+    "Concordo parcialmente": '#98df8a',   # Verde claro
+    "Não concordo, nem discordo": '#fee08b',  # Amarelo
+    "Discordo parcialmente": '#fc8d59',   # Laranja
+    "Discordo totalmente": '#d73027'      # Vermelho
+}
+
+def create_response_info_box(responses_counts):
+    """
+    Exibe um box cinza contendo a contagem e a porcentagem de cada resposta,
+    incluindo um pequeno quadrado colorido conforme o mapeamento em color_mapping.
+    """
+    total = responses_counts.sum()
+    
+    st.markdown(
+        """
+        <style>
+        .gray-box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        .gray-box ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .gray-box li {
+            margin-bottom: 8px;
+        }
+        .color-square {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    list_items = ""
+    for response, count in responses_counts.items():
+        percentage = (count / total) * 100
+        
+        # Captura a cor com base no response, 
+        # ou usa cor padrão (ex: preto) se não estiver no dicionário.
+        color = color_mapping.get(response, "#000000")  
+        
+        # Cria o item de lista com o quadrado colorido + texto
+        list_items += (
+            f"<li>"
+            f"<span class='color-square' style='background-color:{color};'></span>"
+            f"<strong>{response}:</strong> {count} respostas ({percentage:.2f}%)"
+            f"</li>"
+        )
+    
+    st.markdown(f"""
+    <div class="gray-box">
+      <h4>Distribuição das Respostas:</h4>  <!-- Título antes da lista -->
+      <ul>
+        {list_items}
+      </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
 def render(df, topic_modeling=False, labels=[]):
-    # Filter the questions (without numerical values in the column name)
     questions_str, questions_numerical = split_columns_by_type(df)
 
     selected_question = st.selectbox("Escolha uma afirmação:", questions_str)
     selected_question_index = questions_str.index(selected_question)
 
-    color_mapping = color_mapping_inverted if selected_question_index % 2 == 1 else color_mapping_normal
-
-    # For the case where the selected main tab is topic modeling
     if topic_modeling:
         word = st.selectbox(
             "Escolha 'Considerar todos os comentários' ou selecione uma palavra do tópico como filtro:", 
@@ -69,10 +114,12 @@ def render(df, topic_modeling=False, labels=[]):
         if word != 'Considerar todos os comentários':
             df = df[df['clean_text'].str.contains(word, case=False, na=False)]
 
-    # Information about the chosen question
-    print_information(number_of_users=len(df), 
-                      mean=df[questions_numerical[selected_question_index]].mean(),
-                      std=df[questions_numerical[selected_question_index]].std()
-                     )
+    print_information(
+        number_of_users=len(df), 
+        mean=df[questions_numerical[selected_question_index]].mean(),
+        std=df[questions_numerical[selected_question_index]].std()
+    )
 
-    create_pie_chart(responses_counts=df[selected_question].value_counts(), color_mapping=color_mapping)
+    response_counts = df[selected_question].value_counts()
+
+    create_response_info_box(response_counts)
