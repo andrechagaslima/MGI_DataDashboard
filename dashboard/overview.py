@@ -176,7 +176,7 @@ def render_topic_words(topic_number, topic_amount, x=0):
     ))
 
     fig.update_layout(
-        title=f"Tópico {int(topic_number) + 1}: Relevância das Palavras",
+        title=f"Relevância das Palavras do Tópico",
         xaxis_title="Relevância",
         yaxis_title="Palavras",
         plot_bgcolor="white",
@@ -203,7 +203,6 @@ def render_overview_topics(topic_amount):
         col1, col2 = st.columns(2, gap="medium")
 
         with col1:
-            st.markdown("##### Relevância das Palavras")
             render_topic_words(topic_number, topic_amount)
 
         with col2:
