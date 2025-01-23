@@ -165,3 +165,11 @@ models
 
 teste*
 .python-version
+
+metrics/
+datasets/
+settings/fsllm/
+*zip
+!prompt*.py
+*datasets*
+fsllm/
