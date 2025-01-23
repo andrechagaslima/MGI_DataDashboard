@@ -213,7 +213,7 @@ def render_overview_topics(topic_amount):
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
 
 
-def render_response_percentages(df, question):
+def render_response_percentages(df, question, background_color):
     """Exibe as respostas e percentuais com base no dataset enviado, substituindo os números pelas respostas completas."""
     # Mapeamento de números para respostas completas (com base no dataset)
     response_labels = {
@@ -242,7 +242,7 @@ def render_response_percentages(df, question):
         )
 
     st.markdown(
-        f"<div style='background-color: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 40px;'>"
+        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 40px;'>"
         f"<strong>Distribuição das Respostas:</strong>"
         f"<div style='margin-top: 10px;'>{responses_html}</div>"
         f"</div>",
@@ -261,7 +261,7 @@ def render_positive_analysis(max, most_positive_topic, positives, neutrals, nega
     )
 
     # Exibir a distribuição das respostas
-    render_response_percentages(df, max[0])
+    render_response_percentages(df, max[0], "#86E886")
 
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
@@ -299,7 +299,7 @@ def render_negative_analysis(min, most_negative_topic, positives, neutrals, nega
     )
 
     # Exibir a distribuição das respostas
-    render_response_percentages(df, min[0])
+    render_response_percentages(df, min[0], "#FFA6B1")
 
     col1, col2 = st.columns(2, gap="large")
     negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
