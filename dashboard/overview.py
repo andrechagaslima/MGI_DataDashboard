@@ -281,7 +281,7 @@ def render_positive_analysis(max, most_positive_topic, grouped, original_means, 
     st.markdown("---")  
 
     # Seção: Análise do Tópico
-    st.markdown("### Análise do Tópico Maior Percentual de Comentários Positivos")
+    st.markdown("### Análise do Tópico com Maior Percentual de Comentários Positivos")
 
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
