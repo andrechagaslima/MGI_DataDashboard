@@ -195,8 +195,7 @@ def render_topic_words(topic_number, topic_amount, x=0):
         height=300,
         margin=dict(l=10, r=10, t=10, b=10) 
     )
-
-    # Adicionar uma chave única ao gráfico
+    
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_words_chart_{topic_number}_{x}")
 
 def render_overview_topics(topic_amount):
@@ -229,7 +228,6 @@ def render_overview_topics(topic_amount):
 
 def render_response_percentages(df, question, background_color):
     """Exibe as respostas e percentuais com base no dataset enviado, substituindo os números pelas respostas completas."""
-    # Mapeamento de números para respostas completas (com base no dataset)
     response_labels = {
         1: "Discordo Totalmente",
         2: "Discordo Parcialmente",
@@ -247,7 +245,7 @@ def render_response_percentages(df, question, background_color):
     responses_html = ""
     for resposta, percentual in response_counts.items():
         # Substitui o índice pelo rótulo do mapeamento
-        label = response_labels.get(resposta, resposta)  # Garante que algo será exibido, mesmo sem mapeamento
+        label = response_labels.get(resposta, resposta)
         responses_html += (
             f"<div style='display: flex; justify-content: space-between; margin-bottom: 10px;'>"
             f"<span>{label}</span>"
@@ -399,7 +397,7 @@ def render_overview(df, topic_amount):
 
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Elogios", "Análise Críticas"])
+    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Positiva", "Análise Negativa"])
 
     with tab1:
         render_overview_topics(topic_amount)  
