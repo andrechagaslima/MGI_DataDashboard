@@ -50,7 +50,7 @@ def calculate_means(df):
     )
 
 def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount):
-    """Calcula os totais de sentimentos (positivo, negativo, neutro) por tópico."""
+    """Calcula os totais de sentimentos (elogio, crítica, sugestão, não pertinente) por tópico."""
     # Garantir que o número de classificações corresponde ao número de tópicos no DataFrame
     if len(classification_data) > len(df_topic_modeling):
         classification_data = classification_data[:len(df_topic_modeling)]
@@ -65,19 +65,19 @@ def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amo
 
     # Calcular os totais
     grouped['total'] = grouped.sum(axis=1)
-    grouped['positive'] = grouped.get('positive', 0)
-    grouped['neutral'] = grouped.get('neutral', 0)
-    grouped['negative'] = grouped.get('negative', 0)
+    grouped['positive_feedback'] = grouped.get('positive feedback', 0)
+    grouped['criticism'] = grouped.get('criticism', 0)
+    grouped['suggestion'] = grouped.get('suggestion', 0)
+    grouped['not_pertinent'] = grouped.get('not pertinent', 0)
 
-    grouped['positive_rate'] = (grouped['positive'] / grouped['total']) * 100
-    grouped['neutral_rate'] = (grouped['neutral'] / grouped['total']) * 100
-    grouped['negative_rate'] = (grouped['negative'] / grouped['total']) * 100
+    grouped['positive_feedback_rate'] = (grouped['positive_feedback'] / grouped['total']) * 100
+    grouped['criticism_rate'] = (grouped['criticism'] / grouped['total']) * 100
 
-    # Identificar os tópicos mais positivos, negativos e neutros
-    most_positive_topic = grouped['positive_rate'].idxmax()
-    most_negative_topic = grouped['negative_rate'].idxmax()
+    # Identificar os tópicos com mais elogios e críticas
+    most_positive_topic = grouped['positive_feedback_rate'].idxmax()
+    most_critical_topic = grouped['criticism_rate'].idxmax()
 
-    return grouped, most_positive_topic, most_negative_topic
+    return grouped, most_positive_topic, most_critical_topic
 
 def create_card(content, background_color):
     return st.markdown(
@@ -87,44 +87,56 @@ def create_card(content, background_color):
         unsafe_allow_html=True,
     )
 
-def create_percentage_bar_chart(positives, neutrals, negatives):
-    """Cria um gráfico de barras horizontais com positivos, neutros e negativos."""
-    total = positives + neutrals + negatives
-    positive_rate = (positives / total) * 100 if total > 0 else 0
-    neutral_rate = (neutrals / total) * 100 if total > 0 else 0
-    negative_rate = (negatives / total) * 100 if total > 0 else 0
+def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent):
+    """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
+    total = positive_feedbacks + criticisms + suggestions + not_pertinent
+    positive_rate = (positive_feedbacks / total) * 100 if total > 0 else 0
+    criticism_rate = (criticisms / total) * 100 if total > 0 else 0
+    suggestion_rate = (suggestions / total) * 100 if total > 0 else 0
+    not_pertinent_rate = (not_pertinent / total) * 100 if total > 0 else 0
 
     fig = go.Figure()
 
-    # Adicionar barra de negativos
+    # Adicionar barra de críticas
     fig.add_trace(go.Bar(
         y=["Comentários"],
-        x=[negative_rate],
+        x=[criticism_rate],
         orientation='h',
         marker=dict(color="#FFA6B1"),
-        name="Negativo",
-        text=f"{negative_rate:.2f}%",
+        name="Crítica",
+        text=f"{criticism_rate:.2f}%",
         textposition='inside'
     ))
 
-    # Adicionar barra de neutros
+    # Adicionar barra de sugestões
     fig.add_trace(go.Bar(
         y=["Comentários"],
-        x=[neutral_rate],
+        x=[suggestion_rate],
         orientation='h',
         marker=dict(color="#F0E68C"),
-        name="Neutro",
-        text=f"{neutral_rate:.2f}%",
+        name="Sugestão",
+        text=f"{suggestion_rate:.2f}%",
         textposition='inside'
     ))
 
-    # Adicionar barra de positivos
+    # Adicionar barra de não pertinentes
+    fig.add_trace(go.Bar(
+        y=["Comentários"],
+        x=[not_pertinent_rate],
+        orientation='h',
+        marker=dict(color="#D3D3D3"),
+        name="Não Pertinente",
+        text=f"{not_pertinent_rate:.2f}%",
+        textposition='inside'
+    ))
+
+    # Adicionar barra de elogios
     fig.add_trace(go.Bar(
         y=["Comentários"],
         x=[positive_rate],
         orientation='h',
         marker=dict(color="#86E886"),
-        name="Positivo",
+        name="Elogio",
         text=f"{positive_rate:.2f}%",
         textposition='inside'
     ))
@@ -187,18 +199,18 @@ def render_topic_words(topic_number, topic_amount, x=0):
     # Adicionar uma chave única ao gráfico
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_words_chart_{topic_number}_{x}")
 
-
 def render_overview_topics(topic_amount):
     st.markdown("### Análise Geral dos Tópicos")
 
     # Carregar os dados
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt2/3_few_shot/classification.json')
+    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
     df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')
 
     # Calcular os sentimentos
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
 
-    grouped = grouped.sort_values(by='negative_rate', ascending=False)
+    # Ordenar os tópicos pelo percentual de críticas
+    grouped = grouped.sort_values(by='criticism_rate', ascending=False)
 
     for topic_number, row in grouped.iterrows():
         st.markdown(f"#### Tópico {int(topic_number) + 1}")
@@ -208,12 +220,12 @@ def render_overview_topics(topic_amount):
             render_topic_words(topic_number, topic_amount)
 
         with col2:
-            positives = row.get('positive', 0)
-            neutrals = row.get('neutral', 0)
-            negatives = row.get('negative', 0)
-            fig = create_percentage_bar_chart(positives, neutrals, negatives)
+            positive_feedbacks = row.get('positive_feedback', 0)
+            criticisms = row.get('criticism', 0)
+            suggestions = row.get('suggestion', 0)
+            not_pertinent = row.get('not_pertinent', 0)
+            fig = create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent)
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
-
 
 def render_response_percentages(df, question, background_color):
     """Exibe as respostas e percentuais com base no dataset enviado, substituindo os números pelas respostas completas."""
@@ -251,7 +263,7 @@ def render_response_percentages(df, question, background_color):
         unsafe_allow_html=True,
     )
 
-def render_positive_analysis(max, most_positive_topic, positives, neutrals, negatives, original_means, topic_amount, df):
+def render_positive_analysis(max, most_positive_topic, grouped, original_means, topic_amount, df):
     best_question = max[0][2:].strip()
     best_score = original_means[max[0]]
 
@@ -288,14 +300,19 @@ def render_positive_analysis(max, most_positive_topic, positives, neutrals, nega
 
     with col2:
         st.markdown("#### Percentual de Comentários por Sentimento")
-        fig = create_percentage_bar_chart(positives, neutrals, negatives)
+        row = grouped.loc[most_positive_topic]
+        fig = create_percentage_bar_chart(
+            row['positive_feedback'],
+            row['criticism'],
+            row['suggestion'],
+            row['not_pertinent']
+        )
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"positive_chart_{most_positive_topic}")
 
         st.markdown("#### Relevância das Palavras do Tópico")
         render_topic_words(most_positive_topic, topic_amount, 1)  
 
-
-def render_negative_analysis(min, most_negative_topic, positives, neutrals, negatives, original_means, topic_amount, df):
+def render_negative_analysis(min, most_negative_topic, grouped, original_means, topic_amount, df):
     worst_question = min[0][2:].strip()
     worst_score = original_means[min[0]]
 
@@ -332,7 +349,13 @@ def render_negative_analysis(min, most_negative_topic, positives, neutrals, nega
 
     with col2:
         st.markdown("#### Percentual de Comentários por Sentimento")
-        fig = create_percentage_bar_chart(positives, neutrals, negatives)
+        row = grouped.loc[most_negative_topic]
+        fig = create_percentage_bar_chart(
+            row['positive_feedback'],
+            row['criticism'],
+            row['suggestion'],
+            row['not_pertinent']
+        )
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"negative_chart_{most_negative_topic}")
 
         st.markdown("#### Relevância das Palavras do Tópico")
@@ -345,7 +368,7 @@ def load_classification_data(file_path):
     return data['y_pred_text']
 
 def render_overview(df, topic_amount):
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt2/3_few_shot/classification.json') 
+    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json') 
 
     means, max, min, original_means = calculate_means(df)
 
@@ -376,16 +399,16 @@ def render_overview(df, topic_amount):
 
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Positiva", "Análise Negativa"])
+    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Elogios", "Análise Críticas"])
 
     with tab1:
         render_overview_topics(topic_amount)  
 
     with tab2:
-        render_positive_analysis(max, most_positive_topic, grouped.loc[most_positive_topic, 'positive'], grouped.loc[most_positive_topic, 'neutral'], grouped.loc[most_positive_topic, 'negative'], original_means, topic_amount, df)
+        render_positive_analysis(max, most_positive_topic, grouped, original_means, topic_amount, df)
 
     with tab3:
-        render_negative_analysis(min, most_negative_topic, grouped.loc[most_negative_topic, 'positive'], grouped.loc[most_negative_topic, 'neutral'], grouped.loc[most_negative_topic, 'negative'], original_means, topic_amount, df)
+        render_negative_analysis(min, most_negative_topic, grouped, original_means, topic_amount, df)
 
 if __name__ == "__main__":
     render_overview()
