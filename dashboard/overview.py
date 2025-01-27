@@ -81,7 +81,7 @@ def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amo
 
 def create_card(content, background_color):
     return st.markdown(
-        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 20px;'>"
+        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px;'>"
         f"{content}"
         f"</div>",
         unsafe_allow_html=True,
@@ -141,9 +141,9 @@ def create_percentage_bar_chart(positives, neutrals, negatives):
             tickfont=dict(size=14)
         ),
         plot_bgcolor="white",
-        title="Porcentagem de Comentários (Negativos, Neutros e Positivos)",
+        title="",
         height=150,
-        margin=dict(l=10, r=10, t=30, b=10),
+        margin=dict(l=10, r=10, t=10, b=10),
         showlegend=True
     )
 
@@ -176,12 +176,12 @@ def render_topic_words(topic_number, topic_amount, x=0):
     ))
 
     fig.update_layout(
-        title=f"Relevância das Palavras do Tópico",
+        title="",
         xaxis_title="Relevância",
         yaxis_title="Palavras",
         plot_bgcolor="white",
         height=300,
-        margin=dict(l=10, r=10, t=30, b=10) 
+        margin=dict(l=10, r=10, t=10, b=10) 
     )
 
     # Adicionar uma chave única ao gráfico
@@ -244,7 +244,7 @@ def render_response_percentages(df, question, background_color):
         )
 
     st.markdown(
-        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 40px;'>"
+        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px;'>"
         f"<strong>Distribuição das Respostas:</strong>"
         f"<div style='margin-top: 10px;'>{responses_html}</div>"
         f"</div>",
@@ -255,7 +255,8 @@ def render_positive_analysis(max, most_positive_topic, positives, neutrals, nega
     best_question = max[0][2:].strip()
     best_score = original_means[max[0]]
 
-    st.markdown("##### Pergunta com a Melhor Nota")
+    # Seção: Análise da Pergunta
+    st.markdown("### Análise da Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
         score=best_score,
@@ -265,35 +266,41 @@ def render_positive_analysis(max, most_positive_topic, positives, neutrals, nega
     # Exibir a distribuição das respostas
     render_response_percentages(df, max[0], "#86E886")
 
+    st.markdown("---")  
+
+    # Seção: Análise do Tópico
+    st.markdown("### Análise do Tópico Maior Percentual de Comentários Positivos")
+
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
 
     with col1:
-        st.markdown("###### Tópico com Mais Comentários Positivos")
+        st.markdown("#### Resumo do Tópico")
         create_card(
             content=f"Tópico {most_positive_topic + 1}",
             background_color="#86E886"
         )
 
-        st.markdown(f"###### Resumo dos Comentários do Tópico {most_positive_topic + 1}")
         create_card(
             content=f"{positive_summary}",
             background_color="#86E886"
         )
 
     with col2:
+        st.markdown("#### Percentual de Comentários por Sentimento")
         fig = create_percentage_bar_chart(positives, neutrals, negatives)
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"positive_chart_{most_positive_topic}")
 
-        render_topic_words(most_positive_topic, topic_amount, 1)  # Gráfico de palavras já corrigido
-
+        st.markdown("#### Relevância das Palavras do Tópico")
+        render_topic_words(most_positive_topic, topic_amount, 1)  
 
 
 def render_negative_analysis(min, most_negative_topic, positives, neutrals, negatives, original_means, topic_amount, df):
     worst_question = min[0][2:].strip()
     worst_score = original_means[min[0]]
 
-    st.markdown("##### Pergunta com a Pior Nota")
+    # Seção: Análise da Pergunta
+    st.markdown("### Análise da Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
         score=worst_score,
@@ -303,27 +310,33 @@ def render_negative_analysis(min, most_negative_topic, positives, neutrals, nega
     # Exibir a distribuição das respostas
     render_response_percentages(df, min[0], "#FFA6B1")
 
+    st.markdown("---") 
+
+    # Seção: Análise do Tópico
+    st.markdown("### Análise do Tópico com Maior Percentual de Comentários Negativos")
+
     col1, col2 = st.columns(2, gap="large")
     negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
 
     with col1:
-        st.markdown("###### Tópico com Mais Comentários Negativos")
+        st.markdown("#### Resumo do Tópico")
         create_card(
             content=f"Tópico {most_negative_topic + 1}",
             background_color="#FFA6B1"
         )
 
-        st.markdown(f"###### Resumo dos Comentários do Tópico {most_negative_topic + 1}")
         create_card(
             content=f"{negative_summary}",
             background_color="#FFA6B1"
         )
 
     with col2:
+        st.markdown("#### Percentual de Comentários por Sentimento")
         fig = create_percentage_bar_chart(positives, neutrals, negatives)
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"negative_chart_{most_negative_topic}")
 
-        render_topic_words(most_negative_topic, topic_amount, 2)  # Gráfico de palavras já corrigido
+        st.markdown("#### Relevância das Palavras do Tópico")
+        render_topic_words(most_negative_topic, topic_amount, 2) 
 
 def load_classification_data(file_path):
     """Carrega os dados de classificação de sentimentos a partir de um arquivo JSON."""
@@ -341,7 +354,7 @@ def render_overview(df, topic_amount):
     grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
 
     st.markdown(
-        "<h1 style='text-align: center; font-size: 28px;'>Visão Geral</h1>",
+        "<h1 style='text-align: center; font-size: 28px; padding: 0px 10px 10px 10px;'>Visão Geral</h1>",
         unsafe_allow_html=True,
     )
 
@@ -360,6 +373,8 @@ def render_overview(df, topic_amount):
             f"<strong>Total de Comentários:</strong> {len(df_topic_modeling)}</div>",
             unsafe_allow_html=True
         )
+
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
     tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise Positiva", "Análise Negativa"])
 
