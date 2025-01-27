@@ -5,8 +5,8 @@ import json
 import plotly.graph_objects as go
 
 colors_labels = {
-    -1: "#FFA6B1",  # Negative
-    1: "#86E886",   # Positive
+    -1: "#FFA6B1", 
+    1: "#86E886",   
 }
 
 df_flair = pd.read_csv('data/results_labels/flair.csv')
@@ -112,7 +112,7 @@ def create_percentage_bar_chart(positives, neutrals, negatives):
         y=["Comentários"],
         x=[neutral_rate],
         orientation='h',
-        marker=dict(color="#F0E68C"),  # Cor para neutros
+        marker=dict(color="#F0E68C"),
         name="Neutro",
         text=f"{neutral_rate:.2f}%",
         textposition='inside'
@@ -141,7 +141,7 @@ def create_percentage_bar_chart(positives, neutrals, negatives):
             tickfont=dict(size=14)
         ),
         plot_bgcolor="white",
-        title="Porcentagem de Comentários (Positivos, Neutros e Negativos)",
+        title="Porcentagem de Comentários (Negativos, Neutros e Positivos)",
         height=150,
         margin=dict(l=10, r=10, t=30, b=10),
         showlegend=True
@@ -197,6 +197,8 @@ def render_overview_topics(topic_amount):
 
     # Calcular os sentimentos
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
+
+    grouped = grouped.sort_values(by='negative_rate', ascending=False)
 
     for topic_number, row in grouped.iterrows():
         st.markdown(f"#### Tópico {int(topic_number) + 1}")
