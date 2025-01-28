@@ -17,7 +17,7 @@ def load_topic_summary(file):
 
 def create_card_with_score(question, score, background_color):
     return st.markdown(
-        f"<div style='background-color: {background_color}; padding: 10px 15px; margin-bottom: 40px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;'>"
+        f"<div style='background-color: {background_color}; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;'>"
         f"<span style='font-size: 18px;'><strong>{question}</strong></span>"
         f"<span style='font-size: 24px;'><strong>{score:.2f}</strong></span>"
         f"</div>",
@@ -81,7 +81,7 @@ def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amo
 
 def create_card(content, background_color):
     return st.markdown(
-        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px;'>"
+        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 5px; margin-bottom: 10px;'>"
         f"{content}"
         f"</div>",
         unsafe_allow_html=True,
@@ -161,7 +161,81 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
 
     return fig
 
-def render_topic_words(topic_number, topic_amount, x=0):
+def create_percentage_bar_chart_topics(positive_feedbacks, criticisms, suggestions, not_pertinent):
+    """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
+    total = positive_feedbacks + criticisms + suggestions + not_pertinent
+    positive_rate = (positive_feedbacks / total) * 100 if total > 0 else 0
+    criticism_rate = (criticisms / total) * 100 if total > 0 else 0
+    suggestion_rate = (suggestions / total) * 100 if total > 0 else 0
+    not_pertinent_rate = (not_pertinent / total) * 100 if total > 0 else 0
+
+    fig = go.Figure()
+
+    # Adicionar barra de críticas
+    fig.add_trace(go.Bar(
+        y=["Comentários"],
+        x=[criticism_rate],
+        orientation='h',
+        marker=dict(color="#FFA6B1"),
+        name="Crítica",
+        text=f"{criticism_rate:.2f}%",
+        textposition='inside'
+    ))
+
+    # Adicionar barra de sugestões
+    fig.add_trace(go.Bar(
+        y=["Comentários"],
+        x=[suggestion_rate],
+        orientation='h',
+        marker=dict(color="#F0E68C"),
+        name="Sugestão",
+        text=f"{suggestion_rate:.2f}%",
+        textposition='inside'
+    ))
+
+    # Adicionar barra de não pertinentes
+    fig.add_trace(go.Bar(
+        y=["Comentários"],
+        x=[not_pertinent_rate],
+        orientation='h',
+        marker=dict(color="#D3D3D3"),
+        name="Não Pertinente",
+        text=f"{not_pertinent_rate:.2f}%",
+        textposition='inside'
+    ))
+
+    # Adicionar barra de elogios
+    fig.add_trace(go.Bar(
+        y=["Comentários"],
+        x=[positive_rate],
+        orientation='h',
+        marker=dict(color="#86E886"),
+        name="Elogio",
+        text=f"{positive_rate:.2f}%",
+        textposition='inside'
+    ))
+
+    fig.update_layout(
+        barmode='stack',
+        xaxis=dict(
+            title="Porcentagem (%)",
+            range=[0, 100],
+            ticksuffix='%'
+        ),
+        yaxis=dict(
+            title="",
+            tickfont=dict(size=14)
+        ),
+        plot_bgcolor="white",
+        title="Percentual de Comentários por Sentimento",
+        height=150,
+        margin=dict(l=10, r=10, t=50, b=10),
+        showlegend=True
+    )
+
+    return fig
+
+def render_topic_words(topic_number, topic_amount, x=0, title = ""):
     try:
         with open(f'topic_modeling/data_num_topics/{topic_amount}/topics_{topic_amount}.json', 'r') as file:
             topics_model = json.load(file)
@@ -187,13 +261,18 @@ def render_topic_words(topic_number, topic_amount, x=0):
         marker=dict(color='#3BCBDE')
     ))
 
+    top_margin = 10
+
+    if(title != ""):
+        top_margin = 50
+
     fig.update_layout(
-        title="",
+        title=title,
         xaxis_title="Relevância",
         yaxis_title="Palavras",
         plot_bgcolor="white",
         height=300,
-        margin=dict(l=10, r=10, t=10, b=10) 
+        margin=dict(l=10, r=10, t=top_margin, b=10) 
     )
     
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_words_chart_{topic_number}_{x}")
@@ -216,18 +295,25 @@ def render_overview_topics(topic_amount):
         col1, col2 = st.columns(2, gap="medium")
 
         with col1:
-            render_topic_words(topic_number, topic_amount)
+            render_topic_words(topic_number, topic_amount, title="Relevância das Palavras do Tópico")
 
         with col2:
             positive_feedbacks = row.get('positive_feedback', 0)
             criticisms = row.get('criticism', 0)
             suggestions = row.get('suggestion', 0)
             not_pertinent = row.get('not_pertinent', 0)
-            fig = create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent)
+            fig = create_percentage_bar_chart_topics(positive_feedbacks, criticisms, suggestions, not_pertinent)
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
 
-def render_response_percentages(df, question, background_color):
-    """Exibe as respostas e percentuais com base no dataset enviado, substituindo os números pelas respostas completas."""
+def render_response_percentages(df, question, y):
+    color_mapping = {
+        "Concordo Totalmente": '#1a9850',  
+        "Concordo Parcialmente": '#98df8a',   
+        "Não concordo, nem discordo": '#fee08b', 
+        "Discordo Parcialmente": '#fc8d59',   
+        "Discordo Totalmente": '#d73027'      
+    }
+
     response_labels = {
         1: "Discordo Totalmente",
         2: "Discordo Parcialmente",
@@ -237,29 +323,64 @@ def render_response_percentages(df, question, background_color):
     }
 
     # Conta as respostas e calcula os percentuais
-    response_counts = df[question].value_counts(normalize=True) * 100
+    response_counts = df[question].value_counts()
+    total = response_counts.sum()
 
-    # Ordena conforme a ordem natural dos índices
-    response_counts = response_counts.sort_index()
-
-    responses_html = ""
-    for resposta, percentual in response_counts.items():
-        # Substitui o índice pelo rótulo do mapeamento
-        label = response_labels.get(resposta, resposta)
-        responses_html += (
-            f"<div style='display: flex; justify-content: space-between; margin-bottom: 10px;'>"
-            f"<span>{label}</span>"
-            f"<span>{percentual:.2f}%</span>"
-            f"</div>"
-        )
+    # Substitui os índices pelas labels
+    response_counts.index = response_counts.index.map(response_labels)
 
     st.markdown(
-        f"<div style='background-color: {background_color}; padding: 15px; border-radius: 10px; margin-bottom: 10px;'>"
-        f"<strong>Distribuição das Respostas:</strong>"
-        f"<div style='margin-top: 10px;'>{responses_html}</div>"
-        f"</div>",
-        unsafe_allow_html=True,
+        """
+        <style>
+        .response-box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin-top: 5px;
+            border-radius: 5px;
+        }
+        .response-box ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .response-box li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .color-square {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
     )
+
+    list_items = ""
+    for response, count in response_counts.items():
+        percentage = (count / total) * 100
+
+        label = response.strip()  
+        color = color_mapping.get(label, "#000000")  
+
+        list_items += (
+            f"<li>"
+            f"<span class='color-square' style='background-color:{color};'></span>"
+            f"<strong>{response}:</strong> {count} respostas ({percentage:.2f}%)"
+            f"</li>"
+        )
+
+    st.markdown(f"""
+    <div class="response-box">
+      <h4>Distribuição das Respostas:</h4>
+      <ul>
+        {list_items}
+      </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 def render_positive_analysis(df, max, min, original_means):
     # Exibe as perguntas (melhor e pior) com seus percentuais de notas
