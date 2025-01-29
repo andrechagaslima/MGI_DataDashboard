@@ -490,7 +490,7 @@ def render_overview(df, topic_amount):
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
     # Mantendo as três abas
-    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise das Perguntas", "Análise dos Tópicos"])
+    tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise das Afirmações (Melhor/Pior)", "Análise dos Tópicos (Melhor/Pior)"])
 
     with tab1:
         render_overview_topics(topic_amount)
