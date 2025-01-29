@@ -17,14 +17,6 @@ colors_labels = {
 import plotly.graph_objects as go
 
 def plot_comment_distribution(results_df):
-    """
-    Gera um gráfico de barras horizontal para exibir a distribuição de tipos de comentários.
-
-    Parâmetros:
-    results_df (pd.DataFrame): DataFrame contendo a coluna 'results' com a classificação dos comentários.
-    """
-    
-    # Definir os tipos de comentários com rótulos em português e cores correspondentes
     categories = {
         "criticism": "Crítica",
         "positive feedback": "Elogio",
@@ -231,7 +223,7 @@ def render(topic_number, topic_amount):
     labels, values = zip(*sorted_word_and_importance)
     labels = list(labels)
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([f"Análise do Tópico", "Sumarização do Tópico", "Análise dos Comentários", "Afirmações de Concordância/Discordância", "Métrica SUS por Tópico"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([f"Análise do Tópico", "Sumarização do Tópico", "Análise dos Comentários", "Afirmações de Concordância/Discordância", "Métrica SUS do Tópico"])
     with tab1:
         get_topic_graphic(topic_number, labels, values) 
     with tab2:
