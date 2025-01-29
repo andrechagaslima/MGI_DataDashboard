@@ -87,7 +87,7 @@ def create_card(content, background_color):
         unsafe_allow_html=True,
     )
 
-def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent):
+def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent, title=""):
     """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
     total = positive_feedbacks + criticisms + suggestions + not_pertinent
     positive_rate = (positive_feedbacks / total) * 100 if total > 0 else 0
@@ -141,79 +141,9 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
         textposition='inside'
     ))
 
-    fig.update_layout(
-        barmode='stack',
-        xaxis=dict(
-            title="Porcentagem (%)",
-            range=[0, 100],
-            ticksuffix='%'
-        ),
-        yaxis=dict(
-            title="",
-            tickfont=dict(size=14)
-        ),
-        plot_bgcolor="white",
-        title="",
-        height=150,
-        margin=dict(l=10, r=10, t=10, b=10),
-        showlegend=True
-    )
+    top_margin = 50 if title else 10
 
-    return fig
-
-def create_percentage_bar_chart_topics(positive_feedbacks, criticisms, suggestions, not_pertinent):
-    """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
-    total = positive_feedbacks + criticisms + suggestions + not_pertinent
-    positive_rate = (positive_feedbacks / total) * 100 if total > 0 else 0
-    criticism_rate = (criticisms / total) * 100 if total > 0 else 0
-    suggestion_rate = (suggestions / total) * 100 if total > 0 else 0
-    not_pertinent_rate = (not_pertinent / total) * 100 if total > 0 else 0
-
-    fig = go.Figure()
-
-    # Adicionar barra de críticas
-    fig.add_trace(go.Bar(
-        y=["Comentários"],
-        x=[criticism_rate],
-        orientation='h',
-        marker=dict(color="#FFA6B1"),
-        name="Crítica",
-        text=f"{criticism_rate:.2f}%",
-        textposition='inside'
-    ))
-
-    # Adicionar barra de sugestões
-    fig.add_trace(go.Bar(
-        y=["Comentários"],
-        x=[suggestion_rate],
-        orientation='h',
-        marker=dict(color="#F0E68C"),
-        name="Sugestão",
-        text=f"{suggestion_rate:.2f}%",
-        textposition='inside'
-    ))
-
-    # Adicionar barra de não pertinentes
-    fig.add_trace(go.Bar(
-        y=["Comentários"],
-        x=[not_pertinent_rate],
-        orientation='h',
-        marker=dict(color="#D3D3D3"),
-        name="Não Pertinente",
-        text=f"{not_pertinent_rate:.2f}%",
-        textposition='inside'
-    ))
-
-    # Adicionar barra de elogios
-    fig.add_trace(go.Bar(
-        y=["Comentários"],
-        x=[positive_rate],
-        orientation='h',
-        marker=dict(color="#86E886"),
-        name="Elogio",
-        text=f"{positive_rate:.2f}%",
-        textposition='inside'
-    ))
+    height = 200 if title else 150
 
     fig.update_layout(
         barmode='stack',
@@ -227,10 +157,17 @@ def create_percentage_bar_chart_topics(positive_feedbacks, criticisms, suggestio
             tickfont=dict(size=14)
         ),
         plot_bgcolor="white",
-        title="Percentual de Comentários por Sentimento",
-        height=150,
-        margin=dict(l=10, r=10, t=50, b=10),
-        showlegend=True
+        title=title,
+        height=height,  
+        margin=dict(l=10, r=10, t=top_margin, b=10),
+        showlegend=True,
+        legend=dict(
+            orientation="v",
+            yanchor="top",
+            y=1,
+            xanchor="left",
+            x=1.02, 
+        )
     )
 
     return fig
@@ -278,7 +215,19 @@ def render_topic_words(topic_number, topic_amount, x=0, title = ""):
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_words_chart_{topic_number}_{x}")
 
 def render_overview_topics(topic_amount):
-    st.markdown("### Análise Geral dos Tópicos")
+    # Criar layout de colunas para alinhar título e seletor na mesma linha
+    col1, col2 = st.columns([3, 1])  # Ajuste as proporções conforme necessário
+
+    with col1:
+        st.markdown("### Análise Geral dos Tópicos")
+
+    with col2:
+        sorting_option = st.selectbox(
+            " ",
+            options=["Padrão", "Mais elogiado", "Mais criticado"],
+            index=0,
+            label_visibility="collapsed"
+        )
 
     # Carregar os dados
     classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
@@ -287,22 +236,44 @@ def render_overview_topics(topic_amount):
     # Calcular os sentimentos
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
 
-    # Ordenar os tópicos pelo percentual de críticas
-    grouped = grouped.sort_values(by='criticism_rate', ascending=False)
+    # **Aplicar a ordenação escolhida**
+    if sorting_option == "Padrão":
+        grouped = grouped.sort_index(ascending=True)
+    elif sorting_option == "Mais elogiado":
+        grouped = grouped.sort_values(by='positive_feedback_rate', ascending=False)
+    elif sorting_option == "Mais criticado":
+        grouped = grouped.sort_values(by='criticism_rate', ascending=False)
 
+    # **Renderizar os tópicos conforme a nova ordenação**
     for topic_number, row in grouped.iterrows():
         st.markdown(f"#### Tópico {int(topic_number) + 1}")
+
         col1, col2 = st.columns(2, gap="medium")
 
         with col1:
             render_topic_words(topic_number, topic_amount, title="Relevância das Palavras do Tópico")
 
         with col2:
+            summary_file = f'data/overview_data/topic_summary_{int(topic_number)}.txt'
+            try:
+                topic_summary = load_topic_summary(summary_file)
+            except:
+                topic_summary = "Nenhum resumo disponível para este tópico."
+
+            st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Resumo do Tópico</h6>", unsafe_allow_html=True)
+            create_card(
+                content=f"{topic_summary}",
+                background_color="#f8f9fa"
+            )
+
             positive_feedbacks = row.get('positive_feedback', 0)
             criticisms = row.get('criticism', 0)
             suggestions = row.get('suggestion', 0)
             not_pertinent = row.get('not_pertinent', 0)
-            fig = create_percentage_bar_chart_topics(positive_feedbacks, criticisms, suggestions, not_pertinent)
+
+            fig = create_percentage_bar_chart(
+                positive_feedbacks, criticisms, suggestions, not_pertinent, "Percentual de Comentários por Sentimento"
+            )
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
 
 def render_response_percentages(df, question, y):
