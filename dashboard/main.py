@@ -20,14 +20,14 @@ if __name__ == "__main__":
     df = load_data('data/SUS_Simulador_Aposentadoria.csv')
 
     st.sidebar.title("Navegação")
-    selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises", "Modelagem de Tópicos"])
+    selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises Métrica SUS", "Modelagem de Tópicos"])
 
     topic_amount = st.sidebar.selectbox("Selecione a Quantidade de Tópicos", (5, 10, 15))
 
     if selection == "Visão Geral":
         overview.render_overview(df, topic_amount)
 
-    elif selection == "Análises":
+    elif selection == "Análises Métrica SUS":
         # Create tabs for different analyses
         tab1, tab2 = st.tabs(["Afirmações de Concordância/Discordância", "Métrica SUS"])
         
