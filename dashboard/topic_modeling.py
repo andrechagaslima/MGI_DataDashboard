@@ -7,6 +7,7 @@ import multiple_choice_answers
 import SUS
 import overview as ov
 
+# Definição das cores para cada tipo de feedback
 colors_labels = {
     'criticism': "#ffcccc",
     'positive feedback': "#c8e6c9",
@@ -14,42 +15,37 @@ colors_labels = {
     'not pertinent': "#D3D3D3"
 }
 
-import plotly.graph_objects as go
-
 def plot_comment_distribution(results_df):
+    """ Plota a distribuição dos tipos de comentários """
     categories = {
         "criticism": "Crítica",
         "positive feedback": "Elogio",
         "suggestion": "Sugestão",
         "not pertinent": "Não Pertinente"
     }
-    
-    colors = ["#ffcccc", "#c8e6c9", "#F0E68C", "#D3D3D3"]
+
+    colors = list(colors_labels.values())
 
     # Contagem de cada categoria
-    comment_counts = {key: (results_df['results'] == key).sum() for key in categories.keys()}
+    comment_counts = results_df["results"].value_counts().to_dict()
     
     # Criar listas para o gráfico
-    labels = list(categories.values())  # Traduzindo os nomes das categorias
-    values = list(comment_counts.values())
+    labels = [categories.get(key, key) for key in categories.keys()]
+    values = [comment_counts.get(key, 0) for key in categories.keys()]
 
-    # Calcular porcentagens
     total_comments = sum(values)
     percentages = [(count / total_comments) * 100 if total_comments > 0 else 0 for count in values]
 
-    # Criar gráfico de barras horizontal
     fig = go.Figure()
-
     fig.add_trace(go.Bar(
-        y=labels,  # Usar os rótulos em português
+        y=labels,
         x=values,
         orientation='h',
         marker=dict(color=colors),
-        text=[f"{p:.1f}%" for p in percentages],  # Adiciona porcentagem
+        text=[f"{p:.1f}%" for p in percentages],
         textposition="outside"
     ))
 
-    # Configuração do layout
     fig.update_layout(
         title="Distribuição dos Tipos de Comentários",
         xaxis_title="Quantidade de Comentários",
@@ -59,35 +55,28 @@ def plot_comment_distribution(results_df):
         yaxis=dict(showgrid=False),
     )
 
-    # Exibir no Streamlit
     st.plotly_chart(fig, use_container_width=True)
 
-def docs_by_word(labels, df):
+def docs_by_word(labels, df ,df_topic_modeling, topic_number):
+    """ Exibe os comentários pertencentes ao tópico selecionado e pinta corretamente """
     
-    with open('./sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json', "r", encoding="utf-8") as file:
-        data = json.load(file)
-
-    y_pred_text = data.get("y_pred_text", [])
-
+    # 1. Carregar os dados corretamente
+    results_df = pd.read_csv('./data/results.csv', encoding="utf-8")
     comments_df = pd.read_csv('data/results_labels/flair.csv')
 
-    # Filtrar apenas os comentários do tópico ativo usando os IDs da `df` (tópico atual)
-    comments_df = comments_df[comments_df['ID'].isin(df['ID'])]
+    # 2. Filtrar os IDs pertencentes ao tópico selecionado
+    relevant_ids = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)]['document_id'].tolist()
+    
+    # 3. Filtrar os comentários que pertencem ao tópico
+    filtered_comments = comments_df[comments_df['ID'].isin(relevant_ids)].copy()
+    
+    # 4. Garantir que os resultados de classificação correspondem aos comentários filtrados
+    filtered_results = results_df[results_df["ID"].isin(relevant_ids)].copy()
 
-    all_comments = comments_df["Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria."]
-    ids = comments_df['ID']
-    sus = comments_df['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.']
+    # 5. Combinar as informações filtradas corretamente
+    results_df = filtered_comments.merge(filtered_results, on="ID", how="left")
 
-    results_df = pd.DataFrame({
-        "ID": ids,
-        "results": y_pred_text[:len(ids)],  # Ajustar para garantir que os tamanhos correspondam
-        "comments": all_comments,
-        "sus": sus
-    })
-
-    results_df.to_csv('./data/results.csv', index=False, encoding="utf-8")
-
-    # Seleção de comentários filtrados por palavra do tópico
+    # 6. Aplicar seleção por palavra-chave
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
         ['Ver todos os comentários'] + labels,
@@ -95,19 +84,21 @@ def docs_by_word(labels, df):
     )
 
     if word != 'Ver todos os comentários':
-        results_df = results_df[results_df['comments'].str.contains(word, case=False, na=False)]  # Filtro pelos comentários que contêm a palavra
+        results_df = results_df[results_df['comments'].str.contains(word, case=False, na=False)]
 
-    # Filtrar pelo tipo de comentário
+    # 7. Filtragem por tipo de comentário
     type_of_comment = st.selectbox(
         "Escolha o tipo de comentário que deseja visualizar:", 
         ['Todos Comentários', 'Apenas Elogios', 'Apenas Críticas', 'Apenas Não Pertinente', 'Apenas Sugestões'],
         key='aba5'
     )
 
-    word_on_topic = len(results_df) 
+    total_participants = len(results_df)
+    
     if type_of_comment == 'Todos Comentários':
-        plot_comment_distribution(results_df) 
-    elif type_of_comment == 'Apenas Elogios':
+        plot_comment_distribution(results_df)
+
+    if type_of_comment == 'Apenas Elogios':
         results_df = results_df[results_df['results'] == 'positive feedback']
     elif type_of_comment == 'Apenas Críticas':
         results_df = results_df[results_df['results'] == 'criticism']
@@ -116,22 +107,25 @@ def docs_by_word(labels, df):
     elif type_of_comment == 'Apenas Sugestões':
         results_df = results_df[results_df['results'] == 'suggestion']
 
-    # Exibir total de participantes filtrados
+    # 8. Exibir total de participantes filtrados
     st.markdown(
-        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(results_df)} ({0 if word_on_topic == 0 else (len(results_df)/word_on_topic) * 100:.2f}%)</div>",
+        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(results_df)} ({0 if total_participants == 0 else (len(results_df)/total_participants) * 100:.2f}%)</div>",
         unsafe_allow_html=True
     )
 
-    # Exibição dos comentários filtrados
+    # 9. Exibição dos comentários filtrados com cores corrigidas
     for _, d in results_df.iterrows():
         text = d['comments']
         label = d['results']
         sus = d['sus']
         ID = d['ID']
 
-        st.markdown(f"<div style='background-color: {colors_labels[label]}; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
+        color = colors_labels.get(label, "#FFFFFF")  # Cor padrão branca caso não encontre
+
+        st.markdown(f"<div style='background-color: {color}; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
                     f"<strong>Participante {ID} (SUS: {sus})</strong><br>{text}</div>",
                     unsafe_allow_html=True)
+
     
 def get_topic_graphic(topic_number, labels, values):
 
@@ -229,7 +223,7 @@ def render(topic_number, topic_amount):
     with tab2:
          get_topic_summary(topic_number)
     with tab3:  
-        docs_by_word(labels[::-1], df_data)
+        docs_by_word(labels[::-1], df_data, df_topic_modeling, topic_number)
     with tab4:
         multiple_choice_answers.render(df_data.drop(columns=['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.']), topic_modeling=True, labels=labels[::-1])      
     with tab5:
