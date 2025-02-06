@@ -84,7 +84,7 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
     )
 
     if word != 'Ver todos os comentários':
-        results_df = results_df[results_df['comments'].str.contains(word, case=False, na=False)]
+     results_df = results_df[results_df['clean_comments'].str.contains(word, case=False, na=False)]
 
     # 7. Filtragem por tipo de comentário
     type_of_comment = st.selectbox(

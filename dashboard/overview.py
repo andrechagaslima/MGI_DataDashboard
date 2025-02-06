@@ -90,10 +90,10 @@ def create_card(content, background_color):
 def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent, title=""):
     """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
     total = positive_feedbacks + criticisms + suggestions + not_pertinent
-    positive_rate = (positive_feedbacks / total) * 100 if total > 0 else 0
-    criticism_rate = (criticisms / total) * 100 if total > 0 else 0
-    suggestion_rate = (suggestions / total) * 100 if total > 0 else 0
-    not_pertinent_rate = (not_pertinent / total) * 100 if total > 0 else 0
+    positive_rate = round((positive_feedbacks / total) * 100, 1) if total > 0 else 0.0
+    criticism_rate = round((criticisms / total) * 100, 1) if total > 0 else 0.0
+    suggestion_rate = round((suggestions / total) * 100, 1) if total > 0 else 0.0
+    not_pertinent_rate = round((not_pertinent / total) * 100, 1) if total > 0 else 0.0
 
     fig = go.Figure()
 
@@ -214,6 +214,16 @@ def render_topic_words(topic_number, topic_amount, x=0, title = ""):
     
     st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_words_chart_{topic_number}_{x}")
 
+
+def count_classes_per_topic(df_results, df_documents_scores):
+    # Mesclar os dataframes usando o relacionamento entre ID e document_id
+    df_merged = df_results.merge(df_documents_scores, left_on="ID", right_on="document_id", how="inner")
+    
+    # Contar quantas classes existem na coluna 'results' por tópico
+    class_count_per_topic = df_merged.groupby("dominant_topic")["results"].value_counts().unstack(fill_value=0)
+    
+    return class_count_per_topic
+
 def render_overview_topics(topic_amount):
     # Criar layout de colunas para alinhar título e seletor na mesma linha
     col1, col2 = st.columns([3, 1])  # Ajuste as proporções conforme necessário
@@ -227,11 +237,14 @@ def render_overview_topics(topic_amount):
             options=["Padrão", "Mais elogiado", "Mais criticado"],
             index=0,
             label_visibility="collapsed"
-        )
+        ) 
 
     # Carregar os dados
     classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')
+    df_results = pd.read_csv('data/results.csv')
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+
+    class_count_df = count_classes_per_topic(df_results, df_topic_modeling)
 
     # Calcular os sentimentos
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
@@ -266,10 +279,10 @@ def render_overview_topics(topic_amount):
                 background_color="#f8f9fa"
             )
 
-            positive_feedbacks = row.get('positive_feedback', 0)
-            criticisms = row.get('criticism', 0)
-            suggestions = row.get('suggestion', 0)
-            not_pertinent = row.get('not_pertinent', 0)
+            positive_feedbacks = class_count_df['positive feedback'][topic_number]
+            criticisms = class_count_df['criticism'][topic_number]
+            suggestions = class_count_df['suggestion'][topic_number]
+            not_pertinent = class_count_df['not pertinent'][topic_number]
 
             fig = create_percentage_bar_chart(
                 positive_feedbacks, criticisms, suggestions, not_pertinent, "Percentual de Comentários por Sentimento"
@@ -282,7 +295,10 @@ def render_specific_topic(topic_number, topic_amount):
 
     # Carregar os dados
     classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')
+    df_results = pd.read_csv('data/results.csv')
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+    
+    class_count_df = count_classes_per_topic(df_results, df_topic_modeling) 
 
     # Calcular os sentimentos
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
@@ -310,10 +326,10 @@ def render_specific_topic(topic_number, topic_amount):
                 background_color="#f8f9fa"
             )
 
-            positive_feedbacks = row.get('positive_feedback', 0)
-            criticisms = row.get('criticism', 0)
-            suggestions = row.get('suggestion', 0)
-            not_pertinent = row.get('not_pertinent', 0)
+            positive_feedbacks = class_count_df['positive feedback'][topic_number]
+            criticisms = class_count_df['criticism'][topic_number]
+            suggestions = class_count_df['suggestion'][topic_number]
+            not_pertinent = class_count_df['not pertinent'][topic_number]
 
             fig = create_percentage_bar_chart(
                 positive_feedbacks, criticisms, suggestions, not_pertinent, "Percentual de Comentários por Sentimento"
