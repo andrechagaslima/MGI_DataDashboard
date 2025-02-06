@@ -276,6 +276,52 @@ def render_overview_topics(topic_amount):
             )
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
 
+
+def render_specific_topic(topic_number, topic_amount):
+    st.markdown(f"### Análise do Tópico {topic_number + 1}")
+
+    # Carregar os dados
+    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')
+
+    # Calcular os sentimentos
+    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
+
+    # Filtrar apenas o tópico específico
+    if topic_number in grouped.index:
+        row = grouped.loc[topic_number]
+        st.markdown(f"#### Tópico {topic_number + 1}")
+
+        col1, col2 = st.columns(2, gap="medium")
+
+        with col1:
+            render_topic_words(topic_number, topic_amount, title="Relevância das Palavras do Tópico")
+
+        with col2:
+            summary_file = f'data/overview_data/topic_summary_{int(topic_number)}.txt'
+            try:
+                topic_summary = load_topic_summary(summary_file)
+            except:
+                topic_summary = "Nenhum resumo disponível para este tópico."
+
+            st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Resumo do Tópico</h6>", unsafe_allow_html=True)
+            create_card(
+                content=f"{topic_summary}",
+                background_color="#f8f9fa"
+            )
+
+            positive_feedbacks = row.get('positive_feedback', 0)
+            criticisms = row.get('criticism', 0)
+            suggestions = row.get('suggestion', 0)
+            not_pertinent = row.get('not_pertinent', 0)
+
+            fig = create_percentage_bar_chart(
+                positive_feedbacks, criticisms, suggestions, not_pertinent, "Percentual de Comentários por Sentimento"
+            )
+            st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
+    else:
+        st.warning(f"O tópico {topic_number + 1} não foi encontrado.")
+
 def render_response_percentages(df, question, y):
     color_mapping = {
         "Concordo Totalmente": '#1a9850',  

@@ -142,7 +142,7 @@ def get_topic_graphic(topic_number, labels, values):
         title={
             'text': f'Análise das Palavras do Tópico {int(topic_number)+1} e Suas Respectivas Pontuações*',
             'font': {'size': 24},
-            'x': 0.5,  # Centers the title
+            'x': 0.5, 
             'y': 0.9,
             'xanchor': 'center'
         },
@@ -219,9 +219,9 @@ def render(topic_number, topic_amount):
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([f"Análise do Tópico", "Sumarização do Tópico", "Análise dos Comentários", "Afirmações de Concordância/Discordância", "Métrica SUS do Tópico"])
     with tab1:
-        get_topic_graphic(topic_number, labels, values) 
+        ov.render_specific_topic(int(topic_number), topic_amount)
     with tab2:
-         get_topic_summary(topic_number)
+        get_topic_summary(topic_number)
     with tab3:  
         docs_by_word(labels[::-1], df_data, df_topic_modeling, topic_number)
     with tab4:
