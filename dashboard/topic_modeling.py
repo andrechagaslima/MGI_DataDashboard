@@ -99,7 +99,7 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
     st.markdown("""
         <style>
             div[data-testid="stSlider"] {
-                width: 90% !important;
+                width: 100% !important;
                 margin: right;
             }
         </style>

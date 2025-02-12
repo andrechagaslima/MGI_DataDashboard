@@ -228,13 +228,10 @@ def render_overview_topics(topic_amount):
     # Criar layout de colunas para alinhar título e seletor na mesma linha
     col1, col2 = st.columns([3, 1])  # Ajuste as proporções conforme necessário
 
-    with col1:
-        st.markdown("### Análise Geral dos Tópicos")
-
     with col2:
         sorting_option = st.selectbox(
             " ",
-            options=["Padrão", "Mais elogiado", "Mais criticado"],
+            options=["Mais elogiado", "Mais criticado"],
             index=0,
             label_visibility="collapsed"
         ) 
@@ -250,24 +247,37 @@ def render_overview_topics(topic_amount):
     grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
 
     # **Aplicar a ordenação escolhida**
-    if sorting_option == "Padrão":
-        grouped = grouped.sort_index(ascending=True)
-    elif sorting_option == "Mais elogiado":
+    if sorting_option == "Mais elogiado":
         grouped = grouped.sort_values(by='positive_feedback_rate', ascending=False)
     elif sorting_option == "Mais criticado":
         grouped = grouped.sort_values(by='criticism_rate', ascending=False)
-
+        
     # **Renderizar os tópicos conforme a nova ordenação**
     for topic_number, row in grouped.iterrows():
-        st.markdown(f"#### Tópico {int(topic_number) + 1}")
+        
+        topic_title_file = f'summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt'
+        topic_title = load_topic_summary(topic_title_file)
+        st.markdown(f"#### {topic_title}")
 
         col1, col2 = st.columns(2, gap="medium")
 
+        positive_feedbacks = class_count_df['positive feedback'][topic_number]
+        criticisms = class_count_df['criticism'][topic_number]
+        suggestions = class_count_df['suggestion'][topic_number]
+        not_pertinent = class_count_df['not pertinent'][topic_number]  
+        total_comments = positive_feedbacks + criticisms + suggestions + not_pertinent  
+
         with col1:
             render_topic_words(topic_number, topic_amount, title="Relevância das Palavras do Tópico")
+            st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Comentários no Tópico</h6>", unsafe_allow_html=True)
+            create_card(
+                content=f"{total_comments} Comentários ",
+                background_color="#f8f9fa"
+            )   
+
 
         with col2:
-            summary_file = f'data/overview_data/topic_summary_{int(topic_number)}.txt'
+            summary_file = f'summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(topic_number)}.txt'
             try:
                 topic_summary = load_topic_summary(summary_file)
             except:
@@ -289,6 +299,7 @@ def render_overview_topics(topic_amount):
             )
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
 
+        st.markdown("---")   
 
 def render_specific_topic(topic_number, topic_amount):
     st.markdown(f"### Análise do Tópico {topic_number + 1}")
@@ -333,7 +344,7 @@ def render_specific_topic(topic_number, topic_amount):
 
             fig = create_percentage_bar_chart(
                 positive_feedbacks, criticisms, suggestions, not_pertinent, "Percentual de Comentários por Sentimento"
-            )
+            )   
             st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"topic_chart_{int(topic_number)}")
     else:
         st.warning(f"O tópico {topic_number + 1} não foi encontrado.")
@@ -422,8 +433,6 @@ def render_positive_analysis(df, max, min, original_means):
     
     worst_question = min[0][2:].strip()
     worst_score = original_means[min[0]]
-
-    st.markdown("### Análise das Perguntas")
     
     # Melhor pergunta
     st.markdown("#### Pergunta com a Melhor Nota")
@@ -453,27 +462,47 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
     st.markdown("### Análise do Tópico com Maior Percentual de Comentários Positivos")
 
     col1, col2 = st.columns(2, gap="large")
-    positive_summary = load_topic_summary(f'data/overview_data/positivesummary.txt')
+    positive_summary = load_topic_summary(f"summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(most_positive_topic)}.txt")
 
     with col1:
-        st.markdown("#### Resumo do Tópico")
+        
+        file_path = f"summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(most_positive_topic)}.txt"
+    
+        try:
+          with open(file_path, "r", encoding="utf-8") as file:
+               title = file.read().strip()
+        except FileNotFoundError:
+          title = f"Arquivo não encontrado: {file_path}"
+    
         create_card(
-            content=f"Tópico {most_positive_topic + 1}",
+            content=f"Tópico: {title}",
             background_color="#86E886"
         )
         create_card(
-            content=f"{positive_summary}",
+            content=f"Resumo: {positive_summary}",
             background_color="#86E886"
         )
 
+
     with col2:
+        
+        df_results = pd.read_csv('data/results.csv')
+        df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+
+        class_count_df = count_classes_per_topic(df_results, df_topic_modeling)    
+       
+        positive_feedbacks = class_count_df['positive feedback'][most_positive_topic]
+        criticisms = class_count_df['criticism'][most_positive_topic]
+        suggestions = class_count_df['suggestion'][most_positive_topic]
+        not_pertinent = class_count_df['not pertinent'][most_positive_topic]
+
         st.markdown("#### Percentual de Comentários por Sentimento")
         row = grouped.loc[most_positive_topic]
         fig = create_percentage_bar_chart(
-            row['positive_feedback'],
-            row['criticism'],
-            row['suggestion'],
-            row['not_pertinent']
+            positive_feedbacks,
+            criticisms, 
+            suggestions,
+            not_pertinent
         )
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"positive_chart_{most_positive_topic}")
 
@@ -486,27 +515,40 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
     st.markdown("### Análise do Tópico com Maior Percentual de Comentários Negativos")
 
     col1, col2 = st.columns(2, gap="large")
-    negative_summary = load_topic_summary(f'data/overview_data/negativesummary.txt')
+    negative_summary = load_topic_summary(f"summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(most_negative_topic)}.txt")
 
     with col1:
-        st.markdown("#### Resumo do Tópico")
+        file_path = f"summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(most_negative_topic)}.txt"
+    
+        try:
+          with open(file_path, "r", encoding="utf-8") as file:
+               title = file.read().strip()
+        except FileNotFoundError:
+          title = f"Arquivo não encontrado: {file_path}"
+    
         create_card(
-            content=f"Tópico {most_negative_topic + 1}",
+            content=f"Tópico: {title}",
             background_color="#FFA6B1"
         )
         create_card(
-            content=f"{negative_summary}",
+            content=f"Resumo: {negative_summary}",
             background_color="#FFA6B1"
         )
+       
+        positive_feedbacks = class_count_df['positive feedback'][most_negative_topic]
+        criticisms = class_count_df['criticism'][most_negative_topic]
+        suggestions = class_count_df['suggestion'][most_negative_topic]
+        not_pertinent = class_count_df['not pertinent'][most_negative_topic]
+     
 
     with col2:
         st.markdown("#### Percentual de Comentários por Sentimento")
         row = grouped.loc[most_negative_topic]
         fig = create_percentage_bar_chart(
-            row['positive_feedback'],
-            row['criticism'],
-            row['suggestion'],
-            row['not_pertinent']
+            positive_feedbacks,
+            criticisms, 
+            suggestions,
+            not_pertinent
         )
         st.plotly_chart(fig, use_container_width=True, config={"staticPlot": True}, key=f"negative_chart_{most_negative_topic}")
 

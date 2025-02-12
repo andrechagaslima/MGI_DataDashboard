@@ -12,6 +12,23 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def get_topic_title(topic_amount, topic_number):
+    file_path = f"summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt"
+    
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            title = file.read().strip()
+        return title
+    except FileNotFoundError:
+        return f"Arquivo não encontrado: {file_path}"
+
+def load_all_topic_titles(topic_amount):
+    titles = []
+    for topic_number in range(topic_amount):
+        title = get_topic_title(topic_amount, topic_number)
+        titles.append(title)
+    return titles
+
 @st.cache_data
 def load_data(path):
     return pd.read_csv(path)    
@@ -65,8 +82,14 @@ if __name__ == "__main__":
             SUS.render(df)
 
     elif selection == "Modelagem de Tópicos":     
-        # Sidebar for topic selection
-        topic_number = st.sidebar.selectbox("Selecione um Tópico:", range(1, topic_amount+1)) - 1
+        
+        topic_titles = load_all_topic_titles(topic_amount)
+
+        # Sidebar for topic selection # Exibe o selectbox com os títulos dos tópicos
+        selected_topic_title = st.sidebar.selectbox("Selecione um Tópico:", options=topic_titles)
+    
+        # Recupera o índice do tópico selecionado para usar na renderização
+        topic_number = topic_titles.index(selected_topic_title)
 
         # Render content based on the active topic
         topic_modeling.render(topic_number=str(topic_number),topic_amount = topic_amount)
