@@ -1,0 +1,1 @@
+Simulador útil, mas com limitações.

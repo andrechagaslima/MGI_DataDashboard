@@ -175,8 +175,6 @@ class LLM():
             response_model = self.predict_llm_(f'Input: {text}')
 
             while response_model not in self.categories:
-                print(response_model)
-                exit()
                 print('Regenerating response.')
                 new_text = f'Attention! Classify only into the categories you were instructed to.\nInput: {text}'
                 response_model = self.predict_llm_(new_text)

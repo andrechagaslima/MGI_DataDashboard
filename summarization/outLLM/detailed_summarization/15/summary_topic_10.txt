@@ -1,0 +1,7 @@
+O simulador de aposentadoria desenvolvido pelo governo é uma ferramenta útil e fácil de usar, mas ainda apresenta alguns problemas e sugestões de melhoria. Muitos usuários elogiaram a ferramenta por ser simples e fácil de usar, facilitando a vida dos servidores e evitando a sobrecarga de trabalho nos órgãos de Gestão de Pessoas. Além disso, a ferramenta é útil para os servidores que estão próximos ou já estão aposentados, pois apresenta informações precisas e confiáveis sobre as opções de aposentadoria.
+
+No entanto, alguns usuários relataram problemas e sugestões de melhoria. Alguns mencionaram que a ferramenta não carrega informações sobre ocupação anterior e não conta corretamente o tempo trabalhado dentro do próprio serviço público. Outros relataram que a ferramenta não apresenta informações sobre as regras de reajuste e não fornece valores financeiros, tornando difícil saber qual opção de aposentadoria é mais vantajosa.
+
+Além disso, alguns usuários sugeriram melhorias, como a inclusão de informações sobre aposentadoria por doença e o cálculo do valor previsto da aposentadoria. Outros sugeriram a inclusão de um campo para enviar mensagem para tirar dúvidas ou pedir acertos sobre as informações condidas no simulador.
+
+Em resumo, o simulador de aposentadoria é uma ferramenta útil e fácil de usar, mas ainda apresenta alguns problemas e sugestões de melhoria. Com algumas melhorias, a ferramenta pode se tornar ainda mais útil e eficaz para os servidores.

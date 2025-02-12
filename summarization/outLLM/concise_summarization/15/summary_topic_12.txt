@@ -1,0 +1,1 @@
+O simulador de aposentadoria apresenta inconsistências e erros, levando a resultados incorretos e confusão. Muitos usuários relataram erros na contagem do tempo de serviço, falta de reconhecimento de opções de aposentadoria especial e conversão de tempo especial em comum, além de informações não claras e opções não incluídas.

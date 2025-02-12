@@ -1,0 +1,1 @@
+O simulador de aposentadoria do governo desenvolvido é útil, mas apresenta limitações e inconsistências, como dificuldades em incluir tempo de serviço fora do serviço público e problemas com a integração de dados de contribuição ao INSS, o que pode levar a simulações incompletas e inúteis.

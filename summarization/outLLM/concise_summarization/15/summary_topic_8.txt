@@ -1,0 +1,1 @@
+O simulador de aposentadoria é útil, mas apresenta limitações e sugestões de melhoria. Usuários pedem informações adicionais, como estimativa do salário de aposentadoria, remuneração líquida e descontos, e opções de aposentadoria proporcional e simulação de aposentadoria por incapacidade e acidente de trabalho.
