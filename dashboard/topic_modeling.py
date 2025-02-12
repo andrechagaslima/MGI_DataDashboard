@@ -76,7 +76,9 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
     # 5. Combinar as informações filtradas corretamente
     results_df = filtered_comments.merge(filtered_results, on="ID", how="left")
 
-    # 6. Aplicar seleção por palavra-chave
+    results_df['sus'] = results_df['sus'].astype(str).str.replace(',', '.').astype(float)
+
+    # 7. Filtragem por palavra-chave
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
         ['Ver todos os comentários'] + labels,
@@ -84,17 +86,40 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
     )
 
     if word != 'Ver todos os comentários':
-     results_df = results_df[results_df['clean_comments'].str.contains(word, case=False, na=False)]
+        results_df = results_df[results_df['clean_comments'].str.contains(word, case=False, na=False)]
 
-    # 7. Filtragem por tipo de comentário
+    # 8. Filtragem por tipo de comentário
     type_of_comment = st.selectbox(
         "Escolha o tipo de comentário que deseja visualizar:", 
         ['Todos Comentários', 'Apenas Elogios', 'Apenas Críticas', 'Apenas Não Pertinente', 'Apenas Sugestões'],
         key='aba5'
     )
 
-    total_participants = len(results_df)
+    # 6. Filtro para intervalo da métrica SUS
+    st.markdown("""
+        <style>
+            div[data-testid="stSlider"] {
+                width: 90% !important;
+                margin: right;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    results_df['sus'] = results_df['sus'].astype(str).str.replace(',', '.').astype(float)
     
+    min_sus, max_sus = st.slider(
+        "Selecione o intervalo da métrica SUS:",
+        min_value=0,
+        max_value=100,
+        value=(0, 100),
+        step=1
+    )
+
+    results_df = results_df[(results_df['sus'] >= min_sus) & (results_df['sus'] <= max_sus)]
+
+
+    total_participants = len(results_df)
+
     if type_of_comment == 'Todos Comentários':
         plot_comment_distribution(results_df)
 
@@ -107,13 +132,13 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
     elif type_of_comment == 'Apenas Sugestões':
         results_df = results_df[results_df['results'] == 'suggestion']
 
-    # 8. Exibir total de participantes filtrados
+    # 9. Exibir total de participantes filtrados
     st.markdown(
         f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(results_df)} ({0 if total_participants == 0 else (len(results_df)/total_participants) * 100:.2f}%)</div>",
         unsafe_allow_html=True
     )
 
-    # 9. Exibição dos comentários filtrados com cores corrigidas
+    # 10. Exibição dos comentários filtrados com cores corrigidas
     for _, d in results_df.iterrows():
         text = d['comments']
         label = d['results']
