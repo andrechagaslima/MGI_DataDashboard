@@ -207,9 +207,10 @@ def load_topic_summary(file):
     with open(file, 'r', encoding='utf-8') as f:
         return f.read()
     
-def get_topic_summary(topic_number):
+def get_topic_summary(topic_number, topic_amount):
 
-    topic_summary = load_topic_summary(f'topic_summary/summary_topic_{topic_number}.txt')
+    topic_summary_file = f'summarization/outLLM/detailed_summarization/{topic_amount}/summary_topic_{int(topic_number)}.txt'
+    topic_summary = load_topic_summary(topic_summary_file)
     
     st.markdown(f"<div style='background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
                 f"\n\n{topic_summary}"
@@ -246,7 +247,7 @@ def render(topic_number, topic_amount):
     with tab1:
         ov.render_specific_topic(int(topic_number), topic_amount)
     with tab2:
-        get_topic_summary(topic_number)
+        get_topic_summary(topic_number, topic_amount)
     with tab3:  
         docs_by_word(labels[::-1], df_data, df_topic_modeling, topic_number)
     with tab4:

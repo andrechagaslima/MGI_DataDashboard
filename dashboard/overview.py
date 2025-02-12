@@ -50,34 +50,22 @@ def calculate_means(df):
     )
 
 def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount):
-    """Calcula os totais de sentimentos (elogio, crítica, sugestão, não pertinente) por tópico."""
-    # Garantir que o número de classificações corresponde ao número de tópicos no DataFrame
-    if len(classification_data) > len(df_topic_modeling):
-        classification_data = classification_data[:len(df_topic_modeling)]
-    elif len(classification_data) < len(df_topic_modeling):
-        raise ValueError("O número de classificações é menor que o número de tópicos no DataFrame.")
+    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
+    df_results = pd.read_csv('data/results.csv')
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
 
-    # Adicionar as classificações ao DataFrame de tópicos
-    df_topic_modeling['classification'] = classification_data
+    class_count_df = count_classes_per_topic(df_results, df_topic_modeling)
 
-    # Agrupar por tópico dominante e contar classificações
-    grouped = df_topic_modeling.groupby('dominant_topic')['classification'].value_counts().unstack(fill_value=0)
+    class_count_df["total"] = class_count_df["criticism"] + class_count_df["positive feedback"] + class_count_df["suggestion"] + class_count_df["not pertinent"]
 
-    # Calcular os totais
-    grouped['total'] = grouped.sum(axis=1)
-    grouped['positive_feedback'] = grouped.get('positive feedback', 0)
-    grouped['criticism'] = grouped.get('criticism', 0)
-    grouped['suggestion'] = grouped.get('suggestion', 0)
-    grouped['not_pertinent'] = grouped.get('not pertinent', 0)
-
-    grouped['positive_feedback_rate'] = (grouped['positive_feedback'] / grouped['total']) * 100
-    grouped['criticism_rate'] = (grouped['criticism'] / grouped['total']) * 100
+    class_count_df['positive_feedback_rate'] = (class_count_df['positive feedback'] / class_count_df['total']) * 100
+    class_count_df['criticism_rate'] = (class_count_df['criticism'] / class_count_df['total']) * 100
 
     # Identificar os tópicos com mais elogios e críticas
-    most_positive_topic = grouped['positive_feedback_rate'].idxmax()
-    most_critical_topic = grouped['criticism_rate'].idxmax()
+    most_positive_topic = class_count_df['positive_feedback_rate'].idxmax()
+    most_critical_topic = class_count_df['criticism_rate'].idxmax()
 
-    return grouped, most_positive_topic, most_critical_topic
+    return class_count_df, most_positive_topic, most_critical_topic
 
 def create_card(content, background_color):
     return st.markdown(
@@ -302,7 +290,15 @@ def render_overview_topics(topic_amount):
         st.markdown("---")   
 
 def render_specific_topic(topic_number, topic_amount):
-    st.markdown(f"### Análise do Tópico {topic_number + 1}")
+    topic_title_file = f'summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt'
+    topic_title = load_topic_summary(topic_title_file)
+    st.markdown(f"#### {topic_title}")
+
+    summary_file = f'summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(topic_number)}.txt'
+    try:
+          topic_summary = load_topic_summary(summary_file)
+    except:
+          topic_summary = "Nenhum resumo disponível para este tópico."
 
     # Carregar os dados
     classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
@@ -316,8 +312,6 @@ def render_specific_topic(topic_number, topic_amount):
 
     # Filtrar apenas o tópico específico
     if topic_number in grouped.index:
-        row = grouped.loc[topic_number]
-        st.markdown(f"#### Tópico {topic_number + 1}")
 
         col1, col2 = st.columns(2, gap="medium")
 
@@ -325,11 +319,6 @@ def render_specific_topic(topic_number, topic_amount):
             render_topic_words(topic_number, topic_amount, title="Relevância das Palavras do Tópico")
 
         with col2:
-            summary_file = f'data/overview_data/topic_summary_{int(topic_number)}.txt'
-            try:
-                topic_summary = load_topic_summary(summary_file)
-            except:
-                topic_summary = "Nenhum resumo disponível para este tópico."
 
             st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Resumo do Tópico</h6>", unsafe_allow_html=True)
             create_card(
@@ -464,6 +453,10 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f"summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(most_positive_topic)}.txt")
 
+    df_results = pd.read_csv('data/results.csv')
+    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+    class_count_df = count_classes_per_topic(df_results, df_topic_modeling)    
+
     with col1:
         
         file_path = f"summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(most_positive_topic)}.txt"
@@ -483,18 +476,19 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
             background_color="#86E886"
         )
 
-
-    with col2:
-        
-        df_results = pd.read_csv('data/results.csv')
-        df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
-
-        class_count_df = count_classes_per_topic(df_results, df_topic_modeling)    
-       
         positive_feedbacks = class_count_df['positive feedback'][most_positive_topic]
         criticisms = class_count_df['criticism'][most_positive_topic]
         suggestions = class_count_df['suggestion'][most_positive_topic]
-        not_pertinent = class_count_df['not pertinent'][most_positive_topic]
+        not_pertinent = class_count_df['not pertinent'][most_positive_topic]  
+        total_comments = positive_feedbacks + criticisms + suggestions + not_pertinent  
+
+        st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Comentários no Tópico</h6>", unsafe_allow_html=True)
+        create_card(
+                content=f"{total_comments} Comentários ",
+                background_color="#f8f9fa"
+               )  
+
+    with col2: 
 
         st.markdown("#### Percentual de Comentários por Sentimento")
         row = grouped.loc[most_positive_topic]
@@ -538,7 +532,14 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
         positive_feedbacks = class_count_df['positive feedback'][most_negative_topic]
         criticisms = class_count_df['criticism'][most_negative_topic]
         suggestions = class_count_df['suggestion'][most_negative_topic]
-        not_pertinent = class_count_df['not pertinent'][most_negative_topic]
+        not_pertinent = class_count_df['not pertinent'][most_negative_topic]  
+        total_comments = positive_feedbacks + criticisms + suggestions + not_pertinent  
+        
+        st.markdown("<h6 style='font-weight: 900; margin-top: 10px;'>Comentários no Tópico</h6>", unsafe_allow_html=True)
+        create_card(
+                content=f"{total_comments} Comentários ",
+                background_color="#f8f9fa"
+               )  
      
 
     with col2:
