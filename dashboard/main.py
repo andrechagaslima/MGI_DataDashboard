@@ -6,6 +6,9 @@ import topic_modeling
 import overview  
 import json
 
+def remove_final_period(text):
+    return text[:-1] if text.endswith('.') else text
+
 st.set_page_config(
     page_title="MGI - Protótipo",
     layout="wide",  
@@ -18,7 +21,7 @@ def get_topic_title(topic_amount, topic_number):
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             title = file.read().strip()
-        return title
+        return title[:-1] if title.endswith('.') else title
     except FileNotFoundError:
         return f"Arquivo não encontrado: {file_path}"
 
