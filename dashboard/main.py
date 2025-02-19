@@ -20,7 +20,7 @@ def get_topic_title(topic_amount, topic_number):
     
     try:
         with open(file_path, "r", encoding="utf-8") as file:
-            title = file.read().strip()
+            title = file.read().replace('"', '').strip()
         return title[:-1] if title.endswith('.') else title
     except FileNotFoundError:
         return f"Arquivo não encontrado: {file_path}"

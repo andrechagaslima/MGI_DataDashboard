@@ -244,7 +244,7 @@ def render_overview_topics(topic_amount):
     for topic_number, row in grouped.iterrows():
         
         topic_title_file = f'summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt'
-        topic_title = load_topic_summary(topic_title_file)
+        topic_title = load_topic_summary(topic_title_file).replace('"', '').replace('.', '')
         st.markdown(f"#### {topic_title}")
 
         col1, col2 = st.columns(2, gap="medium")
@@ -291,7 +291,7 @@ def render_overview_topics(topic_amount):
 
 def render_specific_topic(topic_number, topic_amount):
     topic_title_file = f'summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt'
-    topic_title = load_topic_summary(topic_title_file)
+    topic_title = load_topic_summary(topic_title_file).replace('"', '').replace('.', '')
     st.markdown(f"#### {topic_title}")
 
     summary_file = f'summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(topic_number)}.txt'
@@ -463,7 +463,7 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
     
         try:
           with open(file_path, "r", encoding="utf-8") as file:
-               title = file.read().strip()
+               title = file.read().replace('"', '').replace('.', '')
         except FileNotFoundError:
           title = f"Arquivo não encontrado: {file_path}"
     
@@ -516,7 +516,7 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
     
         try:
           with open(file_path, "r", encoding="utf-8") as file:
-               title = file.read().strip()
+               title = file.read().replace('"', '').replace('.', '')
         except FileNotFoundError:
           title = f"Arquivo não encontrado: {file_path}"
     
