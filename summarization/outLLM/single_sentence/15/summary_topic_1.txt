@@ -1,1 +1,1 @@
-Falta de consideração de tempo de serviço.
+"Melhorias necessárias para precisão e integração."

@@ -1,1 +1,1 @@
-Os usuários tiveram uma experiência mista com o simulador de aposentadoria. Alguns acharam útil e fácil de usar, enquanto outros encontraram complexo e difícil de entender. Sugestões incluem melhorias na interface e inclusão de exemplos hipotéticos.
+O simulador de aposentadoria é uma ferramenta útil, mas apresenta alguns problemas. É importante, acessível e útil para tomar decisões informadas. No entanto, não leva em conta o tempo de averbação e não é intuitivo. Sugere-se melhorar a simulação de valores e a interface do simulador.

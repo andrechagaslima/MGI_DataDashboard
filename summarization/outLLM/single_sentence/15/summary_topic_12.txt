@@ -1,1 +1,1 @@
-Simulador de aposentadoria com erros e inconsistências.
+"Simulador precisa de dados precisos e clareza."

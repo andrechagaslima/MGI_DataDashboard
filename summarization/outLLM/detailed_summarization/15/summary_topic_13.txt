@@ -1,1 +1,26 @@
-Os usuários do aplicativo desenvolvido pelo governo expressaram sugestões, críticas e elogios. Alguns sugeriram a inclusão de simulações para servidores que migraram para o Regime de Previdência Complementar (RPC) e para os que não migraram, com o objetivo de comparar o valor do salário na aposentadoria em ambas as situações. Outros pediram a inclusão do cálculo do Benefício Especial para os que migraram para o RPC, bem como a atualização anual do valor do benefício. Alguns usuários relataram problemas ao realizar a simulação, como a falta de tempo suficiente de PAA ou a não apresentação do Benefício Especial. Muitos agradeceram pelo aplicativo, considerando-o útil para o planejamento da aposentadoria. No entanto, alguns usuários criticaram a falta de informações sobre o valor do benefício especial e a não apresentação do cálculo do benefício para os que migraram para o RPC. Alguns sugeriram a inclusão de dados de empregos anteriores e a possibilidade de inserir/migrar dados de outros regimes previdenciários para compor todas as contribuições já realizadas pelo servidor.
+**Positive Points**:
+
+1. O simulador de aposentadoria é útil para ter uma visão do futuro e planejar a aposentadoria.
+2. O simulador facilita a vida profissional do servidor.
+3. O simulador é útil para ter uma noção do que receberá após a aposentadoria.
+4. O simulador atende as expectativas de planejamento para aposentadoria.
+
+**Negative Points**:
+
+1. O simulador não considera a situação de cálculo com base nos 80% das maiores remunerações (Lei 14.463/2022) para os servidores que migraram para o RPC.
+2. O simulador não apresenta a simulação para os servidores que migraram para o RPC.
+3. O simulador não inclui o cálculo do Benefício Especial para os servidores que migraram para o RPC.
+4. O simulador não apresenta o valor do benefício especial para os servidores que migraram para o RPC.
+5. O simulador não considera a migração de dados do INSS (TRABALHOS CLT / PRIVADOS) para o simulador.
+6. O simulador não inclui o cálculo do BE de quem fez a migração.
+7. O simulador não apresenta o valor do benefício financeiro atualizado para os servidores que migraram de regime.
+
+**Suggestions**:
+
+1. Incluir a simulação para os servidores que migraram para o RPC.
+2. Incluir o cálculo do Benefício Especial para os servidores que migraram para o RPC.
+3. Incluir o valor do benefício especial para os servidores que migraram para o RPC.
+4. Incluir a migração de dados do INSS (TRABALHOS CLT / PRIVADOS) para o simulador.
+5. Incluir o cálculo do BE de quem fez a migração.
+6. Incluir o valor do benefício financeiro atualizado para os servidores que migraram de regime.
+7. Incluir a possibilidade de inserção/migração de dados de outros regimes previdenciários para compor todas as contribuições já realizadas pelo servidor.

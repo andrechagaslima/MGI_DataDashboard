@@ -1,1 +1,23 @@
-O simulador de aposentadoria é uma ferramenta útil e fácil de usar, desenvolvida pelo governo para ajudar os servidores a calcular e planejar sua aposentadoria. A ferramenta apresenta informações confiáveis e as várias opções de aposentadoria, facilitando a vida do servidor e evitando a sobrecarga de trabalho nos órgãos de Gestão de Pessoas. No entanto, alguns usuários relataram inconsistências e dificuldades em entender as informações apresentadas, especialmente para os servidores com mais de 50 anos. Alguns sugeriram a inclusão de informações sobre a regra para os servidores que ingressaram no serviço público entre 2004 e 2013, bem como a opção de permitir que o servidor informe de forma manual os períodos de trabalho. Outros sugeriram a inclusão de informações sobre a remuneração, a média aritmética e a exclusão da média, além da opção de aposentadoria por doença e o cálculo do valor previsto da aposentadoria. Alguns usuários também relataram problemas ao acessar o simulador, especialmente os servidores que trabalham em outros órgãos públicos. Em geral, a ferramenta é considerada útil e importante para os servidores, mas precisa de melhorias e ajustes para atender às necessidades específicas de cada usuário.
+**Positive Points**:
+
+1. Fácil de usar e intuitivo.
+2. Oferece informações precisas e confiáveis sobre a aposentadoria.
+3. Permite que os servidores façam uma simulação de aposentadoria e avaliem suas opções.
+4. É uma ferramenta útil para ajudar os servidores a tomar decisões informadas sobre a aposentadoria.
+5. Facilita o acesso a informações importantes sobre a aposentadoria, como a data provável de aposentadoria e o valor estimado da aposentadoria.
+
+**Negative Points**:
+
+1. Pode apresentar inconsistências e erros nos cálculos.
+2. Não é claro e objetivo em alguns casos.
+3. Pode ser difícil de entender para os servidores que não têm conhecimento sobre a legislação de aposentadoria.
+4. Não oferece informações suficientes sobre as opções de aposentadoria e os critérios para elegibilidade.
+5. Pode não ser compatível com todos os tipos de vínculos e períodos trabalhados.
+
+**Suggestions**:
+
+1. Melhorar a precisão e a confiabilidade dos cálculos.
+2. Aumentar a clareza e objetividade da ferramenta.
+3. Oferecer mais informações sobre as opções de aposentadoria e os critérios para elegibilidade.
+4. Melhorar a compatibilidade da ferramenta com todos os tipos de vínculos e períodos trabalhados.
+5. Incluir uma opção para enviar o resultado da simulação para o RH da unidade para verificação e confirmação.

@@ -1,1 +1,1 @@
-Funcionalidade fácil de usar, independência do RH.
+"Simulador fácil e sem envolvimento HR"

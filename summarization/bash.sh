@@ -1,4 +1,4 @@
-python detailed_topic_comments_summarization.py
+#python detailed_topic_comments_summarization.py
 
 python concise_topic_comments_summarization.py
 

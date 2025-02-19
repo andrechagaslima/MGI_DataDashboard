@@ -45,9 +45,21 @@ def load_data(topic, total_topics):
     return text
 
 def get_prompt(text):
+    
     prompt = [
-    {'role': 'system', 'content': 'You will receive a summary of user comments about a government-developed application. Your task is to generate a more concise version, following the content exactly as given, without adding or inventing any new information. Preserve the key points.'},
-    {'role': 'user', 'content': f'Refine the following summary into a single paragraph of up to 40 words. Ensure it remains clear, neutral, and captures the key suggestions, critiques, and positive feedback concisely, exactly as stated in the provided summary.\n\nSummary: {text}'}]
+    {
+        "role": "system",
+        "content": """You will receive a summary of user comments, categorized into positive points, negative points, and suggestions.\n\n
+[Instructions]\n
+Step 1: Summarize the provided summary by extracting the key positive points, negative points, and suggestions mentioned.\n
+- Do not use the first person in the summary.\n
+- Return the summary in a single paragraph of up to 40 words, ensuring it remains clear and neutral.\n
+- The summary should be in Portuguese."""
+    },
+    {'role': 'user', 'content': f'{text}'}
+]
+
+
 
     return prompt
 
@@ -85,9 +97,11 @@ def save_summary(text, total_number_of_topics, topic):
         
 # MAIN ---------------------------------
 
-for total_t in [5, 10, 15]:
-#for total_t in [5]:
-    for t in range(total_t):
+for total_t in [10, 15]:
+#for total_t in [15]:
+    if total_t == 15: inicio = 7
+    else: inicio = 0
+    for t in range(inicio, total_t):
     #for t in [4, 0]:
         print(f'topic {t}')
         text = load_data(t, total_t)

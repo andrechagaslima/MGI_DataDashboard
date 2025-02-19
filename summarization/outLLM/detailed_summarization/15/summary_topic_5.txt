@@ -1,1 +1,36 @@
-Os usuários têm opiniões variadas sobre o simulador de aposentadoria desenvolvido pelo governo. Alguns consideram que o sistema é fácil de usar e prático, enquanto outros apontam problemas e limitações. Muitos usuários sugerem a expansão do cálculo para incluir projeções e simulações, mesmo para quem ainda não preenche os requisitos para a aposentadoria. Além disso, alguns pedem a disponibilização da planilha de cálculo e das fórmulas utilizadas para uma maior transparência e confiabilidade. Outros criticam a falta de informações sobre a memória de cálculo de tempo averbado e o impacto desse tempo no valor do benefício. Alguns usuários também relatam problemas ao tentar usar o simulador, como a exclusão das informações funcionais já existentes e a impossibilidade de realizar o cálculo. Em contrapartida, alguns usuários expressam satisfação com o sistema e consideram que ele é uma ferramenta útil para auxiliar os servidores nos cálculos de suas aposentadorias. No entanto, a maioria dos usuários sugere melhorias significativas, como a inclusão de mais opções de cálculo, a explicação clara do cálculo da aposentadoria e a disponibilização de informações mais detalhadas sobre a base de cálculo e as alíquotas do IRPF e PSS.
+**Positive Points**:
+
+1. Fácil de usar
+2. Simulador é uma ferramenta prática para auxiliar os servidores nos cálculos de suas aposentadorias
+3. Traz números realistas e consolidados
+4. Pode ser útil para quem ainda não preencheu os requisitos para a aposentadoria
+
+**Negative Points**:
+
+1. Cálculo da aposentadoria é muito básico e deveria ter mais opções
+2. Não apresenta os dados do BE, com a devida memória de cálculo
+3. Não dá a mínima previsão de quanto seria uma eventual aposentação ou pensão
+4. Fácil de usar, mas pode gerar dificuldade de interpretação no cálculo baseado nas regras
+5. Não apresenta todos os cenários possíveis juntos com as respectivas estimativas de proventos para cada cenário
+6. Não puxa a memória de cálculo
+7. Cálculo da aposentadoria está errado
+8. Não apresenta o valor líquido real do provento e quais alíquotas do IRPF e PSS incidentes
+9. Não mostra campo de tempo averbado de alguma forma
+10. Explicação do valor do cálculo é confusa
+
+**Suggestions**:
+
+1. Disponibilizar a planilha de cálculo, ou ao menos a memória de cálculo propriamente dita, com as fórmulas utilizadas
+2. Simular o valor do benefício mesmo para quem ainda não tem direito a aposentadoria
+3. Informar o melhor cálculo ao invés de termos que entrar um por um para saber qual o mais vantajoso
+4. Carregar as contribuições anteriores e já efetuar os cálculos das projeções
+5. Disponibilizar cálculo estimado do valor da aposentadoria
+6. Abrir campo para lançar averbação do RGPS, também com lançamento de valores, para um cálculo mais preciso
+7. Continuar o cálculo da simulação após a exclusão das menores contribuições
+8. Explicar melhor o cálculo dos proventos
+9. Apresentar todos os cenários possíveis juntos com as respectivas estimativas de proventos para cada cenário
+10. Puxar a memória de cálculo
+11. Apresentar o valor líquido real do provento e quais alíquotas do IRPF e PSS incidentes
+12. Mostrar campo de tempo averbado de alguma forma
+13. Apresentar adendos explicando de forma simples cada modalidade de cálculo
+14. Continuar como uma ferramenta para auxiliar os servidores nos cálculos de suas aposentadorias

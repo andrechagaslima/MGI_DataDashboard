@@ -1,1 +1,0 @@
-O simulador de aposentadoria é útil, mas apresenta limitações e erros, como problemas com a contagem do tempo de serviço e contribuição, além de problemas com a integração com os dados do INSS e a falta de consideração de períodos trabalhados em outros regimes previdenciários. Sugestões incluem melhorias para torná-lo mais preciso e útil.

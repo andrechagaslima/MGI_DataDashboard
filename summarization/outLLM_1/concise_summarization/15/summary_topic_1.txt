@@ -1,1 +1,0 @@
-O simulador de aposentadoria desenvolvido pelo governo é útil, mas apresenta limitações e inconsistências, como dificuldades em incluir períodos de trabalho em outros órgãos e regimes previdenciários, o que pode afetar a precisão da simulação.

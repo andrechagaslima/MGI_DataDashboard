@@ -1,1 +1,1 @@
-Simulação de aposentadoria incompleta e inútil.
+"Simulador precisa de ajustes para precisão."

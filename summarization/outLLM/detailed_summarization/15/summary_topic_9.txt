@@ -1,1 +1,33 @@
-Os usuários tiveram uma experiência mista com o simulador de aposentadoria desenvolvido pelo governo. Alguns usuários expressaram satisfação com a facilidade de uso e a utilidade do simulador, considerando-o uma ferramenta útil para calcular a aposentadoria. Outros, no entanto, relataram problemas técnicos, como a impossibilidade de realizar a simulação devido a limitações no tempo de serviço ou na falta de opções de aposentadoria. Alguns usuários também criticaram a falta de clareza e precisão nas informações apresentadas, bem como a ausência de opções de aposentadoria mais vantajosas. Embora alguns usuários tenham expressado gratidão pelo serviço, outros lamentaram a falta de funcionalidade e a complexidade do processo de aposentadoria no Brasil. Alguns usuários sugeriram melhorias, como a inclusão de opções de aposentadoria mais detalhadas, a possibilidade de incluir tempo de serviço pretérito e a integração com outros sistemas. Em geral, os usuários esperam que o simulador seja mais preciso, mais fácil de usar e mais útil para calcular a aposentadoria.
+**Positive Points**:
+
+1. Fácil de usar
+2. Prático
+3. Útil
+4. Ágil
+5. Bom para simular a aposentadoria
+6. Muito útil para os servidores
+7. Parabéns pelo ótimo serviço
+8. Simulador fácil de usar
+9. Muito fácil de simular a aposentadoria
+10. Prático, rápido e claro
+
+**Negative Points**:
+
+1. Não considera o tempo de contribuição
+2. Não apresenta o valor dos proventos no momento da aposentadoria
+3. Não contempla a aposentadoria compulsória
+4. Não é autoexplicativo
+5. Não funciona corretamente
+6. Não apresenta as informações do banco de dados do servidor
+7. Não traz a simulação
+8. Não é fácil de entender
+9. Não é útil para todos os servidores
+10. Não é bom para simular a aposentadoria
+
+**Suggestions**:
+
+1. Poderia ter um valor do benefício da aposentadoria simulado para o dia da simulação
+2. Poderia ter um valor em $ estimado de aposentadoria
+3. Poderia ter um link entre as situaas apresentadas para cada opção de aposentadoria e a situação real do aposentável
+4. Poderia ter um espaço para simular a inserção de outros vínculos
+5. Poderia ter um espaço para incluir tempo de serviço pretérito

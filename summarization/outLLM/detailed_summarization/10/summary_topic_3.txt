@@ -1,1 +1,38 @@
-Os usuários tiveram uma experiência variada ao usar o simulador de aposentadoria desenvolvido pelo governo. Alguns usuários expressaram satisfação e utilidade do simulador, considerando-o fácil de usar e útil para calcular a aposentadoria. Outros, no entanto, relataram dificuldades em usar o simulador, alegando que não conseguiu finalizar a simulação ou que o sistema não oferece opções para deficiências visuais. Alguns usuários também sugeriram melhorias, como a inclusão de opções para aposentadoria especial, a possibilidade de incluir tempo de serviço pretérito e a necessidade de aprimoramentos técnicos. Alguns usuários também expressaram frustração com a falta de informações sobre o valor líquido dos proventos após simulação e a necessidade de integração com outros sistemas. Em geral, os usuários consideraram o simulador uma ferramenta útil e importante, mas também destacaram a necessidade de melhorias e ajustes para atender às necessidades de todos os usuários.
+**Positive Points**:
+
+1. Fácil de usar
+2. Prático
+3. Rápido
+4. Útil
+5. Bom para servidores
+6. Muito útil
+7. Simples
+8. Fácil de entender
+9. Bom para aposentadoria
+10. Muito útil para servidores
+
+**Negative Points**:
+
+1. Não funciona corretamente
+2. Não apresenta valor dos proventos
+3. Não contempla a aposentadoria compulsória
+4. Não apresenta opções de aposentadoria
+5. Não é autoexplicativo
+6. Não é fácil de entender
+7. Não funciona para servidores com pouco tempo de serviço
+8. Não apresenta valor líquido dos proventos
+9. Não é útil para servidores com deficiência
+10. Não é bom para servidores com tempo de serviço pretérito
+
+**Suggestions**:
+
+1. Melhorar a explicação das opções de aposentadoria
+2. Adicionar valor dos proventos
+3. Contemplar a aposentadoria compulsória
+4. Adicionar opções de aposentadoria
+5. Melhorar a explicação do simulador
+6. Adicionar valor líquido dos proventos
+7. Melhorar a experiência do usuário
+8. Adicionar link da lei que ampara a aposentadoria
+9. Melhorar a integração com outros sistemas
+10. Adicionar espaço para incluir tempo de serviço pretérito

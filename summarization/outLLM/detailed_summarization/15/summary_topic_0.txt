@@ -1,1 +1,23 @@
-Os usuários tiveram uma experiência mista com o simulador de aposentadoria desenvolvido pelo governo. Alguns acharam útil e fácil de usar, enquanto outros encontraram complexo e difícil de entender. Muitos reclamaram que o simulador não levava em conta o tempo de averbação, não apresentava opções para servidores PCD ou em caso de pensão, e não simulava o valor real da aposentadoria. Alguns também criticaram a falta de orientação clara sobre as condições para implementação e a necessidade de melhorar a interface do usuário. Por outro lado, alguns usuários elogiaram o simulador por ser útil e acessível, e por ter ajudado a tomar decisões importantes sobre a aposentadoria. Alguns sugeriram melhorias, como a inclusão de exemplos hipotéticos de aposentadoria, a apresentação de opções de aposentadoria mais claras e objetivas, e a inclusão de uma opção para excluir ou incluir vínculos com um ícone mais à vista. Em geral, os usuários consideraram que o simulador precisa de ajustes e explicações mais claras para melhor atender às suas necessidades.
+**Positive Points**:
+
+1. O simulador é muito importante para subsidiar a decisão do servidor nessa questão de extrema importância.
+2. É acessível a qualquer momento, não preciso mais esperar um servidor calcular.
+3. O simulador é uma boa ferramenta para entender melhor as regras de aposentaria.
+4. É uma boa opção para quem deseja ter uma expectativa/estimativa para o cumprimento dos requisitos para aposentadoria.
+5. O simulador é uma ferramenta útil para ajudar a tomar decisões informadas sobre a aposentadoria.
+
+**Negative Points**:
+
+1. O simulador não levou em conta o tempo de averbação.
+2. O simulador não aceita a contagem de tempo ainda não averbada.
+3. O simulador não é intuitivo e apresenta muitas opções.
+4. O simulador não é claro e objetivo.
+5. O simulador não apresenta simulação de valores, parecido com a que havia no SIAPE.
+
+**Suggestions**:
+
+1. Acrescentar aba indicando qual a melhor opção para o(a) servidor(a).
+2. Criar um canal para tirar dúvidas a respeito da simulação de aposentadoria.
+3. Melhorar a simulação de valores, para facilitar a decisão do servidor em se aposentar ou não.
+4. Ajustar o simulador para que ele possa levar em conta o tempo de averbação.
+5. Melhorar a interface do simulador para que ele seja mais fácil de usar.

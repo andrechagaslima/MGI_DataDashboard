@@ -1,1 +1,0 @@
-O aplicativo de simulação de aposentadoria é útil e fácil de usar, mas apresenta inconsistências e problemas, como falta de informações sobre a contagem de tempo de serviço e opções de simulação. Sugestões incluem inclusão de remuneração e melhorias na atualização integrada do registro das contribuições.

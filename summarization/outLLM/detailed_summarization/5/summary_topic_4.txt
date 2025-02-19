@@ -1,1 +1,20 @@
-O simulador de aposentadoria é uma ferramenta útil para os servidores públicos, mas apresenta algumas limitações e erros. Muitos usuários relataram problemas com a contagem do tempo de serviço, incluindo a falta de consideração de períodos trabalhados em outros órgãos públicos ou na iniciativa privada. Alguns usuários também relataram erros na data de início no serviço público e no tempo total de contribuição. Além disso, alguns usuários criticaram a falta de opções de aposentadoria especial e a conversão do tempo especial em comum, além da impossibilidade de incluir períodos trabalhados em CLT. Outros usuários pediram a inclusão de vínculos anteriores ao ingresso no serviço público para contagem do tempo e a possibilidade de incluir períodos trabalhados em outros regimes próprios de previdência. Muitos usuários também relataram problemas com a simulação de aposentadoria, incluindo a impossibilidade de incluir períodos trabalhados em outros órgãos públicos ou na iniciativa privada, além da falta de consideração de períodos trabalhados em CLT. Alguns usuários também relataram erros na data de início no serviço público e no tempo total de contribuição. No entanto, alguns usuários elogiaram a ferramenta, dizendo que é útil para planejar a época da aposentadoria e que é fácil de usar. Alguns usuários também sugeriram melhorias, como a inclusão de períodos trabalhados em CLT e a possibilidade de incluir períodos trabalhados em outros regimes próprios de previdência. É importante melhorar a ferramenta para incluir períodos trabalhados em CLT e outros regimes próprios de previdência, além de corrigir os erros na contagem do tempo de serviço e na data de início no serviço público.
+**Positive Points**:
+
+1. O simulador é fácil de usar e intuitivo.
+2. É uma ferramenta útil para os servidores públicos que desejam saber quando podem se aposentar.
+3. Oferece várias opções de períodos para a aposentadoria.
+4. É uma ferramenta importante para os servidores públicos que desejam planejar sua aposentadoria.
+5. É uma ferramenta útil para os servidores públicos que desejam saber o valor da sua aposentadoria.
+
+**Negative Points**:
+
+1. O simulador não considera o tempo de contribuição anterior ao serviço público.
+2. Não considera o tempo de contribuição em outros regimes de previdência.
+3. Não permite a inclusão de tempo de contribuição em outros regimes de previdência.
+4. Não apresenta o valor da aposentadoria.
+5. Não é possível incluir o tempo de contribuição em outros regimes de previdência.
+
+**Suggestions**:
+
+1. Incluir a opção de adicionar tempo de serviço em outro serviço público.
+2. Incluir a opção de incluir tempo de contribuição em outros regimes de previdência.

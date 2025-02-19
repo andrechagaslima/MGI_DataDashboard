@@ -1,1 +1,38 @@
-O aplicativo de simulação de aposentadoria desenvolvido pelo governo recebeu comentários variados dos usuários. Alguns agradeceram a iniciativa e elogiaram a facilidade de uso e a utilidade da ferramenta, enquanto outros expressaram críticas e sugestões para melhorá-la. Muitos usuários agradeceram a oportunidade de simular a aposentadoria e planejar o futuro, e alguns expressaram gratidão pela ferramenta ter facilitado a vida do servidor. Alguns usuários também sugeriram melhorias, como a inclusão de mais opções de aposentadoria, a possibilidade de simular a aposentadoria com requisitos ainda não preenchidos e a integração com outros sistemas. Alguns usuários também expressaram dificuldades em entender o simulador e sugeriram a inclusão de mais explicações e orientações. Alguns usuários também criticaram a ferramenta, afirmando que não funcionou corretamente ou que não apresentou os resultados esperados.
+**Positive Points**:
+
+1. Fácil de usar
+2. Prático
+3. Útil
+4. Ajuda a planejar a aposentadoria
+5. Facilita a vida do servidor
+6. Excelente iniciativa
+7. Muito útil
+8. Simples e fácil de entender
+9. Ajuda a tomar decisões sobre a aposentadoria
+10. Facilita a compreensão dos requisitos para a aposentadoria
+
+**Negative Points**:
+
+1. Não apresenta o valor dos proventos no momento da aposentadoria
+2. Não considera o tempo de contribuição no município e no estado do Rio de Janeiro
+3. Não apresenta as opções de aposentadoria de forma clara
+4. Não é possível simular a aposentadoria com requisitos ainda não preenchidos
+5. Não é possível incluir o tempo de serviço anterior a entrada no cargo atual
+6. Não apresenta as alternativas para a aposentadoria de forma clara
+7. Não é possível simular a aposentadoria com base nos dados do NIS
+8. Não é possível incluir o link da lei que ampara a aposentadoria
+9. Não é possível incluir o valor estimado da aposentadoria
+10. Não é possível incluir a possibilidade de incluir tempo de serviço pretérito
+
+**Suggestions**:
+
+1. Incluir o tempo de contribuição no município e no estado do Rio de Janeiro
+2. Incluir o tempo de serviço anterior a entrada no cargo atual
+3. Incluir o valor dos proventos no momento da aposentadoria
+4. Incluir as opções de aposentadoria de forma clara
+5. Incluir a possibilidade de simular a aposentadoria com requisitos ainda não preenchidos
+6. Incluir a possibilidade de incluir tempo de serviço pretérito
+7. Incluir o valor estimado da aposentadoria
+8. Incluir o link da lei que ampara a aposentadoria
+9. Incluir a possibilidade de incluir tempo de contribuição no INSS
+10. Incluir a possibilidade de incluir tempo de serviço no INSS

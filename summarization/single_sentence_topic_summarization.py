@@ -46,14 +46,25 @@ def load_data(topic, total_topics):
     return text
 
 def get_prompt(text):
-    """prompt = [
-        {'role': 'system', 'content': 'You will receive a brief summary of user comments about a government-developed application, along with key words that represent the topic of these comments. Your task is to generate a concise, informative description that captures the core feedback, focusing on the most relevant points without additional explanation.'},
-        {'role': 'user', 'content': f'Generate a concise description, up to 6 words, that highlights the key feedback, such as critiques, suggestions, or positive comments. Focus on the most relevant and precise points without repeating or describing the application. Only provide the description—no additional information.\n\nSummary: {text}'}]"""
 
     prompt = [
-    {'role': 'system', 'content': 'You will receive a brief summary of user comments about a government-developed application, along with key words that represent the topic of these comments. Your task is to generate a concise, informative description that captures the core feedback. Do not add any new details or explanations—focus only on the relevant points from the summary provided.'},
-    {'role': 'user', 'content': f'Generate a concise description, up to 6 words, that highlights the key feedback, such as critiques, suggestions, or positive comments. Focus on the most relevant and precise points without repeating or describing the application. Do not create new information. Only provide the description—no additional information.\n\nSummary: {text}'}]
-    
+    {
+        "role": "system",
+        "content": """You will receive a brief summary of user comments, which address positive points, negative points, and suggestions. Your task is to generate a concise, informative description that captures the core feedback. 
+[Instructions]\n
+Step 1: Generate a concise description, up to 6 words, that highlights the key feedback.\n
+- Do not add any new details or explanations—focus only on the relevant points from the summary provided.\n
+- Do not add vague terms like "needs improvement" or "requires adjustments." Instead, highlight specific aspects mentioned in the comments.\n
+- The concise description should be in Portuguese.\n
+- Avoid redundancy and do not mention the application explicitly."""
+    },
+    {
+        "role": "user",
+        "content": f"{text}"
+    }
+]
+
+
     return prompt
 
 def get_summary(text):    
@@ -91,8 +102,10 @@ def save_summary(text, total_number_of_topics, topic):
 # MAIN ---------------------------------
 
 for total_t in [5, 10, 15]:
-#for total_t in [5]:
-    for t in range(total_t):
+#for total_t in [15]:
+    if total_t == 15: inicio = 7
+    else: inicio = 0
+    for t in range(inicio, total_t):
     #for t in [4, 0]:
         print(f'topic {t}')
         text = load_data(t, total_t)

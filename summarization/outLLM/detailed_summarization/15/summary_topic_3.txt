@@ -1,1 +1,21 @@
-Os usuários do simulador de aposentadoria desenvolvido pelo governo têm opiniões variadas sobre a ferramenta. Alguns a consideram útil e fácil de usar, enquanto outros encontram dificuldades em entender as opções e fundamentos legais apresentados. Muitos usuários sugerem melhorias e adições, como a inclusão de informações sobre as regras de transição, o valor do benefício especial, a possibilidade de usar o descarte legal de contribuições e a explicação dos fundamentos legais para os requisitos que devem ser preenchidos. Alguns usuários também pedem mais informações sobre as consequências e benefícios das opções de escolha entre os fundamentos legais aplicados. Outros sugerem a inclusão de um manual que explique a legislação e ajude a optar entre as alternativas que resultam no melhor provento estimado. Alguns usuários também relatam dificuldades em encontrar a melhor opção, a que favorece ao servidor, uma vez que não têm conhecimento profundo das leis. Alguns usuários também sugerem a inclusão de um link para a norma correspondente a cada simulação e não somente citar a correspondência na lei. Alguns usuários também relatam que o simulador não respeita o direito adquirido de usufruir a regra de transição do art. 3º da EC n. 47/2005, de quem ingressou no serviço público antes da EC n. 20/1998 e completou 35 (trinta e cinco) anos/30 (trinta) anos, antes da publicação da EC n. 103/2019. Alguns usuários também sugerem a inclusão de todas as outras regras de transição para simulação da aposentadoria do servidor. Alguns usuários também relatam que o simulador não abrangeu todas as opções previstas nas legislações vigentes. Alguns usuários também sugerem a inclusão de um simulador de cálculo de proventos de aposentadoria paralelamente ao simulador de aposentadoria, considerando o valor das remunerações constantes do próprio sistema do GOV.BR (SIGEPE) e também, com integração ao CNIS.
+**Positive Points**:
+
+1. O simulador é fácil de usar e oferece uma visão geral das opções de aposentadoria.
+2. É uma ferramenta útil para servidores que precisam entender as regras de aposentadoria e calcular seus benefícios.
+3. Oferece uma opção para simular a aposentadoria com base em diferentes fundamentos legais.
+4. É uma ferramenta importante para ajudar os servidores a tomar decisões informadas sobre a aposentadoria.
+
+**Negative Points**:
+
+1. A explicação dos fundamentos legais pode ser confusa para alguns usuários.
+2. A falta de informações sobre as consequências e benefícios de cada opção de aposentadoria pode levar a decisões erradas.
+3. A necessidade de conhecimento legal mais profundo pode ser um obstáculo para alguns usuários.
+4. A falta de informações sobre as regras de transição e as leis que regem a aposentadoria pode ser um problema.
+
+**Suggestions**:
+
+1. Incluir mais informações sobre as consequências e benefícios de cada opção de aposentadoria.
+2. Oferecer um botão com uma interrogação ("?") ou informação ("i") para obter esclarecimentos mais específicos de cada regra (lei) de aposentadoria.
+3. Incluir um link para o fundamento legal para cada opção de aposentadoria.
+4. Oferecer uma opção para solicitar o abono permanência e explicar as consequências e benefícios dessa opção.
+5. Melhorar a explicação dos fundamentos legais para torná-los mais acessíveis para os usuários.

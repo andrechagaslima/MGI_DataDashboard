@@ -1,7 +1,32 @@
-O simulador de aposentadoria desenvolvido pelo governo é uma ferramenta útil e fácil de usar, mas ainda apresenta alguns problemas e sugestões de melhoria. Muitos usuários elogiaram a ferramenta por ser simples e fácil de usar, facilitando a vida dos servidores e evitando a sobrecarga de trabalho nos órgãos de Gestão de Pessoas. Além disso, a ferramenta é útil para os servidores que estão próximos ou já estão aposentados, pois apresenta informações precisas e confiáveis sobre as opções de aposentadoria.
+**Positive Points**:
 
-No entanto, alguns usuários relataram problemas e sugestões de melhoria. Alguns mencionaram que a ferramenta não carrega informações sobre ocupação anterior e não conta corretamente o tempo trabalhado dentro do próprio serviço público. Outros relataram que a ferramenta não apresenta informações sobre as regras de reajuste e não fornece valores financeiros, tornando difícil saber qual opção de aposentadoria é mais vantajosa.
+1. Fácil de usar e intuitivo.
+2. Oferece informações precisas e confiáveis sobre a aposentadoria.
+3. Ajuda a simplificar o processo de informações sobre a aposentadoria.
+4. Evita longa espera por respostas.
+5. É uma ferramenta útil para os servidores.
+6. Facilita a tomada de decisão sobre a aposentadoria.
+7. Oferece opções de aposentadoria e calcula o valor da aposentadoria.
+8. É uma ferramenta importante para os servidores que estão próximos de se aposentar.
 
-Além disso, alguns usuários sugeriram melhorias, como a inclusão de informações sobre aposentadoria por doença e o cálculo do valor previsto da aposentadoria. Outros sugeriram a inclusão de um campo para enviar mensagem para tirar dúvidas ou pedir acertos sobre as informações condidas no simulador.
+**Negative Points**:
 
-Em resumo, o simulador de aposentadoria é uma ferramenta útil e fácil de usar, mas ainda apresenta alguns problemas e sugestões de melhoria. Com algumas melhorias, a ferramenta pode se tornar ainda mais útil e eficaz para os servidores.
+1. Pode apresentar inconsistências nos prazos.
+2. Não conta corretamente o tempo trabalhado dentro do próprio serviço público.
+3. Pode ser difícil de entender as opções de aposentadoria.
+4. Pode não ser claro sobre a fundamentação da concessão da aposentadoria.
+5. Pode não ser possível calcular o tempo de serviço ainda não averbado.
+6. Pode não ser possível incluir a opção de adicionar tempo manual.
+7. Pode não ser fácil de acessar para os servidores que não dominam o assunto.
+8. Pode não ser claro sobre a legislação que fundamente a opção escolhida para a simulação.
+
+**Suggestions**:
+
+1. Incluir a opção de adicionar tempo manual.
+2. Melhorar a atualização integrada do registro das contribuições.
+3. Incluir a opção de calcular o tempo de serviço ainda não averbado.
+4. Melhorar a fundamentação da concessão da aposentadoria.
+5. Incluir a opção de escolher a melhor aposentadoria.
+6. Melhorar a clareza sobre a legisação que fundamente a opção escolhida para a simulação.
+7. Incluir a opção de enviar o resultado direto para o RH da unidade.
+8. Melhorar a acessibilidade para os servidores que não dominam o assunto.

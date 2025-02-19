@@ -1,1 +1,12 @@
-O aplicativo desenvolvido pelo governo recebeu uma variedade de respostas dos usuários. Embora alguns não tenham compartilhado suas opiniões, outros expressaram satisfação com a funcionalidade do simulador, o qual foi considerado fácil de usar. Além disso, alguns usuários apontaram a independência do aplicativo em relação ao RH como um ponto positivo.
+**Positive Points**:
+
+1. The simulator is easy to use.
+2. It does not require involvement from the HR department.
+
+**Negative Points**:
+
+1. None mentioned.
+
+**Suggestions**:
+
+1. None mentioned.

@@ -1,1 +1,33 @@
-Os usuários têm opiniões variadas sobre o simulador de aposentadoria desenvolvido pelo governo. Alguns aprovam a facilidade e a praticidade do simulador, enquanto outros criticam a falta de opções e funcionalidades. Muitos usuários solicitam a inclusão de períodos de contribuição do RGPS, que ainda não foram averbados, para que possam simular a aposentadoria com mais precisão. Alguns também pedem a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Outros usuários solicitam a inclusão de vínculos do RGPS, a possibilidade de incluir período de contribuição do RGPS para servidores com deficiência e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC. Alguns usuários também solicitam a inclusão de período de contribuição do RGPS para servidores que ainda não realizaram a CTC e a opção de incluir tempo de contribuição do RGPS para servidores que ainda não realizaram a CTC.
+**Positive Points**:
+
+1. Fácil e prático de usar
+2. Excelente layout do simulador
+3. Importante para visualizar o tempo total de contribuição
+4. Boa iniciativa para proporcionar informações sobre a aposentadoria
+5. Simulador objetivo e fácil de usar
+
+**Negative Points**:
+
+1. Não contempla pessoas com deficiência (PCD)
+2. Não permite inclusão de período de RGPS
+3. Não considera vínculos do RGPS
+4. Não permite inclusão de tempo de contribuição não averbado
+5. Não permite simulação com base na Lei 142 - Aposentadoria do deficiente
+6. Não permite inclusão de período de CTC (RGPS) ainda não averbado
+7. Não permite inclusão de tempo trabalhado no RGPS para ser somado ao tempo RPPS
+8. Não permite simulação com inclusão de tempo de contribuição do RGPS
+9. Não permite inclusão de período de contribuição não averbado
+10. Não permite simulação com base na paridade e na Lei 142 - Aposentadoria do deficiente
+
+**Suggestions**:
+
+1. Incluir opção para incluir período de RGPS
+2. Permitir inclusão de tempo de contribuição não averbado
+3. Permitir simulação com base na Lei 142 - Aposentadoria do deficiente
+4. Permitir inclusão de período de CTC (RGPS) ainda não averbado
+5. Permitir inclusão de tempo trabalhado no RGPS para ser somado ao tempo RPPS
+6. Permitir simulação com inclusão de tempo de contribuição do RGPS
+7. Permitir inclusão de período de contribuição não averbado
+8. Permitir simulação com base na paridade e na Lei 142 - Aposentadoria do deficiente
+9. Incluir opção para incluir tempo de contribuição do RGPS
+10. Permitir inclusão de período de contribuição não averbado para simulação correta.

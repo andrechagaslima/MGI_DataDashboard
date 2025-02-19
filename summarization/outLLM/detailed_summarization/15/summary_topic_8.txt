@@ -1,1 +1,26 @@
-O simulador de aposentadoria é uma ferramenta útil, mas ainda apresenta algumas limitações e sugestões de melhoria. Muitos usuários expressaram dificuldades em entender os cálculos e a explicação dos resultados, o que pode levar a dúvidas e confusão. Alguns sugeriram a inclusão de informações adicionais, como a estimativa do salário de aposentadoria, a remuneração líquida e os descontos, para facilitar a compreensão e a tomada de decisão. Outros pediram a inclusão de opções de aposentadoria proporcional, a simulação de aposentadoria por incapacidade e por acidente de trabalho, e a possibilidade de simular o salário de aposentadoria para aprimorar o planejamento individual. Alguns usuários também expressaram preocupações com a falta de informações sobre os descontos e a remuneração líquida, o que pode levar a uma perda significativa de salário após a aposentadoria. Alguns sugeriram a inclusão de uma estimativa do valor do benefício especial e a possibilidade de simular o salário de aposentadoria com base em diferentes critérios, como a idade e o tempo de contribuição. Em geral, os usuários consideram o simulador útil, mas pedem mais informações e opções para facilitar a compreensão e a tomada de decisão.
+**Positive Points**:
+
+1. O simulador é fácil de usar e apresenta várias opções de aposentadoria.
+2. O simulador fornece informações sobre a data de aposentadoria em cada situação possível de regra de transição.
+3. O simulador é uma ferramenta útil para ajudar os servidores a tomar decisões financeiras sobre a aposentadoria.
+
+**Negative Points**:
+
+1. O simulador não apresenta o valor do salário na aposentadoria em alguns casos.
+2. O simulador não simula a remuneração do servidor caso não atinja todos os pré-requisitos para a aposentadoria.
+3. O simulador não fornece informações claras sobre as fundamentações a respeito da aposentadoria e indicação da melhor opção para o servidor em termos de remuneração/tempo.
+4. O simulador não apresenta os descontos previstos e o valor líquido em alguns casos.
+5. O simulador não fornece informações claras sobre a diferença entre os cenários de simulação.
+6. O simulador não apresenta a remuneração já calculada sem o auxílio transporte e alimentação.
+7. O simulador não fornece informações claras sobre a paridade e quem tem o real direito de usufruí-la.
+8. O simulador não apresenta a possível remuneração do servidor caso não atinja todos os pré-requisitos para a aposentadoria.
+
+**Suggestions**:
+
+1. O simulador deveria simular não apenas a data que é possível conseguir a aposentadoria, mas também qual o salário de aposentadoria.
+2. O simulador deveria apresentar os descontos previstos e o valor líquido em todos os casos.
+3. O simulador deveria fornecer informações claras sobre as fundamentações a respeito da aposentadoria e indicação da melhor opção para o servidor em termos de remuneração/tempo.
+4. O simulador deveria apresentar a remuneração já calculada sem o auxílio transporte e alimentação.
+5. O simulador deveria fornecer informações claras sobre a diferença entre os cenários de simulação.
+6. O simulador deveria apresentar a possível remuneração do servidor caso não atinja todos os pré-requisitos para a aposentadoria.
+7. O simulador deveria fornecer informações claras sobre a paridade e quem tem o real direito de usufruí-la.

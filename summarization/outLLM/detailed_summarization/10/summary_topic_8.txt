@@ -1,9 +1,23 @@
-O usuário comenta que o simulador de aposentadoria do governo é uma ferramenta útil, mas que apresenta algumas limitações e sugere melhorias. Eles sugerem que o simulador deveria incluir mais informações sobre as regras de transição e os benefícios especiais, além de permitir a inclusão de períodos de contribuição não registrados no SIAPE. Além disso, eles sugerem que o simulador deveria indicar a modalidade mais vantajosa para o servidor e fornecer informações mais claras sobre as opções de aposentadoria.
+**Positive Points**:
 
-Os usuários também criticam a complexidade do simulador, especialmente para aqueles que não são familiarizados com a legislação de aposentadoria. Eles sugerem que o simulador deveria incluir uma explicação mais detalhada das regras e das leis, além de fornecer informações mais claras sobre as opções de aposentadoria.
+1. Fácil de usar
+2. Prático
+3. Útil para entender a aposentadoria
+4. Possibilidade de simulação de aposentadoria
+5. Informações sobre a aposentadoria
 
-Além disso, os usuários sugerem que o simulador deveria incluir mais informações sobre as consequências e benefícios de cada opção de aposentadoria, além de fornecer informações mais claras sobre as regras de transição e os benefícios especiais.
+**Negative Points**:
 
-Os usuários também sugerem que o simulador deveria permitir a inclusão de períodos de contribuição não registrados no SIAPE e que o sistema deveria indicar a modalidade mais vantajosa para o servidor.
+1. Dificuldade em entender a legislação
+2. Muitas opções e situações que exigem conhecimento mais aprofundado sobre a legislação
+3. Dúvidas sobre a escolha da opção correta
+4. Falta de informações sobre as consequências/benefícios entre as possibilidades de escolha
+5. Dificuldade em entender os fundamentos legais
 
-Em resumo, os usuários sugerem que o simulador de aposentadoria do governo é uma ferramenta útil, mas que apresenta algumas limitações e sugem melhorias para torná-lo mais fácil de usar e mais informativo.
+**Suggestions**:
+
+1. Incluir informações mais detalhadas sobre as leis
+2. Explicar os fundamentos legais de forma mais clara
+3. Incluir opções para aposentadoria de quem exerce atividade de risco, insalubres
+4. Incluir informações sobre as consequências/benefícios entre as possibilidades de escolha
+5. Incluir um botão com uma interrogação ("?") ou informação ("i") para obter esclarecimentos mais específicos de cada regra (lei) de aposentadoria.

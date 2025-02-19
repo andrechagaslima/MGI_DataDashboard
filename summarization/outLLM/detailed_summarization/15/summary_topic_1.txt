@@ -1,7 +1,30 @@
-O simulador de aposentadoria do governo desenvolvido para os servidores públicos tem recebido críticas e sugestões de melhorias por parte dos usuários. Muitos acreditam que o sistema não está considerando adequadamente o tempo de serviço e contribuição dos servidores, especialmente aqueles que trabalharam em outros órgãos públicos antes de ingressar no serviço público federal. Alguns usuários relataram que o sistema não está levando em conta o tempo de contribuição ao INSS, o tempo de serviço prestado às Forças Armadas e o tempo de trabalho em empresas privadas. Isso pode levar a simulações incompletas e inúteis para os usuários.
+**Positive Points**:
 
-Além disso, alguns usuários sugerem que o sistema deveria ter uma opção para incluir o tempo de serviço anterior ao serviço público, bem como permitir a inclusão de vínculos anteriores ao serviço público federal. Isso ajudaria a tornar a simulação mais precisa e útil para os usuários.
+1. O simulador é fácil de usar e bem explicativo.
+2. É uma ferramenta muito útil para os servidores públicos.
+3. A iniciativa é muito boa e contribui positivamente para os servidores.
 
-Outros usuários sugerem que o sistema deveria ser integrado ao INSS, para que os usuários possam incluir suas contribuições ao INSS e ao serviço público em um único lugar. Isso ajudaria a evitar a necessidade de solicitar certidões e a tornar a simulação mais fácil e útil.
+**Negative Points**:
 
-Em resumo, os usuários estão pedindo melhorias no simulador de aposentadoria para que ele seja mais preciso e útil para os servidores públicos. Isso inclui a consideração do tempo de contribuição ao INSS, o tempo de serviço prestado às Forças Armadas e o tempo de trabalho em empresas privadas, além da integração ao INSS e a inclusão de vínculos anteriores ao serviço público federal.
+1. O simulador não considera o tempo de contribuição fora do serviço público.
+2. Não integra todas as atividades profissionais, apenas a atual.
+3. Não considera o tempo de contribuição no regime CLT e no serviço prestado às Forças Armadas.
+4. Não permite a inclusão de todas as contribuições previdenciárias que o servidor fez, de todos os cargos ocupados em diferentes órgãos.
+5. A memória de cálculo da aposentadoria não é exibida na tela do simulador.
+6. O simulador não considera o tempo de contribuição anterior ao vínculo atual.
+7. Não permite a inclusão de tempo de contribuição em outros regimes previdenciários.
+8. O simulador não considera o tempo de contribuição em outros órgãos da administração pública federal.
+9. Não permite a inclusão de tempo de contribuição em outros vínculos de trabalho.
+10. O simulador não considera o tempo de contribuição em outros regimes previdenciários, como o regime CLT e o regime das Forças Armadas.
+
+**Suggestions**:
+
+1. Incluir a possibilidade de ser inserido no cálculo os prazos desses outros cargos em outros órgãos, mesmo que ainda não tenham sido averbados pro RJU do servidor federal.
+2. Integrar as informações de quem tem tempo de serviço com contribuição ao INSS.
+3. Incluir a opção de incluir tempo de contribuição em outros regimes previdenciários.
+4. Permitir a inclusão de tempo de contribuição em outros órgãos da administração pública federal.
+5. Incluir a opção de incluir tempo de contribuição em outros vínculos de trabalho.
+6. Integrar as informações de contribuição ao INSS com as informações do simulador.
+7. Incluir a opção de incluir tempo de contribuição em outros regimes previdenciários, como o regime CLT e o regime das Forças Armadas.
+8. Permitir a inclusão de tempo de contribuição em outros órgãos da administração pública federal, como o serviço público municipal e estadual.
+9. Incluir a opção de incluir tempo de contribuição em outros vínculos de trabalho, como o regime CLT e o regime das Forças Armadas.

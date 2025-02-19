@@ -1,1 +1,38 @@
-Os usuários têm opiniões mistas sobre o simulador de aposentadoria desenvolvido pelo governo. Alguns acham fácil de usar e útil, enquanto outros encontram complicado e difícil de entender. Muitos sugerem melhorias, como a inclusão de explicações mais claras e simples sobre as opções de aposentadoria, a criação de um sistema de ajuda e FAQ embutido no aplicativo e a disponibilização de vídeos explicativos. Alguns também pedem a inclusão de exemplos hipotéticos de aposentadoria para facilitar o entendimento. Outros sugerem a melhoria da linguagem e da clareza das explicações, bem como a inclusão de opções adicionais, como a escolha do tempo de serviço e a migração de dados de servidores PCD. Alguns usuários também relataram dificuldades em entender as opções de aposentadoria e pedem mais ajuda e orientação. No entanto, a maioria dos usuários é positiva e agradece pelo desenvolvimento do simulador, considerando-o uma ferramenta útil e importante para a tomada de decisão sobre a aposentadoria.
+**Positive Points**:
+
+1. Fácil de utilizar
+2. Intuitivo
+3. Bom para dissipar dúvidas sobre a aposentadoria
+4. Muito útil para os servidores
+5. Fácil de acessar e usar
+6. Muito bom para a tomada de decisão
+7. Simples e fácil de entender
+8. Bom para a programação da aposentadoria
+9. Muito importante para os servidores
+10. Fácil de usar e entender
+
+**Negative Points**:
+
+1. Dificuldade na interpretação dos resultados
+2. Complexidade da informação
+3. Falta de clareza nos documentos gerados
+4. Dificuldade em escolher a opção certa
+5. Muitas opções para escolher
+6. Não é intuitivo
+7. Falta de explicação sobre as regras de aposentadoria
+8. Não é fácil para os leigos entender
+9. Muitas opções para escolher, mas não é fácil escolher
+10. Falta de clareza sobre os valores e possibilidades
+
+**Suggestions**:
+
+1. Incluir explicações sobre termos e conceitos
+2. Simplificar a linguagem
+3. Oferecer guia passo a passo
+4. Criar um curso tutorial online
+5. Criar um chat para tirar dúvidas
+6. Criar um questionário para aplicar a melhor regra ao caso concreto
+7. Detalhar mais cada caso
+8. Incluir uma explicação quanto ao resultado da pesquisa realizada
+9. Acrescentar uma funcionalidade para exibir de forma clara a previsão de valor da aposentadoria
+10. Criar um sistema de ajuda e FAQ embutido no app.

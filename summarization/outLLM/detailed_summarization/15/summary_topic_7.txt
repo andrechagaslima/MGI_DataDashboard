@@ -1,1 +1,28 @@
-Os usuários têm opiniões variadas sobre o simulador de aposentadoria desenvolvido pelo governo. Alguns consideram a iniciativa excelente e útil, enquanto outros encontram dificuldades em utilizá-la. Muitos agradecem a disponibilização da ferramenta, que facilitou o planejamento da aposentadoria e proporcionou uma melhor compreensão sobre os requisitos e benefícios. Alguns usuários sugerem melhorias, como a integração com os dados de contribuição e tempo de serviço do INSS, a inclusão do cálculo do Benefício Especial para servidores que ingressaram antes de 2013 e a possibilidade de simular aposentadoria com requisitos ainda não preenchidos. Outros criticam a falta de integração com outras plataformas, como a do INSS, e a impossibilidade de incluir o tempo de contribuição para o INSS no simulador. Apesar das críticas, a maioria dos usuários elogia a iniciativa e considera a ferramenta útil e importante para o planejamento da aposentadoria.
+**Positive Points**:
+
+1. Excelente ferramenta para planejar a aposentadoria.
+2. Facilita a vida do servidor ao fornecer informações precisas sobre a aposentadoria.
+3. Permite que os servidores tenham uma noção melhor de quando irão se aposentar e quanto receberão.
+4. Ajuda a tomar decisões informadas sobre a aposentadoria.
+5. É uma ferramenta útil e importante para os servidores.
+6. Facilita o planejamento financeiro e de vida para a aposentadoria.
+7. É uma grande contribuição para ajudar os profissionais a planejarem melhor seu futuro.
+8. Permite que os servidores tenham uma ideia clara e segura das decisões sobre a aposentadoria.
+9. É uma ferramenta prática e objetiva.
+10. Facilita a compreensão sobre a etapa do tempo de contribuição.
+
+**Negative Points**:
+
+1. Não calculou nada sobre aposentadoria em alguns casos.
+2. Relatório todo zerado em alguns casos.
+3. Não apresenta a função solicitar aposentadoria.
+4. Não permite a simulação completa para que ainda não preencheu os requisitos.
+5. Não apresenta diferentes cenários para contribuir com a construção dos projetos de vida.
+
+**Suggestions**:
+
+1. Integrar o simulador com os dados de contribuição e tempo de serviço do INSS.
+2. Permitir a simulação completa para que ainda não preencheu os requisitos.
+3. Apresentar diferentes cenários para contribuir com a construção dos projetos de vida.
+4. Integrar no mesmo ambiente do Simulador de Aposentadoria um campo onde o servidor seja informado quando adquirir o direito de solicitar o Abono de Permanência.
+5. Permitir a simulação de aposentadoria cujos requisitos ainda não foram preenchidos.

@@ -1,1 +1,38 @@
-Os usuários do aplicativo de simulação de aposentadoria do governo expressaram uma variedade de opiniões e sugestões. Alguns agradeceram pela ferramenta, considerando-a útil para planejar a época da aposentadoria e facilitar a compreensão dos requisitos e benefícios. Outros, no entanto, expressaram críticas e sugestões para melhorar a experiência do usuário. Eles pediram a inclusão de opções adicionais, como a possibilidade de informar períodos de contribuição anteriores, a contabilização de tempo de contribuição no regime geral de previdência e a estimativa de aposentadoria para quem ainda não tem tempo de contribuição. Alguns também sugeriram a melhoria da interface do usuário, a inclusão de exemplos numéricos dos remuneratórios e a apresentação de mais detalhes sobre o tipo de aposentadoria. Muitos usuários também expressaram frustração com a falta de informações sobre o valor da aposentadoria, a data prevista e os requisitos necessários para se aposentar. Alguns também relataram problemas técnicos e dificuldades em realizar a simulação. Em geral, os usuários consideraram a ferramenta útil, mas pediram melhorias para torná-la mais completa e precisa.
+**Positive Points**:
+
+1. Fácil de usar e entender.
+2. Possibilita aos servidores saber valores e datas que terão direito a aposentadoria.
+3. Fornece uma estimativa da data e valor da aposentadoria.
+4. Permite a inclusão de períodos de contribuição do regime geral de previdência.
+5. Fornece uma estimativa de aposentadoria para quem ainda não tem tempo de contribuição.
+6. Possibilita a inclusão de tempo averbado e datas do período averbado.
+7. Fornece uma estimativa de aposentadoria com base em progressões por tempo de trabalho.
+8. Possibilita a inclusão de contribuições de outros regimes de previdência.
+9. Fornece uma estimativa de aposentadoria com base em períodos que já foram averbados.
+10. Possibilita a inclusão de tempo de contribuição da iniciativa privada.
+
+**Negative Points**:
+
+1. Não apresenta o valor estimado da aposentadoria.
+2. Não apresenta a data prevista para atingir os requisitos.
+3. Não apresenta opção para aposentadoria contando tempo anterior a carreira de magistério.
+4. Não apresenta opção para incluir períodos de contribuição do regime geral de previdência.
+5. Não apresenta opção para incluir tempo averbado e datas do período averbado.
+6. Não apresenta opção para incluir contribuições de outros regimes de previdência.
+7. Não apresenta opção para incluir tempo de contribuição da iniciativa privada.
+8. Não apresenta opção para incluir tempo de contribuição constante no CNIS.
+9. Não apresenta opção para incluir progressões por tempo de trabalho.
+10. Não apresenta opção para incluir períodos que já foram averbados.
+
+**Suggestions**:
+
+1. Incluir a opção para incluir períodos de contribuição do regime geral de previdência.
+2. Incluir a opção para incluir tempo averbado e datas do período averbado.
+3. Incluir a opção para incluir contribuições de outros regimes de previdência.
+4. Incluir a opção para incluir tempo de contribuição da iniciativa privada.
+5. Incluir a opção para incluir tempo de contribuição constante no CNIS.
+6. Incluir a opção para incluir progressões por tempo de trabalho.
+7. Incluir a opção para incluir períodos que já foram averbados.
+8. Incluir exemplos numéricos dos remuneratórios nas simulações.
+9. Incluir a opção para incluir tempo de contribuição anterior a carreira de magistério.
+10. Incluir a opção para incluir tempo de contribuição em outros regimes de previdência.

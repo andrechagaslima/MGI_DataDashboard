@@ -1,1 +1,38 @@
-Os usuários têm opiniões variadas sobre o simulador de aposentadoria desenvolvido pelo governo. Alguns consideram a ferramenta útil e fácil de usar, enquanto outros a acham complicada e difícil de entender. Muitos sugerem aprimoramentos, como a inclusão de um sistema de ajuda e FAQ embutido no aplicativo, para torná-lo mais acessível e intuitivo. Alguns também pedem mais explicações sobre as opções de aposentadoria e a legislação aplicável. Outros elogiam a ferramenta por ser útil e importante para os servidores, mas sugerem melhorias, como a inclusão de vídeos explicativos e a apresentação de informações de forma mais clara e acessível. Alguns usuários também relatam dificuldades em usar a ferramenta, como não entender as opções e não conseguir obter resultados. Em geral, a ferramenta é considerada útil, mas precisa de melhorias para torná-la mais acessível e fácil de usar para todos os usuários.
+**Positive Points**:
+
+1. Fácil de utilizar
+2. Intuitivo
+3. Simples
+4. Prático
+5. Bom para servidores aposentáveis ou próximos de se aposentar
+6. Muito útil
+7. Excelente ferramenta
+8. Fácil de manusear
+9. Muito bom
+10. Simples e fácil de usar
+
+**Negative Points**:
+
+1. Pode ser complicado para alguns usuários
+2. Linguagem técnica pode ser difícil de entender
+3. Muitas opções para escolher, mas não é claro qual escolher
+4. Não é claro em qual categoria cada servidor se enquadra
+5. Resultados não são claros sobre o enquadramento e os pedágios aplicados
+6. Não é possível entender a mensagem de não possui parcelas suficientes
+7. Não é possível abrir uma possível conclusão de Férias com valores de referência
+8. Dados do NIS não estão computados
+9. Não é possível exibir de forma clara a previsão de valor da aposentadoria
+10. Não é possível entender a mensagem de não atender um dos requisitos
+
+**Suggestions**:
+
+1. Destacar mais os arquivos para download
+2. Melhorar a linguagem técnica para torná-la mais acessível
+3. Criar um tutorial explicando os diferentes tipos de aposentadorias
+4. Criar um chat para ajudar a entender as regras
+5. Criar um questionário para aplicar a melhor regra ao caso concreto
+6. Acrescentar uma funcionalidade para exibir de forma clara a previsão de valor da aposentadoria
+7. Melhorar a clareza sobre o enquadramento e os pedágios aplicados
+8. Melhorar a linguagem para torná-la menos técnica
+9. Criar um curso tutorial online com orientações básicas
+10. Melhorar a integração com os dados do NIS.

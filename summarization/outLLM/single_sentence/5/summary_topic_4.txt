@@ -1,1 +1,1 @@
-Simulador de aposentadoria precisa melhorias.
+"Melhorar consideração tempo de contribuição."

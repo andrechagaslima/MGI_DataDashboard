@@ -1,1 +1,1 @@
-Simulador de aposentadoria recebe críticas e sugestões.
+"Simulação de aposentadoria simples e básica."

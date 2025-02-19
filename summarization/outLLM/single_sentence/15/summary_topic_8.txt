@@ -1,1 +1,1 @@
-Simulação de aposentadoria precisa de melhorias.
+"Simulador precisa calcular salário de aposentadoria corretamente."

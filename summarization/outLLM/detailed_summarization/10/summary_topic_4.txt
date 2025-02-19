@@ -1,9 +1,23 @@
-O simulador de aposentadoria é uma ferramenta útil, mas ainda apresenta algumas limitações e sugestões de melhoria. Alguns usuários expressaram satisfação com a ferramenta, destacando sua facilidade de uso e capacidade de fornecer uma visão geral do futuro. No entanto, outros usuários relataram dificuldades em usar o simulador, especialmente aqueles que têm períodos de contribuição no RGPS e não foram incluídos na simulação. Alguns usuários também sugeriram a inclusão de períodos de contribuição não averbados, bem como a possibilidade de incluir tempo de contribuição do RGPS e do RPPS em uma única simulação. 
+**Positive Points**:
 
-Além disso, alguns usuários expressaram preocupação com a falta de informações sobre o valor do benefício especial e a remuneração líquida após a aposentadoria. Outros sugeriram a inclusão de opções de aposentadoria proporcional ao tempo de contribuição e a possibilidade de incluir períodos de contribuição do RGPS e do RPPS em uma única simulação. 
+1. O simulador é uma ferramenta útil para planejamento de aposentadoria.
+2. É fácil de usar e entender.
+3. Oferece várias opções de aposentadoria e regras de transição.
+4. Permite a inclusão de dados de outros regimes previdenciários.
+5. É uma ferramenta importante para tomada de decisão sobre a aposentadoria.
 
-A maioria dos usuários concorda que o simulador é uma ferramenta útil, mas que ainda precisa ser aprimorada para atender às necessidades de todos os usuários. Alguns sugeriram a inclusão de informações adicionais, como a remuneração líquida após a aposentadoria e a possibilidade de incluir períodos de contribuição não averbados. Outros sugeriram a melhoria da interface do usuário e a inclusão de opções de aposentadoria proporcional ao tempo de contribuição. 
+**Negative Points**:
 
-Adicionalmente, alguns usuários sugeriram a inclusão de períodos de contribuição não averbados, a possibilidade de incluir tempo de contribuição do RGPS e do RPPS em uma única simulação, a apresentação de opções de aposentadoria proporcional ao tempo de contribuição, a inclusão de informações sobre o valor do benefício especial e a remuneração líquida após a aposentadoria, a melhoria da interface do usuário e a inclusão de opções de aposentadoria proporcional ao tempo de contribuição. Alguns usuários também sugeriram a possibilidade de inserir manualmente período de CTC (RGPS) ainda não averbado, a inclusão de tempo trabalhado no RGPS para ser somado ao tempo RPPS, a consideração dos vínculos do RGPS, a inclusão de informações sobre a ausência de uma nova CTC exigida a partir de 2019, a apresentação de opções de aposentadoria que incluem o salário de aposentadoria, a possibilidade de inserção/migração de dados de outros regimes previdenciários para compor todas as contribuições já realizadas pelo servidor, a apresentação de informações sobre a remuneração do servidor e a possibilidade de usufruir da paridade. 
+1. Não considera os vínculos do RGPS.
+2. Não permite a inclusão de período de CTC (RGPS) ainda não averbado.
+3. Não apresenta claramente as informações salariais das simulações de aposentadoria.
+4. Não explica claramente a diferença entre os cenários de simulação.
+5. Não apresenta o valor do benefício financeiro atualizado para os servidores que migraram de regime.
 
-Em resumo, o simulador de aposentadoria é uma ferramenta útil, mas ainda apresenta algumas limitações e sugestões de melhoria. Com as sugestões e críticas dos usuários, é possível melhorar a ferramenta e torná-la mais útil e eficaz para todos os usuários.
+**Suggestions**:
+
+1. Incluir a opção de informar manualmente o período de RGPS para simulação correta.
+2. Abrir campos para incluir tempo de RGPS também.
+3. Informar quem tem o real direito de usufruir da paridade, informando o tempo de Serviço.
+4. Explicar o motivo pelo qual a remuneração não aparece na simulação.
+5. Incluir a opção de inserção/migração de dados de outros regimes previdenciários para compor todas as contribuições já realizadas pelo servidor.

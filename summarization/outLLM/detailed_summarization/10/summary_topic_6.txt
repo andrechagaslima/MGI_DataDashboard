@@ -1,1 +1,28 @@
-O aplicativo de simulação de aposentadoria desenvolvido pelo governo recebeu comentários de usuários que compartilharam sugestões, críticas e feedback positivo. Os usuários apontaram que o simulador é útil, mas ainda apresenta problemas e erros. Muitos relataram que os dados de tempo de serviço e contribuição estão incorretos, o que afeta a simulação da aposentadoria. Alguns mencionaram que o simulador não considera o tempo de serviço em outros locais, como concurso municipal, e não leva em conta as contribuições feitas no Regime Geral após julho de 1994. Outros reclamaram que o simulador não apresenta informações sobre o valor da aposentadoria e não faz uma estimativa precisa do tempo restante para aposentadoria. Alguns usuários também relataram que o simulador não é claro quanto ao valor final que o servidor irá receber e não considera a possibilidade de um servidor que ingressou no serviço público como deficiente. Alguns mencionaram que o simulador não apresenta a data exata e a remuneração prevista com o advento da aposentadoria. Alguns usuários também sugeriram melhorias, como incluir períodos anteriores não averbados, apresentar o valor bruto dos Proventos a serem pagos e incluir as contribuições de outros regimes de previdência. Além disso, alguns usuários relataram que o simulador não inclui a aposentadoria compulsória, não considera a possibilidade de aposentação com menos de 30 anos de serviço público, não apresenta a remuneração caso o servidor não atinja todos os pré-requisitos, não inclui a opção de aposentadoria com 57 anos de idade, 20 anos de serviço público e 30 anos de contribuição, não considera os anos de serviço público em outros locais e não permite a simulação individual com a possibilidade de repassar a quantidade de tempo desejada para calcular o tempo de aposentadoria. Em geral, os usuários consideram que o simulador é útil, mas precisa de melhorias e ajustes para ser mais preciso e útil.
+**Positive Points**:
+
+1. A ideia do simulador de aposentadoria é boa e pode ser útil para os servidores públicos.
+2. O simulador é fácil de usar e pode ser uma ferramenta útil para planejar a aposentadoria.
+3. O simulador pode ser uma ferramenta útil para os servidores públicos que estão se aposentando ou que estão planejando a aposentadoria.
+
+**Negative Points**:
+
+1. O simulador não é preciso e pode ter erros nos cálculos.
+2. O simulador não considera todos os períodos de contribuição e serviço público.
+3. O simulador não mostra a remuneração possível caso o servidor atinja todos os pré-requisitos.
+4. O simulador não inclui a aposentadoria compulsória.
+5. O simulador não é claro em relação ao valor da aposentadoria e não mostra a remuneração possível.
+6. O simulador não é preciso em relação ao tempo de contribuição e serviço público.
+7. O simulador não é preciso em relação ao valor da aposentadoria e não mostra a remuneração possível.
+8. O simulador não inclui a opção de aposentadoria por idade de 75 anos.
+9. O simulador não inclui a opção de aposentadoria com base no tempo de contribuição e serviço público.
+
+**Suggestions**:
+
+1. Melhore a precisão do simulador e corrija os erros nos cálculos.
+2. Inclua todos os períodos de contribuição e serviço público.
+3. Mostre a remuneração possível caso o servidor atinja todos os pré-requisitos.
+4. Inclua a aposentadoria compulsória.
+5. Melhore a clareza em relação ao valor da aposentadoria e mostre a remuneração possível.
+6. Melhore a precisão em relação ao tempo de contribuição e serviço público.
+7. Inclua a opção de aposentadoria por idade de 75 anos.
+8. Inclua a opção de aposentadoria com base no tempo de contribuição e serviço público.
