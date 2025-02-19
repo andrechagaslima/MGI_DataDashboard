@@ -134,7 +134,7 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
 
     # 9. Exibir total de participantes filtrados
     st.markdown(
-        f"<div style='text-align: right;'><strong>Total de Participantes:</strong> {len(results_df)} ({0 if total_participants == 0 else (len(results_df)/total_participants) * 100:.2f}%)</div>",
+        f"<div style='text-align: right;'><strong>Total de Usuários:</strong> {len(results_df)} ({0 if total_participants == 0 else (len(results_df)/total_participants) * 100:.2f}%)</div>",
         unsafe_allow_html=True
     )
 
@@ -148,7 +148,7 @@ def docs_by_word(labels, df ,df_topic_modeling, topic_number):
         color = colors_labels.get(label, "#FFFFFF")  # Cor padrão branca caso não encontre
 
         st.markdown(f"<div style='background-color: {color}; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>"
-                    f"<strong>Participante {ID} (SUS: {sus})</strong><br>{text}</div>",
+                    f"<strong>Usuário {ID} (SUS: {sus})</strong><br>{text}</div>",
                     unsafe_allow_html=True)
 
     
