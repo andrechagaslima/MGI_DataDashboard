@@ -4,16 +4,14 @@ import pandas as pd
 import json
 import plotly.graph_objects as go
 
-colors_labels = {
-    -1: "#FFA6B1", 
-    1: "#86E886",   
-}
-
-df_flair = pd.read_csv('data/results_labels/flair.csv')
-
 def load_topic_summary(file):
     with open(file, 'r', encoding='utf-8') as f:
         return f.read()
+    
+@st.cache_data
+def load_data(path):
+    return pd.read_csv(path) 
+
 
 def create_card_with_score(question, score, background_color):
     return st.markdown(
@@ -49,10 +47,9 @@ def calculate_means(df):
         original_means,  
     )
 
-def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount):
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
-    df_results = pd.read_csv('data/results.csv')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+def calculate_sentiment_totals(df_topic_modeling, topic_amount):
+    df_results = load_data('data/results.csv')
+    df_topic_modeling = load_data(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
 
     class_count_df = count_classes_per_topic(df_results, df_topic_modeling)
 
@@ -61,7 +58,6 @@ def calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amo
     class_count_df['positive_feedback_rate'] = (class_count_df['positive feedback'] / class_count_df['total']) * 100
     class_count_df['criticism_rate'] = (class_count_df['criticism'] / class_count_df['total']) * 100
 
-    # Identificar os tópicos com mais elogios e críticas
     most_positive_topic = class_count_df['positive_feedback_rate'].idxmax()
     most_critical_topic = class_count_df['criticism_rate'].idxmax()
 
@@ -76,7 +72,6 @@ def create_card(content, background_color):
     )
 
 def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not_pertinent, title=""):
-    """Cria um gráfico de barras horizontais com elogios, críticas, sugestões e não pertinentes."""
     total = positive_feedbacks + criticisms + suggestions + not_pertinent
     positive_rate = round((positive_feedbacks / total) * 100, 1) if total > 0 else 0.0
     criticism_rate = round((criticisms / total) * 100, 1) if total > 0 else 0.0
@@ -85,7 +80,6 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
 
     fig = go.Figure()
 
-    # Adicionar barra de críticas
     fig.add_trace(go.Bar(
         y=["Comentários"],
         x=[criticism_rate],
@@ -96,7 +90,6 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
         textposition='inside'
     ))
 
-    # Adicionar barra de sugestões
     fig.add_trace(go.Bar(
         y=["Comentários"],
         x=[suggestion_rate],
@@ -107,7 +100,6 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
         textposition='inside'
     ))
 
-    # Adicionar barra de não pertinentes
     fig.add_trace(go.Bar(
         y=["Comentários"],
         x=[not_pertinent_rate],
@@ -118,7 +110,6 @@ def create_percentage_bar_chart(positive_feedbacks, criticisms, suggestions, not
         textposition='inside'
     ))
 
-    # Adicionar barra de elogios
     fig.add_trace(go.Bar(
         y=["Comentários"],
         x=[positive_rate],
@@ -204,17 +195,14 @@ def render_topic_words(topic_number, topic_amount, x=0, title = ""):
 
 
 def count_classes_per_topic(df_results, df_documents_scores):
-    # Mesclar os dataframes usando o relacionamento entre ID e document_id
     df_merged = df_results.merge(df_documents_scores, left_on="ID", right_on="document_id", how="inner")
     
-    # Contar quantas classes existem na coluna 'results' por tópico
     class_count_per_topic = df_merged.groupby("dominant_topic")["results"].value_counts().unstack(fill_value=0)
     
     return class_count_per_topic
 
 def render_overview_topics(topic_amount):
-    # Criar layout de colunas para alinhar título e seletor na mesma linha
-    col1, col2 = st.columns([3, 1])  # Ajuste as proporções conforme necessário
+    col1, col2 = st.columns([3, 1])  
 
     with col2:
         sorting_option = st.selectbox(
@@ -224,24 +212,19 @@ def render_overview_topics(topic_amount):
             label_visibility="collapsed"
         ) 
 
-    # Carregar os dados
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
-    df_results = pd.read_csv('data/results.csv')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+    df_results = load_data('data/results.csv')
+    df_topic_modeling = load_data(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
 
     class_count_df = count_classes_per_topic(df_results, df_topic_modeling)
 
-    # Calcular os sentimentos
-    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
+    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, topic_amount)
 
-    # **Aplicar a ordenação escolhida**
     if sorting_option == "Mais elogiado":
         grouped = grouped.sort_values(by='positive_feedback_rate', ascending=False)
     elif sorting_option == "Mais criticado":
         grouped = grouped.sort_values(by='criticism_rate', ascending=False)
         
-    # **Renderizar os tópicos conforme a nova ordenação**
-    for topic_number, row in grouped.iterrows():
+    for topic_number, _ in grouped.iterrows():
         
         topic_title_file = f'summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt'
         topic_title = load_topic_summary(topic_title_file).replace('"', '').replace('.', '')
@@ -262,7 +245,6 @@ def render_overview_topics(topic_amount):
                 content=f"{total_comments} Comentários ",
                 background_color="#f8f9fa"
             )   
-
 
         with col2:
             summary_file = f'summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(topic_number)}.txt'
@@ -300,17 +282,13 @@ def render_specific_topic(topic_number, topic_amount):
     except:
           topic_summary = "Nenhum resumo disponível para este tópico."
 
-    # Carregar os dados
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json')
-    df_results = pd.read_csv('data/results.csv')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+    df_results = load_data('data/results.csv')
+    df_topic_modeling = load_data(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
     
     class_count_df = count_classes_per_topic(df_results, df_topic_modeling) 
 
-    # Calcular os sentimentos
-    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
+    grouped, _, _ = calculate_sentiment_totals(df_topic_modeling, topic_amount)
 
-    # Filtrar apenas o tópico específico
     if topic_number in grouped.index:
 
         col1, col2 = st.columns(2, gap="medium")
@@ -340,11 +318,11 @@ def render_specific_topic(topic_number, topic_amount):
 
 def render_response_percentages(df, question, y):
     color_mapping = {
-        "Concordo Totalmente": '#1a9850',  
-        "Concordo Parcialmente": '#98df8a',   
-        "Não concordo, nem discordo": '#fee08b', 
-        "Discordo Parcialmente": '#fc8d59',   
-        "Discordo Totalmente": '#d73027'      
+        "Concordo Totalmente": '#1a9850',      # Dark green
+        "Concordo Parcialmente": '#98df8a',    # Green
+        "Não concordo, nem discordo": '#fee08b',  # Yellow
+        "Discordo Parcialmente": '#fc8d59',    # Orange
+        "Discordo Totalmente": '#d73027'       # Red
     }
 
     response_labels = {
@@ -355,11 +333,9 @@ def render_response_percentages(df, question, y):
         5: "Concordo Totalmente"
     }
 
-    # Conta as respostas e calcula os percentuais
     response_counts = df[question].value_counts()
     total = response_counts.sum()
 
-    # Substitui os índices pelas labels
     response_counts.index = response_counts.index.map(response_labels)
 
     st.markdown(
@@ -416,14 +392,12 @@ def render_response_percentages(df, question, y):
     """, unsafe_allow_html=True)
 
 def render_positive_analysis(df, max, min, original_means):
-    # Exibe as perguntas (melhor e pior) com seus percentuais de notas
     best_question = max[0][2:].strip()
     best_score = original_means[max[0]]
     
     worst_question = min[0][2:].strip()
     worst_score = original_means[min[0]]
     
-    # Melhor pergunta
     st.markdown("#### Pergunta com a Melhor Nota")
     create_card_with_score(
         question=best_question,
@@ -434,7 +408,6 @@ def render_positive_analysis(df, max, min, original_means):
 
     st.markdown("---")
 
-    # Pior pergunta
     st.markdown("#### Pergunta com a Pior Nota")
     create_card_with_score(
         question=worst_question,
@@ -443,18 +416,15 @@ def render_positive_analysis(df, max, min, original_means):
     )
     render_response_percentages(df, min[0], "#FFA6B1")
 
-def render_negative_analysis(min, most_negative_topic, most_positive_topic, grouped, original_means, topic_amount, df):
-    worst_question = min[0][2:].strip()
-    worst_score = original_means[min[0]]
+def render_negative_analysis(most_negative_topic, most_positive_topic, grouped, topic_amount):
 
-    # Seção: Análise do Tópico com Maior Percentual de Comentários Positivos
     st.markdown("### Análise do Tópico com Maior Percentual de Comentários Positivos")
 
     col1, col2 = st.columns(2, gap="large")
     positive_summary = load_topic_summary(f"summarization/outLLM/concise_summarization/{topic_amount}/summary_topic_{int(most_positive_topic)}.txt")
 
-    df_results = pd.read_csv('data/results.csv')
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
+    df_results = load_data('data/results.csv')
+    df_topic_modeling = load_data(f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv')
     class_count_df = count_classes_per_topic(df_results, df_topic_modeling)    
 
     with col1:
@@ -505,7 +475,6 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
 
     st.markdown("---")
 
-    # Seção: Análise do Tópico com Maior Percentual de Comentários Negativos
     st.markdown("### Análise do Tópico com Maior Percentual de Comentários Negativos")
 
     col1, col2 = st.columns(2, gap="large")
@@ -544,7 +513,6 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
 
     with col2:
         st.markdown("#### Percentual de Comentários por Sentimento")
-        row = grouped.loc[most_negative_topic]
         fig = create_percentage_bar_chart(
             positive_feedbacks,
             criticisms, 
@@ -557,19 +525,16 @@ def render_negative_analysis(min, most_negative_topic, most_positive_topic, grou
         render_topic_words(most_negative_topic, topic_amount, 2)
 
 def load_classification_data(file_path):
-    """Carrega os dados de classificação de sentimentos a partir de um arquivo JSON."""
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
     return data['y_pred_text']
 
 def render_overview(df, topic_amount):
-    classification_data = load_classification_data('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json') 
+    _, max, min, original_means = calculate_means(df)
 
-    means, max, min, original_means = calculate_means(df)
+    df_topic_modeling = load_data(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')      
 
-    df_topic_modeling = pd.read_csv(f'topic_modeling/data_num_topics/{topic_amount}/Resumo_Topicos_Dominantes.csv')      
-
-    grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, classification_data, topic_amount)
+    grouped, most_positive_topic, most_negative_topic = calculate_sentiment_totals(df_topic_modeling, topic_amount)
 
     st.markdown(
         "<h1 style='text-align: center; font-size: 28px; padding: 0px 10px 10px 10px;'>Visão Geral</h1>",
@@ -594,7 +559,6 @@ def render_overview(df, topic_amount):
 
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
-    # Mantendo as três abas
     tab1, tab2, tab3 = st.tabs(["Análise Geral dos Tópicos", "Análise das Afirmações (Melhor/Pior)", "Análise dos Tópicos (Melhor/Pior)"])
 
     with tab1:
@@ -605,13 +569,10 @@ def render_overview(df, topic_amount):
 
     with tab3:
         render_negative_analysis(
-            min, 
             most_negative_topic, 
             most_positive_topic, 
             grouped, 
-            original_means, 
             topic_amount, 
-            df
         )
 
 if __name__ == "__main__":

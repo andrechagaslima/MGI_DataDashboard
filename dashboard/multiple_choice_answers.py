@@ -1,14 +1,6 @@
 import streamlit as st
 import plotly.express as px
 
-color_mapping_normal = {
-    "Concordo totalmente": '#1a9850',  # Green
-    "Concordo parcialmente": '#98df8a',  # Light green
-    "Não concordo, nem discordo": '#fee08b',  # Yellow
-    "Discordo parcialmente": '#fc8d59',  # Orange
-    "Discordo totalmente": '#d73027'  # Red
-}
-
 def split_columns_by_type(df):
     questions_str = []
     questions_numerical = []
@@ -29,21 +21,16 @@ def print_information(number_of_users, mean, std):
         unsafe_allow_html=True
     )
 
-import streamlit as st
-
 color_mapping = {
-    "Concordo totalmente": '#1a9850',     # Verde
-    "Concordo parcialmente": '#98df8a',   # Verde claro
-    "Não concordo, nem discordo": '#fee08b',  # Amarelo
-    "Discordo parcialmente": '#fc8d59',   # Laranja
-    "Discordo totalmente": '#d73027'      # Vermelho
+    "Concordo totalmente": '#1a9850',     # Green
+    "Concordo parcialmente": '#98df8a',   # Dark green
+    "Não concordo, nem discordo": '#fee08b',  # Yellow
+    "Discordo parcialmente": '#fc8d59',   # Orange
+    "Discordo totalmente": '#d73027'      # Red
 }
 
 def create_response_info_box(responses_counts):
-    """
-    Exibe um box cinza contendo a contagem e a porcentagem de cada resposta,
-    incluindo um pequeno quadrado colorido conforme o mapeamento em color_mapping.
-    """
+
     total = responses_counts.sum()
     
     st.markdown(
@@ -77,12 +64,8 @@ def create_response_info_box(responses_counts):
     list_items = ""
     for response, count in responses_counts.items():
         percentage = (count / total) * 100
-        
-        # Captura a cor com base no response, 
-        # ou usa cor padrão (ex: preto) se não estiver no dicionário.
         color = color_mapping.get(response, "#000000")  
         
-        # Cria o item de lista com o quadrado colorido + texto
         list_items += (
             f"<li>"
             f"<span class='color-square' style='background-color:{color};'></span>"
@@ -92,10 +75,10 @@ def create_response_info_box(responses_counts):
     
     st.markdown(f"""
     <div class="gray-box">
-      <h4>Distribuição das Respostas:</h4>  <!-- Título antes da lista -->
-      <ul>
-        {list_items}
-      </ul>
+        <h4>Distribuição das Respostas:</h4>  
+        <ul>
+            {list_items}
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 

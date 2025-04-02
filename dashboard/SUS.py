@@ -1,8 +1,8 @@
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+from multiple_choice_answers import print_information
 
-# Defining the evaluation categories for the SUS metric
 categories_information = {
     'Pior Imaginável': {'min_value': 0, 'max_value': 25, 'color': '#800000'}, # Dark red
     'Ruim': {'min_value': 25, 'max_value': 50, 'color': '#d73027'}, # Red
@@ -12,14 +12,6 @@ categories_information = {
     'Melhor Imaginável': {'min_value': 85, 'max_value': 100, 'color': '#1a9850'} # Green
     }
 
-def print_information(number_of_users, mean, std):
-    
-    st.markdown(
-        f"<div><strong>Total de Participantes:</strong> {number_of_users}</div>"
-        f"<div><strong>Valor Médio:</strong> {mean:.2f}</div>"
-        f"<div><strong>Desvio Padrão:</strong> {std:.2f}</div>",
-        unsafe_allow_html=True
-    )
 
 def create_scale_bar(): 
 
