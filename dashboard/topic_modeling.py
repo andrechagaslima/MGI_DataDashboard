@@ -57,15 +57,15 @@ def plot_comment_distribution(results_df):
 def docs_by_word(labels, df_topic_modeling, topic_number):
 
     results_df = pd.read_csv('./data/results.csv', encoding="utf-8")
-    comments_df = pd.read_csv('data/results_labels/flair.csv')
+    comments_df = pd.read_csv('data/dataFrame.csv')
 
     relevant_ids = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)]['document_id'].tolist()
     filtered_comments = comments_df[comments_df['ID'].isin(relevant_ids)].copy()
     filtered_results = results_df[results_df["ID"].isin(relevant_ids)].copy()
-    results_df = filtered_comments.merge(filtered_results, on="ID", how="left")
-
-    results_df['sus'] = results_df['sus'].astype(str).str.replace(',', '.').astype(float)
-
+    
+    merged_df = filtered_comments.merge(filtered_results, on="ID", how="left", suffixes=('_comments', ''))
+    results_df = merged_df.drop(columns=['comments_comments', 'sus_comments'])
+    
     word = st.selectbox(
         "Escolha 'Ver todos os comentários' ou selecione uma palavra do tópico para filtrar os comentários:", 
         ['Ver todos os comentários'] + labels,
@@ -73,7 +73,7 @@ def docs_by_word(labels, df_topic_modeling, topic_number):
     )
 
     if word != 'Ver todos os comentários':
-        results_df = results_df[results_df['clean_comments'].str.contains(word, case=False, na=False)]
+        results_df = results_df[results_df['clean_text'].str.contains(word, case=False, na=False)]
 
     type_of_comment = st.selectbox(
         "Escolha o tipo de comentário que deseja visualizar:", 
@@ -90,8 +90,6 @@ def docs_by_word(labels, df_topic_modeling, topic_number):
         </style>
     """, unsafe_allow_html=True)
 
-    results_df['sus'] = results_df['sus'].astype(str).str.replace(',', '.').astype(float)
-    
     min_sus, max_sus = st.slider(
         "Selecione o intervalo da métrica SUS:",
         min_value=0,
@@ -155,12 +153,18 @@ def render(topic_number, topic_amount):
     topics_model, df_topic_modeling, df_data = load_data(
         path_topic_model=f'topic_modeling/data_num_topics/{topic_amount}/topics_{topic_amount}.json',
         path_topic_modeling=f'topic_modeling/data_num_topics/{topic_amount}/documents_scores.csv',
-        data_sentiment_path='data/results_labels/flair.csv'
+        data_sentiment_path='data/dataFrame.csv'
         )
+    
+
     
     td_sorted = df_topic_modeling[df_topic_modeling['dominant_topic'] == int(topic_number)].sort_values(by='document_score', ascending=False)
     ids = np.array(td_sorted['document_id'].tolist())
     df_data = df_data[df_data['ID'].isin(ids)]
+
+    df_clean_text = pd.read_csv("data/results.csv")
+
+    df_data = df_data.merge(df_clean_text[['ID', 'clean_text']], how='left', on='ID')
 
     word_and_importance = topics_model[topic_number]
     sorted_word_and_importance = sorted(word_and_importance, key=lambda x: x[1])
@@ -175,7 +179,7 @@ def render(topic_number, topic_amount):
     with tab3:  
         docs_by_word(labels[::-1], df_topic_modeling, topic_number)
     with tab4:
-        multiple_choice_answers.render(df_data.drop(columns=['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.']), topic_modeling=True, labels=labels[::-1])      
+        multiple_choice_answers.render(df_data.drop(columns=['comments']), topic_modeling=True, labels=labels[::-1])      
     with tab5:
         st.title(f'Análise da Métrica SUS para os Participantes do Tópico {int(topic_number)+1}')
         SUS.render(df_data, topic_modeling=True, labels=labels[::-1])     

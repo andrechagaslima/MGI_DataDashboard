@@ -1,36 +1,42 @@
 import streamlit as st
-import plotly.express as px
+
+mapping = {
+    5: "Strongly Agree",
+    4: "Agree Partially",
+    3: "Neither Agree Nor Disagree",
+    2: "Disagree Partially",
+    1: "Strongly Disagree"
+}
 
 def split_columns_by_type(df):
-    questions_str = []
     questions_numerical = []
-
-    for column in list(df.columns)[2:-4]: 
-        if not any(str(value) in column for value in range(10)):
-            questions_str.append(column)
-        else:
+    for column in list(df.columns)[1:-4]: 
+        if any(str(value) in column for value in range(10)):
             questions_numerical.append(column)
+        
+    return questions_numerical
 
-    return questions_str, questions_numerical
 
 def print_information(number_of_users, mean, std):
+    if number_of_users == 1: std_text = "<div><strong>Desvio Padrão:</strong> Não possui desvio padrão.</div>"
+    else: std_text = f"<div><strong>Desvio Padrão:</strong> {std:.2f}</div>"
+    
     st.markdown(
         f"<div><strong>Total de Participantes:</strong> {number_of_users}</div>"
         f"<div><strong>Valor Médio:</strong> {mean:.2f}</div>"
-        f"<div><strong>Desvio Padrão:</strong> {std:.2f}</div>",
+        f"{std_text}",
         unsafe_allow_html=True
     )
-
+    
 color_mapping = {
-    "Concordo totalmente": '#1a9850',     # Green
-    "Concordo parcialmente": '#98df8a',   # Dark green
-    "Não concordo, nem discordo": '#fee08b',  # Yellow
-    "Discordo parcialmente": '#fc8d59',   # Orange
-    "Discordo totalmente": '#d73027'      # Red
+    "Strongly Agree": '#1a9850',     # Green
+    "Agree Partially": '#98df8a',   # Dark green
+    "Neither Agree Nor Disagree": '#fee08b',  # Yellow
+    "Disagree Partially": '#fc8d59',   # Orange
+    "Strongly Disagree": '#d73027'      # Red
 }
 
 def create_response_info_box(responses_counts):
-
     total = responses_counts.sum()
     
     st.markdown(
@@ -83,10 +89,9 @@ def create_response_info_box(responses_counts):
     """, unsafe_allow_html=True)
 
 def render(df, topic_modeling=False, labels=[]):
-    questions_str, questions_numerical = split_columns_by_type(df)
+    numeric_questions = split_columns_by_type(df)
 
-    selected_question = st.selectbox("Escolha uma afirmação:", questions_str)
-    selected_question_index = questions_str.index(selected_question)
+    selected_question = st.selectbox("Escolha uma afirmação:", numeric_questions)
 
     if topic_modeling:
         word = st.selectbox(
@@ -99,10 +104,11 @@ def render(df, topic_modeling=False, labels=[]):
 
     print_information(
         number_of_users=len(df), 
-        mean=df[questions_numerical[selected_question_index]].mean(),
-        std=df[questions_numerical[selected_question_index]].std()
+        mean=df[selected_question].mean(),
+        std=df[selected_question].std()
     )
 
-    response_counts = df[selected_question].value_counts()
+    mapped_responses = df[selected_question].map(mapping)
+    response_counts = mapped_responses.value_counts()
 
     create_response_info_box(response_counts)

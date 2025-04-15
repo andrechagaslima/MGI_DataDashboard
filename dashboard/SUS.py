@@ -84,10 +84,10 @@ def render(df, topic_modeling=False, labels=[]):
         if word != 'Considerar todas as palavras':
             df = df[df['clean_text'].str.contains(word, case=False, na=False)]
     
-    df.loc[:, 'Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.'] = df['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.'].str.replace(',', '.', regex=False).astype(float)
+    df.loc[:, 'sus'] = df['sus'].astype(str).str.replace(',', '.', regex=False).astype(float)
 
     categories = {}
-    for value in df['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.']:
+    for value in df['sus']:
         if value < 25:
             if "Pior Imaginável" not in categories:
                 categories["Pior Imaginável"] = 0
@@ -114,8 +114,8 @@ def render(df, topic_modeling=False, labels=[]):
             categories["Melhor Imaginável"]+=1
 
     print_information(number_of_users=len(df), 
-                      mean=df['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.'].mean(),
-                      std=df['Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.'].std()
+                      mean=df['sus'].mean(),
+                      std=df['sus'].std()
                      )
     
     create_scale_bar()

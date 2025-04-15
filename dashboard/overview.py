@@ -25,7 +25,7 @@ def create_card_with_score(question, score, background_color):
 def calculate_means(df):
     numeric_columns = df.select_dtypes(include=["number"]).columns
 
-    numeric_columns = numeric_columns[1:-2] 
+    numeric_columns = numeric_columns[1:-3] 
 
     means = {}
     original_means = {}  
@@ -316,7 +316,7 @@ def render_specific_topic(topic_number, topic_amount):
     else:
         st.warning(f"O tópico {topic_number + 1} não foi encontrado.")
 
-def render_response_percentages(df, question, y):
+def render_response_percentages(df, question):
     color_mapping = {
         "Concordo Totalmente": '#1a9850',      # Dark green
         "Concordo Parcialmente": '#98df8a',    # Green
@@ -333,7 +333,7 @@ def render_response_percentages(df, question, y):
         5: "Concordo Totalmente"
     }
 
-    response_counts = df[question].value_counts()
+    response_counts = df[question].dropna().value_counts()
     total = response_counts.sum()
 
     response_counts.index = response_counts.index.map(response_labels)
@@ -371,9 +371,8 @@ def render_response_percentages(df, question, y):
     list_items = ""
     for response, count in response_counts.items():
         percentage = (count / total) * 100
-
-        label = response.strip()  
-        color = color_mapping.get(label, "#000000")  
+ 
+        color = color_mapping.get(response, "#000000")  
 
         list_items += (
             f"<li>"
@@ -391,7 +390,7 @@ def render_response_percentages(df, question, y):
     </div>
     """, unsafe_allow_html=True)
 
-def render_positive_analysis(df, max, min, original_means):
+def render_questions_analysis(df, max, min, original_means):
     best_question = max[0][2:].strip()
     best_score = original_means[max[0]]
     
@@ -404,7 +403,7 @@ def render_positive_analysis(df, max, min, original_means):
         score=best_score,
         background_color="#86E886"
     )
-    render_response_percentages(df, max[0], "#86E886")
+    render_response_percentages(df, max[0])
 
     st.markdown("---")
 
@@ -414,9 +413,9 @@ def render_positive_analysis(df, max, min, original_means):
         score=worst_score,
         background_color="#FFA6B1"
     )
-    render_response_percentages(df, min[0], "#FFA6B1")
+    render_response_percentages(df, min[0])
 
-def render_negative_analysis(most_negative_topic, most_positive_topic, grouped, topic_amount):
+def render_topic_analysis(most_negative_topic, most_positive_topic, grouped, topic_amount):
 
     st.markdown("### Análise do Tópico com Maior Percentual de Comentários Positivos")
 
@@ -565,10 +564,10 @@ def render_overview(df, topic_amount):
         render_overview_topics(topic_amount)
 
     with tab2:
-        render_positive_analysis(df, max, min, original_means)
+        render_questions_analysis(df, max, min, original_means)
 
     with tab3:
-        render_negative_analysis(
+        render_topic_analysis(
             most_negative_topic, 
             most_positive_topic, 
             grouped, 

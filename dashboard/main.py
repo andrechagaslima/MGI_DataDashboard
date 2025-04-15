@@ -12,6 +12,17 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def pre_processing_df():
+    df = load_data("data/dataFrame.csv")
+
+    df['X'] = df.iloc[:, [1, 3, 5, 7, 9]].sum(axis=1) - 5
+    df['Y'] = 25 - df.iloc[:, [2, 4, 6, 8, 10]].sum(axis=1) 
+    df['sus'] = df.iloc[:, [12, 13]].sum(axis=1) * 2.5
+
+    df.columns.values[11] = "comments"
+
+    df.to_csv('data/dataFrame.csv', index=False)
+
 def get_topic_title(topic_amount, topic_number):
     file_path = f"summarization/outLLM/single_sentence/{topic_amount}/summary_topic_{int(topic_number)}.txt"
     
@@ -35,23 +46,25 @@ def load_data(path):
 
 if __name__ == "__main__":
 
+    pre_processing_df()
+
+    #RETIRAR DEPOIS
+
     df_flair = load_data('data/results_labels/flair.csv')
+
+    df = load_data('data/dataFrame.csv')
 
     selected_columns = [
         "ID",
-        "Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.",
-        "clean_text",
-        "Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria."
+        "sus",
+        "comments"
     ]
 
-    df_results = df_flair[selected_columns].copy() 
+    df_results = df[selected_columns].copy() 
 
-    df_results.rename(columns={
-        "ID": "ID",
-        "Some a pontuação total dos novos valores (X+Y) e multiplique por 2,5.": "sus",
-        "clean_text": "clean_comments",
-        "Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.": "comments"
-    }, inplace=True) 
+    df_results = df_results[df_results["comments"].notna()].reset_index(drop=True)
+
+    df_results['clean_text'] = df_flair['clean_text']
 
     with open('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json', "r") as file:
         classification_data = json.load(file)
@@ -62,12 +75,11 @@ if __name__ == "__main__":
 
     df_results.to_csv('data/results.csv', index=False) 
 
-    df = load_data('data/SUS_Simulador_Aposentadoria.csv')
-
     st.sidebar.title("Navegação")
     selection = st.sidebar.radio("Ir para", ["Visão Geral", "Análises SUS", "Modelagem de Tópicos"])
 
     topic_amount = st.sidebar.selectbox("Selecione a Quantidade de Tópicos", (5, 10, 15))
+
 
     if selection == "Visão Geral":
         overview.render_overview(df, topic_amount)
@@ -88,5 +100,4 @@ if __name__ == "__main__":
     
         topic_number = topic_titles.index(selected_topic_title)
 
-        # Render content based on the active topic
         topic_modeling.render(topic_number=str(topic_number),topic_amount = topic_amount)
