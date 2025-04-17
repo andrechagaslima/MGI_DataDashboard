@@ -1,16 +1,78 @@
 import streamlit as st
+import os
 import pandas as pd
 import multiple_choice_answers
 import SUS
 import topic_modeling
-import overview  
+import overview
 import json
 
-st.set_page_config(
-    page_title="MGI - Protótipo",
-    layout="wide",  
-    initial_sidebar_state="expanded"
-)
+st.set_page_config(page_title="MGI - Protótipo", layout="wide", initial_sidebar_state="expanded")
+CSV_UPLOAD_FOLDER = "data"
+TXT_UPLOAD_FOLDER = "txt_data"
+os.makedirs(CSV_UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(TXT_UPLOAD_FOLDER, exist_ok=True)
+
+def load_data(path):
+    return pd.read_csv(path)
+
+def csv_upload_page():
+    st.title("Upload CSV")
+    st.selectbox("Selecione o idioma (para uso futuro):", ["Portuguese", "English [Default]"])
+    st.subheader("Envie seu arquivo CSV")
+    uploaded_csv = st.file_uploader("Selecione um arquivo CSV", type=["csv"], key="csv_file")
+    success = False
+    if uploaded_csv is not None:
+        try:
+            header = pd.read_csv(uploaded_csv, nrows=0).columns.tolist()
+            if len(header) != 12:
+                st.error("O arquivo deve conter exatamente 12 colunas.")
+            else:
+                dtypes = {header[11]: str}
+                uploaded_csv.seek(0)
+                df = pd.read_csv(uploaded_csv, dtype=dtypes)
+                valid_numbers = True
+                for col in df.columns[:11]:
+                    try:
+                        pd.to_numeric(df[col])
+                    except Exception:
+                        valid_numbers = False
+                        break
+                if not valid_numbers:
+                    st.error("As primeiras 11 colunas devem conter apenas valores numéricos.")
+                else:
+                    last_col = df.columns[11]
+                    def is_numeric_string(x):
+                        x_str = str(x).strip()
+                        try:
+                            float(x_str)
+                            return not any(c.isalpha() for c in x_str)
+                        except:
+                            return False
+                    if df[last_col].dropna().apply(lambda x: not is_numeric_string(x)).all():
+                        st.success("CSV aceito!")
+                        save_path = os.path.join(CSV_UPLOAD_FOLDER, "dataFrame.csv")
+                        with open(save_path, "wb") as f:
+                            f.write(uploaded_csv.getbuffer())
+                        st.info(f"Arquivo salvo em: `{save_path}`")
+                        success = True
+                    else:
+                        st.error("A última coluna deve conter apenas valores do tipo string.")
+        except Exception as e:
+            st.error(f"Erro ao processar o arquivo: {e}")
+    st.subheader("Envie seu arquivo TXT")
+    uploaded_txt = st.file_uploader("Selecione um arquivo TXT", type=["txt"], key="txt_file")
+    if uploaded_txt is not None:
+        try:
+            text_content = uploaded_txt.read().decode("utf-8")
+            st.text_area("Conteúdo do arquivo de texto:", text_content, height=200)
+            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, uploaded_txt.name)
+            with open(txt_save_path, "wb") as f:
+                f.write(uploaded_txt.getbuffer())
+            st.info(f"Arquivo de texto salvo em: `{txt_save_path}`")
+        except Exception as e:
+            st.error(f"Erro ao processar o arquivo de texto: {e}")
+    return success
 
 def pre_processing_df():
     df = load_data("data/dataFrame.csv")
@@ -40,12 +102,7 @@ def load_all_topic_titles(topic_amount):
         titles.append(title)
     return titles
 
-@st.cache_data
-def load_data(path):
-    return pd.read_csv(path)    
-
-if __name__ == "__main__":
-
+def main_app():
     pre_processing_df()
 
     #RETIRAR DEPOIS
@@ -101,3 +158,17 @@ if __name__ == "__main__":
         topic_number = topic_titles.index(selected_topic_title)
 
         topic_modeling.render(topic_number=str(topic_number),topic_amount = topic_amount)
+
+if "csv_uploaded" not in st.session_state:
+    st.session_state["csv_uploaded"] = False
+
+if not st.session_state["csv_uploaded"]:
+    success = csv_upload_page()
+    if success:
+        st.session_state["csv_uploaded"] = True
+    else:
+        st.stop()
+
+main_app()
+
+
