@@ -60,16 +60,53 @@ def csv_upload_page():
                         st.error("A última coluna deve conter apenas valores do tipo string.")
         except Exception as e:
             st.error(f"Erro ao processar o arquivo: {e}")
-    st.subheader("Envie seu arquivo TXT")
-    uploaded_txt = st.file_uploader("Selecione um arquivo TXT", type=["txt"], key="txt_file")
-    if uploaded_txt is not None:
+    st.subheader("Envie seu arquivo TXT com as stopwords")
+    txt_stopwords = st.file_uploader("Selecione um arquivo TXT", type=["txt"], key="txt_stopwords")
+    if txt_stopwords is not None:
         try:
-            text_content = uploaded_txt.read().decode("utf-8")
+            text_content = txt_stopwords.read().decode("utf-8")
             st.text_area("Conteúdo do arquivo de texto:", text_content, height=200)
-            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, uploaded_txt.name)
+            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, txt_stopwords.name)
             with open(txt_save_path, "wb") as f:
-                f.write(uploaded_txt.getbuffer())
+                f.write(txt_stopwords.getbuffer())
             st.info(f"Arquivo de texto salvo em: `{txt_save_path}`")
+        except Exception as e:
+            st.error(f"Erro ao processar o arquivo de texto: {e}")
+
+    st.subheader("Envie seu arquivo TXT com as frases e sua análise de sentimento")
+    txt_sentiment_analysis = st.file_uploader("Selecione um arquivo TXT", type=["txt"], key="txt_sentiment_analysis")
+    if txt_sentiment_analysis is not None:
+        try:
+            text_content = txt_sentiment_analysis.read().decode("utf-8")
+
+            # Salvar o arquivo
+            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, txt_sentiment_analysis.name)
+            with open(txt_save_path, "wb") as f:
+                f.write(txt_sentiment_analysis.getbuffer())
+
+            # Extrair os sentimentos
+            lines = text_content.strip().splitlines()
+            labels = []
+            for line in lines:
+                parts = line.rsplit(":", 1)
+                if len(parts) == 2:
+                    label = parts[1].strip().strip('"').strip(",")
+                    labels.append(label)
+
+            if labels:
+                from collections import Counter
+                label_counts = Counter(labels)
+                min_count = min(label_counts.values())
+
+                selected_quantity = st.selectbox(
+                    "Quantidade de frases por sentimento:",
+                    options=list(range(1, min_count + 1)),
+                    index=min_count - 1
+                )
+
+                # Salvar no session_state
+                st.session_state["selected_quantity_per_label"] = selected_quantity
+
         except Exception as e:
             st.error(f"Erro ao processar o arquivo de texto: {e}")
     return success
