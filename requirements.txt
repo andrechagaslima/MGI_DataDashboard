@@ -1,4 +1,8 @@
 streamlit
 plotly
 pandas
-numpy
+numpy==1.26.4
+matplotlib
+nltk
+git+https://github.com/antonio258/npp.git
+spacy
