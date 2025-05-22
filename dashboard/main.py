@@ -66,7 +66,7 @@ def csv_upload_page():
         try:
             text_content = txt_stopwords.read().decode("utf-8")
             st.text_area("Conteúdo do arquivo de texto:", text_content, height=200)
-            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, txt_stopwords.name)
+            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, "stopwords.txt")
             with open(txt_save_path, "wb") as f:
                 f.write(txt_stopwords.getbuffer())
             st.info(f"Arquivo de texto salvo em: `{txt_save_path}`")
@@ -80,7 +80,7 @@ def csv_upload_page():
             text_content = txt_sentiment_analysis.read().decode("utf-8")
 
             # Salvar o arquivo
-            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, txt_sentiment_analysis.name)
+            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, "txt_sentiment_analysis")
             with open(txt_save_path, "wb") as f:
                 f.write(txt_sentiment_analysis.getbuffer())
 
