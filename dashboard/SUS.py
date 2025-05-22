@@ -4,19 +4,16 @@ import plotly.graph_objects as go
 from multiple_choice_answers import print_information
 
 categories_information = {
-    'Pior Imaginável': {'min_value': 0, 'max_value': 25, 'color': '#800000'}, # Dark red
-    'Ruim': {'min_value': 25, 'max_value': 50, 'color': '#d73027'}, # Red
-    'Ok': {'min_value': 50, 'max_value': 70, 'color': '#fc8d59'}, # Orange
-    'Bom': {'min_value': 70, 'max_value': 80, 'color': '#fee08b'}, # Yellow
-    'Excelente': {'min_value': 80, 'max_value': 85, 'color': '#98df8a'}, # Light green
-    'Melhor Imaginável': {'min_value': 85, 'max_value': 100, 'color': '#1a9850'} # Green
-    }
+    'Worst Imaginable': {'min_value': 0, 'max_value': 25, 'color': '#800000'},  # Dark red
+    'Bad': {'min_value': 25, 'max_value': 50, 'color': '#d73027'},              # Red
+    'Ok': {'min_value': 50, 'max_value': 70, 'color': '#fc8d59'},               # Orange
+    'Good': {'min_value': 70, 'max_value': 80, 'color': '#fee08b'},             # Yellow
+    'Excellent': {'min_value': 80, 'max_value': 85, 'color': '#98df8a'},        # Light green
+    'Best Imaginable': {'min_value': 85, 'max_value': 100, 'color': '#1a9850'}   # Green
+}
 
-
-def create_scale_bar(): 
-
+def create_scale_bar():
     fig = go.Figure()
-
     for category in categories_information:
         fig.add_trace(go.Scatter(
             x=[categories_information[category]["min_value"], categories_information[category]["max_value"]],
@@ -26,98 +23,86 @@ def create_scale_bar():
             name=category,
             fill='toself'
         ))
-
     fig.update_layout(
         xaxis=dict(
             range=[0, 100],
             tickvals=[0, 25, 50, 70, 80, 85, 100],
             ticktext=["0", "25", "50", "70", "80", "85", "100"],
             title="Rating Scale",
-            fixedrange=True  
+            fixedrange=True
         ),
         yaxis=dict(
-            range=[-1, 1], 
+            range=[-1, 1],
             showticklabels=False,
-            fixedrange=True  
+            fixedrange=True
         ),
-        showlegend=False,  
+        showlegend=False,
         height=190,
         plot_bgcolor="white",
         autosize=True,
         dragmode=False
     )
-
-    st.plotly_chart(fig)   
+    st.plotly_chart(fig)
 
 def create_pie_chart(categories):
-    
     fig = px.pie(
         names=categories.keys(),
         values=categories.values()
     )
-
     fig.update_traces(
         marker=dict(colors=[categories_information[category]['color'] for category in categories]),
-        hovertemplate='<br>Total de Participantes: %{value}<extra></extra>'
+        hovertemplate='<br>Total Participants: %{value}<extra></extra>'
     )
-
     st.plotly_chart(fig)
 
 def render(df, topic_modeling=False, labels=[]):
-    
-    # Dictionary to store the metric value for the users
+    # Dictionary to store the metric value counts for the users
     categories = {
-        "Pior Imaginável": 0,
-        "Ruim": 0,
+        "Worst Imaginable": 0,
+        "Bad": 0,
         "Ok": 0,
-        "Bom": 0,
-        "Excelente": 0,
-        "Melhor Imaginável": 0
+        "Good": 0,
+        "Excellent": 0,
+        "Best Imaginable": 0
     }
 
     if topic_modeling:
         word = st.selectbox(
-            "Escolha 'Considerar todas as palavras' ou selecione uma palavra do tópico como filtro:", 
-            ['Considerar todas as palavras'] + labels,
+            "Choose 'Consider all words' or select a topic word as a filter:",
+            ['Consider all words'] + labels,
             key='aba4'
-            )
-        if word != 'Considerar todas as palavras':
+        )
+        if word != 'Consider all words':
             df = df[df['clean_text'].str.contains(word, case=False, na=False)]
-    
+
     df.loc[:, 'sus'] = df['sus'].astype(str).str.replace(',', '.', regex=False).astype(float)
 
     categories = {}
     for value in df['sus']:
         if value < 25:
-            if "Pior Imaginável" not in categories:
-                categories["Pior Imaginável"] = 0
-            categories["Pior Imaginável"]+=1
+            categories.setdefault("Worst Imaginable", 0)
+            categories["Worst Imaginable"] += 1
         elif value < 50:
-            if "Ruim" not in categories:
-                categories["Ruim"] = 0
-            categories["Ruim"]+=1
+            categories.setdefault("Bad", 0)
+            categories["Bad"] += 1
         elif value < 70:
-            if "Ok" not in categories:
-                categories["Ok"] = 0
-            categories["Ok"]+=1
+            categories.setdefault("Ok", 0)
+            categories["Ok"] += 1
         elif value < 80:
-            if "Bom" not in categories:
-                categories["Bom"] = 0
-            categories["Bom"]+=1
+            categories.setdefault("Good", 0)
+            categories["Good"] += 1
         elif value < 85:
-            if "Excelente" not in categories:
-                categories["Excelente"] = 0
-            categories["Excelente"]+=1
-        else: 
-            if "Melhor Imaginável" not in categories:
-                categories["Melhor Imaginável"] = 0
-            categories["Melhor Imaginável"]+=1
+            categories.setdefault("Excellent", 0)
+            categories["Excellent"] += 1
+        else:
+            categories.setdefault("Best Imaginable", 0)
+            categories["Best Imaginable"] += 1
 
-    print_information(number_of_users=len(df), 
-                      mean=df['sus'].mean(),
-                      std=df['sus'].std()
-                     )
-    
+    print_information(
+        number_of_users=len(df),
+        mean=df['sus'].mean(),
+        std=df['sus'].std()
+    )
+
     create_scale_bar()
-
     create_pie_chart(categories)

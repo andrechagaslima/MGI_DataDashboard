@@ -10,35 +10,34 @@ mapping = {
 
 def split_columns_by_type(df):
     questions_numerical = []
-    for column in list(df.columns)[1:-4]: 
+    for column in list(df.columns)[1:-4]:
         if any(str(value) in column for value in range(10)):
             questions_numerical.append(column)
-        
     return questions_numerical
 
 
 def print_information(number_of_users, mean, std):
-    if number_of_users == 1: std_text = "<div><strong>Desvio Padrão:</strong> Não possui desvio padrão.</div>"
-    else: std_text = f"<div><strong>Desvio Padrão:</strong> {std:.2f}</div>"
-    
+    if number_of_users == 1:
+        std_text = "<div><strong>Standard Deviation:</strong> No standard deviation available.</div>"
+    else:
+        std_text = f"<div><strong>Standard Deviation:</strong> {std:.2f}</div>"
     st.markdown(
-        f"<div><strong>Total de Participantes:</strong> {number_of_users}</div>"
-        f"<div><strong>Valor Médio:</strong> {mean:.2f}</div>"
+        f"<div><strong>Total Participants:</strong> {number_of_users}</div>"
+        f"<div><strong>Mean Value:</strong> {mean:.2f}</div>"
         f"{std_text}",
         unsafe_allow_html=True
     )
-    
+
 color_mapping = {
     "Strongly Agree": '#1a9850',     # Green
-    "Agree Partially": '#98df8a',   # Dark green
+    "Agree Partially": '#98df8a',    # Dark green
     "Neither Agree Nor Disagree": '#fee08b',  # Yellow
-    "Disagree Partially": '#fc8d59',   # Orange
-    "Strongly Disagree": '#d73027'      # Red
+    "Disagree Partially": '#fc8d59', # Orange
+    "Strongly Disagree": '#d73027'   # Red
 }
 
 def create_response_info_box(responses_counts):
     total = responses_counts.sum()
-    
     st.markdown(
         """
         <style>
@@ -66,22 +65,19 @@ def create_response_info_box(responses_counts):
         """,
         unsafe_allow_html=True
     )
-    
     list_items = ""
     for response, count in responses_counts.items():
         percentage = (count / total) * 100
-        color = color_mapping.get(response, "#000000")  
-        
+        color = color_mapping.get(response, "#000000")
         list_items += (
             f"<li>"
             f"<span class='color-square' style='background-color:{color};'></span>"
-            f"<strong>{response}:</strong> {count} respostas ({percentage:.2f}%)"
+            f"<strong>{response}:</strong> {count} responses ({percentage:.2f}%)"
             f"</li>"
         )
-    
     st.markdown(f"""
     <div class="gray-box">
-        <h4>Distribuição das Respostas:</h4>  
+        <h4>Response Distribution:</h4>
         <ul>
             {list_items}
         </ul>
@@ -90,25 +86,20 @@ def create_response_info_box(responses_counts):
 
 def render(df, topic_modeling=False, labels=[]):
     numeric_questions = split_columns_by_type(df)
-
-    selected_question = st.selectbox("Escolha uma afirmação:", numeric_questions)
-
+    selected_question = st.selectbox("Select a statement:", numeric_questions)
     if topic_modeling:
         word = st.selectbox(
-            "Escolha 'Considerar todos os comentários' ou selecione uma palavra do tópico como filtro:", 
-            ['Considerar todos os comentários'] + labels,
+            "Select 'Consider all comments' or choose a topic word as filter:",
+            ['Consider all comments'] + labels,
             key='aba3'
         )
-        if word != 'Considerar todos os comentários':
+        if word != 'Consider all comments':
             df = df[df['clean_text'].str.contains(word, case=False, na=False)]
-
     print_information(
-        number_of_users=len(df), 
+        number_of_users=len(df),
         mean=df[selected_question].mean(),
         std=df[selected_question].std()
     )
-
     mapped_responses = df[selected_question].map(mapping)
     response_counts = mapped_responses.value_counts()
-
     create_response_info_box(response_counts)
