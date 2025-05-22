@@ -10,7 +10,7 @@ from src.utils.geral import read_dataset, save_file, get_examples
 
 SEED = 2024
 
-if __name__ == '__main__':
+def run_classification(num = 2):
     args, info = args_llm()
 
     df = read_dataset(args.inputdir)

@@ -100,14 +100,12 @@ def save_summary(text, total_number_of_topics, topic):
         file.write(text)
         
 # MAIN ---------------------------------
-
-for total_t in [5, 10, 15]:
-#for total_t in [15]:
-    if total_t == 15: inicio = 7
-    else: inicio = 0
-    for t in range(inicio, total_t):
-    #for t in [4, 0]:
-        print(f'topic {t}')
-        text = load_data(t, total_t)
-        summary = get_summary(text)
-        save_summary(summary, total_t, t)
+def run_single():
+    for total_t in [5, 10, 15]:
+    #for total_t in [15]:
+        for t in range(total_t):
+        #for t in [4, 0]:
+            print(f'topic {t}')
+            text = load_data(t, total_t)
+            summary = get_summary(text)
+            save_summary(summary, total_t, t)

@@ -293,11 +293,10 @@ def save_summary(text, total_number_of_topics, topic):
 # MAIN ---------------------------------
 
 #for total_t in [5, 10, 15]:
-for total_t in [10, 15]:
-    if total_t == 10: inicio = 7
-    else: inicio = 0
-    for t in range(inicio, total_t):
-        print(f'topic {t}')
-        comments = load_data(t, total_t)
-        summary = get_summary(comments)
-        save_summary(summary, total_t, t)
+def run_detailed():
+    for total_t in [10, 15]:
+        for t in range(total_t):
+            print(f'topic {t}')
+            comments = load_data(t, total_t)
+            summary = get_summary(comments)
+            save_summary(summary, total_t, t)
