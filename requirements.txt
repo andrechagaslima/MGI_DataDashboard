@@ -4,5 +4,5 @@ plotly
 pandas
 numpy==1.26.4
 matplotlib
-nltk
+nltk==3.8.1
 git+https://github.com/antonio258/npp.git
