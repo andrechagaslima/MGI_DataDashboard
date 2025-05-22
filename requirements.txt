@@ -1,8 +1,8 @@
-spacy
-streamlit
-plotly
-pandas
 numpy==1.26.4
-matplotlib==3.1.2
+matplotlib==3.8.4
+spacy==3.7.4
+streamlit==1.35.0
+plotly==5.22.0
+pandas==2.2.2
 nltk==3.8.1
 git+https://github.com/antonio258/npp.git
