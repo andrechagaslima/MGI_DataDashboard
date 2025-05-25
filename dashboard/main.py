@@ -1,11 +1,18 @@
 import streamlit as st
 import os
+import sys
 import pandas as pd
 import multiple_choice_answers
 import SUS
 import topic_modeling
 import overview
 import json
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from preprocessing.preprocessing import preprocess_text_pipeline
 
 st.set_page_config(page_title="MGI - Prototype", layout="wide", initial_sidebar_state="expanded")
 CSV_UPLOAD_FOLDER = "data"
@@ -60,6 +67,7 @@ def csv_upload_page():
                         st.error("The last column must contain only string values.")
         except Exception as e:
             st.error(f"Error processing file: {e}")
+    
     st.subheader("Upload your TXT file with stopwords")
     txt_stopwords = st.file_uploader("Select a TXT file", type=["txt"], key="txt_stopwords")
     if txt_stopwords is not None:
@@ -75,16 +83,14 @@ def csv_upload_page():
 
     st.subheader("Upload your TXT file with the sentences and their sentiment analysis")
     txt_sentiment_analysis = st.file_uploader("Select a TXT file", type=["txt"], key="txt_sentiment_analysis")
+    selected_quantity = None
     if txt_sentiment_analysis is not None:
         try:
             text_content = txt_sentiment_analysis.read().decode("utf-8")
-
-            # Save the file
             txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, "txt_sentiment_analysis")
             with open(txt_save_path, "wb") as f:
                 f.write(txt_sentiment_analysis.getbuffer())
 
-            # Extract the sentiments
             lines = text_content.strip().splitlines()
             labels = []
             for line in lines:
@@ -104,22 +110,20 @@ def csv_upload_page():
                     index=min_count - 1
                 )
 
-                # Save in session_state
                 st.session_state["selected_quantity_per_label"] = selected_quantity
+                st.session_state["sentiment_uploaded"] = True
 
         except Exception as e:
             st.error(f"Error processing text file: {e}")
-    return success
+
+    return success, selected_quantity
 
 def pre_processing_df():
     df = load_data("data/dataFrame.csv")
-
     df['X'] = df.iloc[:, [1, 3, 5, 7, 9]].sum(axis=1) - 5
     df['Y'] = 25 - df.iloc[:, [2, 4, 6, 8, 10]].sum(axis=1)
     df['sus'] = df.iloc[:, [12, 13]].sum(axis=1) * 2.5
-
     df.columns.values[11] = "comments"
-
     df.to_csv('data/dataFrame.csv', index=False)
 
 def get_topic_title(topic_amount, topic_number):
@@ -132,74 +136,61 @@ def get_topic_title(topic_amount, topic_number):
         return f"File not found: {file_path}"
 
 def load_all_topic_titles(topic_amount):
-    titles = []
-    for topic_number in range(topic_amount):
-        title = get_topic_title(topic_amount, topic_number)
-        titles.append(title)
-    return titles
+    return [get_topic_title(topic_amount, topic_number) for topic_number in range(topic_amount)]
 
 def main_app():
     pre_processing_df()
-
-    # TODO: Remove later
-
-    df_flair = load_data('data/results_labels/flair.csv')
-
+    preprocess_text_pipeline()
     df = load_data('data/dataFrame.csv')
 
-    selected_columns = [
-        "ID",
-        "sus",
-        "comments"
-    ]
-
+    selected_columns = ["ID", "sus", "comments"]
     df_results = df[selected_columns].copy()
-
     df_results = df_results[df_results["comments"].notna()].reset_index(drop=True)
-
-    df_results['clean_text'] = df_flair['clean_text']
 
     with open('sentiment_analysis/resources/outLLM/sentiment_analysis/prompt4/3_few_shot/classification.json', "r") as file:
         classification_data = json.load(file)
-
     y_pred_text = classification_data.get("y_pred_text", [])
-
     df_results["results"] = y_pred_text[:len(df_results)]
 
     df_results.to_csv('data/results.csv', index=False)
 
     st.sidebar.title("Navigation")
     selection = st.sidebar.radio("Go to", ["Overview", "SUS Analyses", "Topic Modeling"])
-
     topic_amount = st.sidebar.selectbox("Select Number of Topics", (5, 10, 15))
 
     if selection == "Overview":
         overview.render_overview(df, topic_amount)
-
     elif selection == "SUS Analyses":
         tab1, tab2 = st.tabs(["Agreement/Disagreement Statements", "Global SUS"])
         with tab1:
             multiple_choice_answers.render(df)
         with tab2:
             SUS.render(df)
-
     elif selection == "Topic Modeling":
         topic_titles = load_all_topic_titles(topic_amount)
-
         selected_topic_title = st.sidebar.selectbox("Select a Topic:", options=topic_titles)
-
         topic_number = topic_titles.index(selected_topic_title)
-
         topic_modeling.render(topic_number=str(topic_number), topic_amount=topic_amount)
 
 if "csv_uploaded" not in st.session_state:
     st.session_state["csv_uploaded"] = False
+if "sentiment_uploaded" not in st.session_state:
+    st.session_state["sentiment_uploaded"] = False
+if "proceed_main" not in st.session_state:
+    st.session_state["proceed_main"] = False
 
-if not st.session_state["csv_uploaded"]:
-    success = csv_upload_page()
+if not st.session_state["csv_uploaded"] or not st.session_state["sentiment_uploaded"]:
+    success, selected_quantity = csv_upload_page()
     if success:
         st.session_state["csv_uploaded"] = True
-    else:
-        st.stop()
+    st.stop()
 
-main_app()
+# ✅ Botão de prosseguir só aparece após os uploads
+if st.session_state["csv_uploaded"] and st.session_state["sentiment_uploaded"]:
+    st.subheader("Ready to proceed?")
+    proceed = st.button("Proceed to Analysis")
+    if proceed:
+        st.session_state["proceed_main"] = True
+
+if st.session_state["proceed_main"]:
+    main_app()

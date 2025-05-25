@@ -10,7 +10,7 @@ from src.utils.geral import read_dataset, save_file, get_examples
 
 SEED = 2024
 
-def run_classification(num = 2):
+def run_classification():
     args, info = args_llm()
 
     df = read_dataset(args.inputdir)
@@ -33,5 +33,7 @@ def run_classification(num = 2):
     info["y_pred_text"] = y_pred_text
     info["prompt"] = llm.system_prompt
     
-    # print(json.dumps(info, indent=4))
+    print(json.dumps(info, indent=4))
     save_file(args.outfilename, info)
+
+run_classification()

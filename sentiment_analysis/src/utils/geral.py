@@ -31,9 +31,8 @@ def check_if_split_exists(args):
 
 def read_dataset(inputdir):
     df = pd.read_csv(inputdir)
-    df = df.rename(columns={'Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.': 'Comentários'})
-    df = df[['ID', 'Comentários']]
-    df.dropna(subset=['Comentários'], inplace=True)
+    df = df[['ID', 'comments']]
+    df.dropna(subset=['comments'], inplace=True)
     df.reset_index(drop=True, inplace=True)
 
     return df

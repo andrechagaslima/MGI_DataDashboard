@@ -27,7 +27,7 @@ def remove_repetion_caracteres(string, max_repetition=2):
 
 def preprocess_text_pipeline(input_csv_path='../data/dataFrame.csv', 
                               output_csv_path='../data/dataFrame.csv',
-                              stopwords_file='stopwords.txt',
+                              stopwords_file='../txt_data/stopwords.txt',
                               text_column="comments"):
    
     stem = sp.load("pt_core_news_sm")
@@ -58,3 +58,5 @@ def preprocess_text_pipeline(input_csv_path='../data/dataFrame.csv',
 
     df['clean_text'] = df[text_column].apply(preprocessing)
     df.to_csv(output_csv_path, index=False)
+
+preprocess_text_pipeline()
