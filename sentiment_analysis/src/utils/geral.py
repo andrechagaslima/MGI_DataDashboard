@@ -29,8 +29,8 @@ def check_if_split_exists(args):
         print("Already exists selection output")
         exit()
 
-def read_dataset(inputdir):
-    df = pd.read_csv(inputdir)
+def read_dataset():
+    df = pd.read_csv("./data/dataFrame.csv")
     df = df[['ID', 'comments']]
     df.dropna(subset=['comments'], inplace=True)
     df.reset_index(drop=True, inplace=True)
