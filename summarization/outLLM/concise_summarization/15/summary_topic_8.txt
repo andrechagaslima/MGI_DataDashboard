@@ -1,1 +1,0 @@
-O simulador apresenta pontos positivos, como ser fácil de usar e fornecer informações sobre a data de aposentadoria, mas apresenta falhas, como não calcular o valor do salário na aposentadoria em alguns casos. Sugestões foram feitas para melhorar o simulador, como simular o salário de aposentadoria e fornecer informações claras sobre as fundamentações da aposentadoria.

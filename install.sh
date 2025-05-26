@@ -1,3 +1,7 @@
+python -m venv venv
+
+source venv/bin/activate
+
 set -e
 
 sudo apt update -qq

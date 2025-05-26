@@ -1,1 +1,0 @@
-O simulador é fácil de usar e útil para os servidores públicos, mas apresenta limitações, como não considerar tempo de contribuição fora do serviço público e não integrar todas as contribuições previdenciárias. Sugere-se incluir prazos de outros cargos, regimes previdenciários, vínculos de trabalho e bancos de dados.

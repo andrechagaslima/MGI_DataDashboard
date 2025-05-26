@@ -1,5 +1,0 @@
-#python detailed_topic_comments_summarization.py
-
-python concise_topic_comments_summarization.py
-
-python single_sentence_topic_summarization.py

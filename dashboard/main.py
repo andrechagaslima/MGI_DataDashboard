@@ -156,11 +156,11 @@ def main_app():
     st.success("Text preprocessing completed.")
 
     st.info("Starting: Topic Modeling...")
-    #run_topic_modeling()
+    run_topic_modeling()
     st.success("Topic modeling completed.")
 
     st.info("Starting: Sentiment Classification...")
-    #run_classification(number_of_examples=selected_quantity)
+    run_classification(number_of_examples=selected_quantity)
     st.success("Classification completed.")
 
     st.info("Starting: Detailed Summarization...")

@@ -1,1 +1,0 @@
-"Melhoria da interpretação e simplificação."

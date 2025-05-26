@@ -1,1 +1,0 @@
-A ferramenta é considerada útil e importante para os servidores, facilitando a vida e a planejamento da aposentadoria, mas apresenta alguns problemas, como não calcular nada sobre aposentadoria e não ser amigável. Sugere-se integrar o simulador com o sistema de contribuições do INSS e criar um campo para lançar o tempo de contribuição.

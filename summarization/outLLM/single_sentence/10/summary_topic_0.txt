@@ -1,1 +1,0 @@
-"Simulador precisa de ajustes para precisão."

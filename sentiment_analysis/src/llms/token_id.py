@@ -1,3 +1,3 @@
 def get_token():
-    token_access = 'YOUR_ID'
+    token_access = 'SEU_TOKEN'
     return token_access
