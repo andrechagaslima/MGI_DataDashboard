@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 def run_topic_modeling():
     save_data = 'data_topic_modeling'
 
-    df = pd.read_csv('../data/dataFrame.csv')
+    df = pd.read_csv('./data/dataFrame.csv')
 
     use_df = df[df['clean_text'].notna()]
     use_df = use_df.reset_index(drop=True)
@@ -146,5 +146,3 @@ def run_topic_modeling():
     model.save_txt(f'data_num_topics/{num_topics}/topics.txt')
     model.dominant_topics(use_df['clean_text'], f'data_num_topics/{num_topics}/', use_df['ID'].tolist())
     model.save_json(f'data_num_topics/{num_topics}/topics_{num_topics}.json')
-
-run_topic_modeling()

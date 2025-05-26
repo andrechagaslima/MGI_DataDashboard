@@ -13,6 +13,8 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from preprocessing.preprocessing import preprocess_text_pipeline
+#from topic_modeling.topic_modeling import run_topic_modeling
+#from sentiment_analysis.run_llms_classifiication import run_classification
 
 st.set_page_config(page_title="MGI - Prototype", layout="wide", initial_sidebar_state="expanded")
 CSV_UPLOAD_FOLDER = "data"
@@ -25,10 +27,11 @@ def load_data(path):
 
 def csv_upload_page():
     st.title("Upload CSV")
-    st.selectbox("Select language (for future use):", ["Portuguese", "English [Default]"])
+    st.selectbox("Select language:", ["Portuguese", "English [Default]"])
     st.subheader("Upload your CSV file")
     uploaded_csv = st.file_uploader("Select a CSV file", type=["csv"], key="csv_file")
     success = False
+
     if uploaded_csv is not None:
         try:
             header = pd.read_csv(uploaded_csv, nrows=0).columns.tolist()
@@ -67,7 +70,7 @@ def csv_upload_page():
                         st.error("The last column must contain only string values.")
         except Exception as e:
             st.error(f"Error processing file: {e}")
-    
+
     st.subheader("Upload your TXT file with stopwords")
     txt_stopwords = st.file_uploader("Select a TXT file", type=["txt"], key="txt_stopwords")
     if txt_stopwords is not None:
@@ -78,45 +81,27 @@ def csv_upload_page():
             with open(txt_save_path, "wb") as f:
                 f.write(txt_stopwords.getbuffer())
             st.info(f"Text file saved at: `{txt_save_path}`")
+            st.session_state["stopwords_uploaded"] = True
         except Exception as e:
             st.error(f"Error processing text file: {e}")
 
-    st.subheader("Upload your TXT file with the sentences and their sentiment analysis")
-    txt_sentiment_analysis = st.file_uploader("Select a TXT file", type=["txt"], key="txt_sentiment_analysis")
-    selected_quantity = None
-    if txt_sentiment_analysis is not None:
+    st.subheader("Upload your JSON file with the sentiment analysis")
+    json_sentiment_analysis = st.file_uploader("Select a JSON file", type=["json"], key="json_sentiment_analysis")
+    if json_sentiment_analysis is not None:
         try:
-            text_content = txt_sentiment_analysis.read().decode("utf-8")
-            txt_save_path = os.path.join(TXT_UPLOAD_FOLDER, "txt_sentiment_analysis")
-            with open(txt_save_path, "wb") as f:
-                f.write(txt_sentiment_analysis.getbuffer())
+            json_content = json_sentiment_analysis.read().decode("utf-8")
+            sentiment_data = json.loads(json_content)
+            st.json(sentiment_data)  
+            json_save_path = os.path.join(TXT_UPLOAD_FOLDER, "sentiment_analysis.json")
+            with open(json_save_path, "w", encoding="utf-8") as f:
+                json.dump(sentiment_data, f, ensure_ascii=False, indent=4)
 
-            lines = text_content.strip().splitlines()
-            labels = []
-            for line in lines:
-                parts = line.rsplit(":", 1)
-                if len(parts) == 2:
-                    label = parts[1].strip().strip('"').strip(",")
-                    labels.append(label)
-
-            if labels:
-                from collections import Counter
-                label_counts = Counter(labels)
-                min_count = min(label_counts.values())
-
-                selected_quantity = st.selectbox(
-                    "Number of sentences per sentiment:",
-                    options=list(range(1, min_count + 1)),
-                    index=min_count - 1
-                )
-
-                st.session_state["selected_quantity_per_label"] = selected_quantity
-                st.session_state["sentiment_uploaded"] = True
-
+            st.info(f"JSON file saved at: `{json_save_path}`")
+            st.session_state["sentiment_uploaded"] = True
         except Exception as e:
-            st.error(f"Error processing text file: {e}")
+            st.error(f"Error processing JSON file: {e}")
 
-    return success, selected_quantity
+    return success
 
 def pre_processing_df():
     df = load_data("data/dataFrame.csv")
@@ -141,6 +126,9 @@ def load_all_topic_titles(topic_amount):
 def main_app():
     pre_processing_df()
     preprocess_text_pipeline()
+    #run_topic_modeling()
+    #run_classification(number_of_examples=)
+
     df = load_data('data/dataFrame.csv')
 
     selected_columns = ["ID", "sus", "comments"]
@@ -176,21 +164,23 @@ if "csv_uploaded" not in st.session_state:
     st.session_state["csv_uploaded"] = False
 if "sentiment_uploaded" not in st.session_state:
     st.session_state["sentiment_uploaded"] = False
+if "stopwords_uploaded" not in st.session_state:
+    st.session_state["stopwords_uploaded"] = False
 if "proceed_main" not in st.session_state:
     st.session_state["proceed_main"] = False
 
-if not st.session_state["csv_uploaded"] or not st.session_state["sentiment_uploaded"]:
-    success, selected_quantity = csv_upload_page()
+if not (st.session_state["csv_uploaded"] and st.session_state["sentiment_uploaded"] and st.session_state["stopwords_uploaded"]):
+    success = csv_upload_page()
     if success:
         st.session_state["csv_uploaded"] = True
     st.stop()
 
-# ✅ Botão de prosseguir só aparece após os uploads
-if st.session_state["csv_uploaded"] and st.session_state["sentiment_uploaded"]:
+if st.session_state["proceed_main"]:
+    main_app()
+
+if st.session_state["csv_uploaded"] and st.session_state["sentiment_uploaded"] and st.session_state["stopwords_uploaded"]:
     st.subheader("Ready to proceed?")
     proceed = st.button("Proceed to Analysis")
     if proceed:
         st.session_state["proceed_main"] = True
-
-if st.session_state["proceed_main"]:
-    main_app()
+        st.rerun() 
