@@ -13,7 +13,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from preprocessing.preprocessing import preprocess_text_pipeline
-#from topic_modeling.topic_modeling import run_topic_modeling
+from topicmodeling.topicmodeling import run_topic_modeling
 #from sentiment_analysis.run_llms_classifiication import run_classification
 
 st.set_page_config(page_title="MGI - Prototype", layout="wide", initial_sidebar_state="expanded")
@@ -158,7 +158,7 @@ def main_app():
         topic_titles = load_all_topic_titles(topic_amount)
         selected_topic_title = st.sidebar.selectbox("Select a Topic:", options=topic_titles)
         topic_number = topic_titles.index(selected_topic_title)
-        topic_modeling.render(topic_number=str(topic_number), topic_amount=topic_amount)
+        topicmodeling.render(topic_number=str(topic_number), topic_amount=topic_amount)
 
 if "csv_uploaded" not in st.session_state:
     st.session_state["csv_uploaded"] = False

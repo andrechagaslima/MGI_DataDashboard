@@ -1,4 +1,4 @@
-from BERTopic.BERTopic import BERTopic
+from topicmodeling.BERTopic.BERTopic import BERTopic
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from umap import UMAP
