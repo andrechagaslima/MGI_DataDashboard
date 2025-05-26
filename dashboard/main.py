@@ -147,8 +147,8 @@ def load_all_topic_titles(topic_amount):
 def main_app():
     pre_processing_df()
     preprocess_text_pipeline()
-    #run_topic_modeling()
-    #run_classification(number_of_examples=)
+    run_topic_modeling()
+    run_classification(number_of_examples=)
 
     df = load_data('data/dataFrame.csv')
 
