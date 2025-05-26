@@ -14,7 +14,7 @@ if PROJECT_ROOT not in sys.path:
 
 from preprocessing.preprocessing import preprocess_text_pipeline
 from topicmodeling.topicmodeling import run_topic_modeling
-#from sentiment_analysis.run_llms_classifiication import run_classification
+from sentiment_analysis.run_llms_classifiication import run_classification
 
 st.set_page_config(page_title="MGI - Prototype", layout="wide", initial_sidebar_state="expanded")
 CSV_UPLOAD_FOLDER = "data"
@@ -87,21 +87,42 @@ def csv_upload_page():
 
     st.subheader("Upload your JSON file with the sentiment analysis")
     json_sentiment_analysis = st.file_uploader("Select a JSON file", type=["json"], key="json_sentiment_analysis")
+
     if json_sentiment_analysis is not None:
         try:
             json_content = json_sentiment_analysis.read().decode("utf-8")
             sentiment_data = json.loads(json_content)
             st.json(sentiment_data)  
+
+            from collections import Counter
+            label_counts = Counter(sentiment_data.values())
+            
+            st.write("Label counts:", label_counts)
+
+            min_count = min(label_counts.values())
+            
+            st.write(f"Minimum number of examples among labels: {min_count}")
+
+            selected_quantity = st.selectbox(
+                "Select number of sentences per sentiment to use:",
+                options=list(range(1, min_count + 1)),
+                index=min_count - 1  
+            )
+
+            st.session_state["selected_quantity_per_label"] = selected_quantity
+
             json_save_path = os.path.join(TXT_UPLOAD_FOLDER, "sentiment_analysis.json")
             with open(json_save_path, "w", encoding="utf-8") as f:
                 json.dump(sentiment_data, f, ensure_ascii=False, indent=4)
 
             st.info(f"JSON file saved at: `{json_save_path}`")
+
             st.session_state["sentiment_uploaded"] = True
+
         except Exception as e:
             st.error(f"Error processing JSON file: {e}")
 
-    return success
+        return success
 
 def pre_processing_df():
     df = load_data("data/dataFrame.csv")
@@ -158,7 +179,7 @@ def main_app():
         topic_titles = load_all_topic_titles(topic_amount)
         selected_topic_title = st.sidebar.selectbox("Select a Topic:", options=topic_titles)
         topic_number = topic_titles.index(selected_topic_title)
-        topicmodeling.render(topic_number=str(topic_number), topic_amount=topic_amount)
+        topic_modeling.render(topic_number=str(topic_number), topic_amount=topic_amount)
 
 if "csv_uploaded" not in st.session_state:
     st.session_state["csv_uploaded"] = False

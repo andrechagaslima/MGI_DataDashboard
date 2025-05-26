@@ -1,8 +1,8 @@
 import json
 import time
 
-from src.llms.llm_for_few_shot import LLM
-from src.utils.geral import read_dataset, save_file, get_examples
+from sentiment_analysis.src.llms.llm_for_few_shot import LLM
+from sentiment_analysis.src.utils.geral import read_dataset, save_file, get_examples
 
 def run_classification(number_of_examples):
     prompt_dir = 'resources/prompt/prompt.json'
