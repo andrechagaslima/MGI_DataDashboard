@@ -106,14 +106,14 @@ def process_feedback(text):
 # SUMMARIZATION -------------------------
 
 def load_data(topic, total_topics):
-    df = pd.read_csv('../data/SUS_Simulador_Aposentadoria_pre_processado.csv')
+    df = pd.read_csv('../data/dataFrame.csv')
     
     td = pd.read_csv(f'../topic_modeling/data_num_topics/{total_topics}/Resumo_Topicos_Dominantes.csv')
     papers_with_topic = td[td['dominant_topic'] == topic]['papers'].tolist()
     
     comments = df[df['ID'].isin(papers_with_topic)]
     comments = comments.reset_index(drop=True)
-    comments = list(comments['Agradeço a sua participação e abro o espaço para que você possa contribuir com alguma crítica, sugestão ou elogio sobre o Simulador de Aposentadoria.'])
+    comments = list(comments['comments'])
     
     print(len(comments))
 
