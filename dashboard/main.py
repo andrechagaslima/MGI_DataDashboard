@@ -145,10 +145,40 @@ def load_all_topic_titles(topic_amount):
     return [get_topic_title(topic_amount, topic_number) for topic_number in range(topic_amount)]
 
 def main_app():
+    selected_quantity = st.session_state.get("selected_quantity_per_label")
+    
+    st.info("Starting: Preprocessing DataFrame...")
     pre_processing_df()
+    st.success("DataFrame preprocessing completed.")
+
+    st.info("Starting: Text Preprocessing Pipeline...")
     preprocess_text_pipeline()
-    run_topic_modeling()
-    run_classification(number_of_examples=)
+    st.success("Text preprocessing completed.")
+
+    st.info("Starting: Topic Modeling...")
+    #run_topic_modeling()
+    st.success("Topic modeling completed.")
+
+    st.info("Starting: Sentiment Classification...")
+    #run_classification(number_of_examples=selected_quantity)
+    st.success("Classification completed.")
+
+    st.info("Starting: Detailed Summarization...")
+    from summarization.detailed_topic_comments_summarization import run_detailed
+    run_detailed()
+    st.success("Detailed summarization completed.")
+
+    st.info("Starting: Concise Summarization...")
+    from summarization.concise_topic_comments_summarization import run_concise
+    run_concise()
+    st.success("Concise summarization completed.")
+
+    st.info("Starting: Single-sentence Summarization...")
+    from summarization.single_sentence_topic_summarization import run_single
+    run_single()
+    st.success("Single-sentence summarization completed.")
+
+    st.info("Loading DataFrame for results display...")
 
     df = load_data('data/dataFrame.csv')
 

@@ -164,7 +164,7 @@ class LLM():
         
         y_text = []
 
-        X = data['Comentários'].tolist()
+        X = data['comments'].tolist()
 
         for index, text in enumerate(tqdm(X, desc="Predict", ascii=True)):
 

@@ -47,11 +47,11 @@ class BERTopic(BERTopic_):
         df_document_topic['dominant_topic'] = self.topics_
 
         sns.countplot(x=df_document_topic.dominant_topic)
-        plt.savefig(f'{path}/Topicos_Dominantes.png')
+        plt.savefig(f'./topicmodeling/{path}/Topicos_Dominantes.png')
         plt.close()
 
-        df_document_topic.to_csv(f'{path}/Topicos_Dominantes.csv', sep="|")
+        df_document_topic.to_csv(f'./topicmodeling/{path}/Topicos_Dominantes.csv', sep="|")
         resumo = pd.DataFrame()
         resumo['papers'] = papernames
         resumo['dominant_topic'] = df_document_topic['dominant_topic'].values
-        resumo.to_csv(f'{path}/Resumo_Topicos_Dominantes.csv', index=False)
+        resumo.to_csv(f'./topicmodeling/{path}/Resumo_Topicos_Dominantes.csv', index=False)

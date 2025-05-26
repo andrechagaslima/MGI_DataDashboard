@@ -6,6 +6,34 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.datasets import load_svmlight_file, dump_svmlight_file
 
+def transform_json():
+
+    input_path = "./txt_data/sentiment_analysis.json"
+    output_path = "./sentiment_analysis/resources/prompt/prompt.json"
+
+    with open(input_path, "r", encoding="utf-8") as f:
+        input_json = json.load(f)
+
+    output_json = {
+        "system_prompt": (
+            "Classify the following texts, which are comments in Portuguese about a government-developed application, "
+            "into one of the following categories: criticism, suggestion, positive feedback, or not pertinent. "
+            "Classify as 'not pertinent' only texts that are neither suggestions, positive feedback, nor criticisms, "
+            "considering that they don't fit those categories but aren't necessarily irrelevant. These comments were provided "
+            "by users who were encouraged to give suggestions, critiques, or positive feedback. The response must consist solely "
+            "of the name of one of these categories, with no additional text or information."
+        ),
+        "examples": input_json,
+        "categories": ["criticism", "suggestion", "positive feedback", "not pertinent"]
+    }
+
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(output_json, f, ensure_ascii=False, indent=4)
+
+
 def str2bool(x):
     if x.lower() in ['y', 'yes', 's', 'sim', '1', 'abacaxi']:
         return True
@@ -53,7 +81,7 @@ def get_examples(df, prompt_dir, number_of_examples):
 
     labels_text_lengths  = {}
     for index, label in examples.items():
-        text = df.iloc[int(index)]['Comentários']
+        text = df.iloc[int(index)]['comments']
         if label not in labels_text_lengths : 
             labels_text_lengths[label] = {index: len(text)}
         else:
@@ -63,7 +91,7 @@ def get_examples(df, prompt_dir, number_of_examples):
     for label in labels_text_lengths :
         labels_text_lengths [label] = dict(sorted(labels_text_lengths [label].items(), key=lambda item: item[1], reverse=True))
         for index in dict(list(labels_text_lengths[label].items())[:number_of_examples]):
-            text = df.iloc[int(index)]['Comentários']
+            text = df.iloc[int(index)]['comments']
             texts_for_few_shot[int(index)] = {'text': text, 'label': label}
     
     return texts_for_few_shot 

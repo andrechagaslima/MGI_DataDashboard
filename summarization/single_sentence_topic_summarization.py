@@ -1,4 +1,5 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+from sentiment_analysis.src.llms.token_id import get_token
 import pandas as pd
 import torch
 import os
@@ -14,7 +15,7 @@ random.seed(SEED); torch.manual_seed(SEED); numpy.random.seed(seed=SEED)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 name_model = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-token_access = "seu_token"
+token_access = get_token()
 
 model = AutoModelForCausalLM.from_pretrained(name_model, 
                                              torch_dtype="auto", 
@@ -40,7 +41,7 @@ terminators = [tokenizer.eos_token_id, tokenizer.convert_tokens_to_ids("<|eot_id
 # SUMMARIZATION -------------------------
 
 def load_data(topic, total_topics):
-    with open(f'outLLM/concise_summarization/{total_topics}/summary_topic_{topic}.txt', 'r', encoding='utf-8') as file:
+    with open(f'./summarization/outLLM/concise_summarization/{total_topics}/summary_topic_{topic}.txt', 'r', encoding='utf-8') as file:
         text = file.read()
     
     return text
@@ -95,8 +96,8 @@ def get_summary(text):
 
 
 def save_summary(text, total_number_of_topics, topic):
-    if not os.path.exists(f'outLLM/single_sentence/{total_number_of_topics}'): os.makedirs(f'outLLM/single_sentence/{total_number_of_topics}')
-    with open(f'outLLM/single_sentence/{total_number_of_topics}/summary_topic_{topic}.txt', 'w') as file:
+    if not os.path.exists(f'./summarization/outLLM/single_sentence/{total_number_of_topics}'): os.makedirs(f'./summarization/outLLM/single_sentence/{total_number_of_topics}')
+    with open(f'./summarization/outLLM/single_sentence/{total_number_of_topics}/summary_topic_{topic}.txt', 'w') as file:
         file.write(text)
         
 # MAIN ---------------------------------
@@ -109,3 +110,8 @@ def run_single():
             text = load_data(t, total_t)
             summary = get_summary(text)
             save_summary(summary, total_t, t)
+    del model
+    import gc
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()

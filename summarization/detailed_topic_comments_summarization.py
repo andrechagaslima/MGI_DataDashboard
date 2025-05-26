@@ -1,4 +1,5 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+from sentiment_analysis.src.llms.token_id import get_token
 import pandas as pd
 import torch
 import os
@@ -15,7 +16,7 @@ random.seed(SEED); torch.manual_seed(SEED); numpy.random.seed(seed=SEED)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 name_model = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-token_access = "seu_token"
+token_access = get_token()
 
 model = AutoModelForCausalLM.from_pretrained(name_model, 
                                              torch_dtype="auto", 
@@ -106,9 +107,9 @@ def process_feedback(text):
 # SUMMARIZATION -------------------------
 
 def load_data(topic, total_topics):
-    df = pd.read_csv('../data/dataFrame.csv')
+    df = pd.read_csv('./data/dataFrame.csv')
     
-    td = pd.read_csv(f'../topic_modeling/data_num_topics/{total_topics}/Resumo_Topicos_Dominantes.csv')
+    td = pd.read_csv(f'./topicmodeling/data_num_topics/{total_topics}/Resumo_Topicos_Dominantes.csv')
     papers_with_topic = td[td['dominant_topic'] == topic]['papers'].tolist()
     
     comments = df[df['ID'].isin(papers_with_topic)]
@@ -286,17 +287,22 @@ def get_summary(comments):
 
 
 def save_summary(text, total_number_of_topics, topic):
-    if not os.path.exists(f'outLLM/detailed_summarization/{total_number_of_topics}'): os.makedirs(f'outLLM/detailed_summarization/{total_number_of_topics}')
-    with open(f'outLLM/detailed_summarization/{total_number_of_topics}/summary_topic_{topic}.txt', 'w') as file:
+    if not os.path.exists(f'./summarization/outLLM/detailed_summarization/{total_number_of_topics}'): os.makedirs(f'./summarization/outLLM/detailed_summarization/{total_number_of_topics}')
+    with open(f'./summarization/outLLM/detailed_summarization/{total_number_of_topics}/summary_topic_{topic}.txt', 'w') as file:
         file.write(text)
         
 # MAIN ---------------------------------
 
 #for total_t in [5, 10, 15]:
 def run_detailed():
-    for total_t in [10, 15]:
+    for total_t in [5, 10, 15]:
         for t in range(total_t):
             print(f'topic {t}')
             comments = load_data(t, total_t)
             summary = get_summary(comments)
             save_summary(summary, total_t, t)
+    del model
+    import gc
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()

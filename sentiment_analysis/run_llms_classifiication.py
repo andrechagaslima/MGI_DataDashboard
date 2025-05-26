@@ -2,12 +2,15 @@ import json
 import time
 
 from sentiment_analysis.src.llms.llm_for_few_shot import LLM
-from sentiment_analysis.src.utils.geral import read_dataset, save_file, get_examples
+from sentiment_analysis.src.utils.geral import read_dataset, save_file, get_examples, transform_json
 
 def run_classification(number_of_examples):
-    prompt_dir = 'resources/prompt/prompt.json'
+
+    transform_json()
+
+    prompt_dir = './sentiment_analysis/resources/prompt/prompt.json'
     llm_method = 'Llama3.1-I'
-    outfilename = 'resources/outLLM/sentiment_analysis/1_few_shot'
+    outfilename = './sentiment_analysis/resources/outLLM/sentiment_analysis/1_few_shot'
     seed = 2024
 
     info = {}
@@ -32,3 +35,9 @@ def run_classification(number_of_examples):
 
     print(json.dumps(info, indent=4))
     save_file(outfilename, info)
+
+    del llm
+    import gc, torch
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()

@@ -40,16 +40,16 @@ def run_topic_modeling():
         'hdbscan_model' : KMeans(n_clusters=10),
         #'ctfidf_model' : ClassTfidfTransformer(reduce_frequent_words=True, bm25_weighting=True)
     }
-
+    
     model = BERTopic(**params)
 
     model.fit(use_df['clean_text'])
 
-    model.save(f"{save_data}/kmeans_1", serialization="pickle")
+    model.save(f"./topicmodeling/{save_data}/kmeans_1", serialization="pickle")
 
     model.dominant_topics(use_df['clean_text'], save_data, use_df['ID'].tolist())
 
-    loaded_model = BERTopic.load(f"data_topic_modeling/kmeans_1")
+    loaded_model = BERTopic.load(f"./topicmodeling/data_topic_modeling/kmeans_1")
 
     tfidf = TfidfVectorizer()
     tfidf.fit_transform(use_df['clean_text'].tolist())
@@ -59,7 +59,7 @@ def run_topic_modeling():
 
     matrix = loaded_model.c_tf_idf_
 
-    td = pd.read_csv('data_topic_modeling/Resumo_Topicos_Dominantes.csv')
+    td = pd.read_csv('./topicmodeling/data_topic_modeling/Resumo_Topicos_Dominantes.csv')
     td = td.groupby('dominant_topic')
     td_dict = {topic: ids['papers'].tolist() for topic, ids in td}
 
@@ -75,7 +75,7 @@ def run_topic_modeling():
     docs = []
     docs_scores = []
 
-    td = pd.read_csv('data_topic_modeling/Resumo_Topicos_Dominantes.csv')
+    td = pd.read_csv('./topicmodeling/data_topic_modeling/Resumo_Topicos_Dominantes.csv')
 
     for i in range(len(use_df)):
         docs.append(use_df['ID'][i])
@@ -96,7 +96,7 @@ def run_topic_modeling():
     }
     df = pd.DataFrame(data)
 
-    df.to_csv('data_topic_modeling/documents_scores.csv')
+    df.to_csv('./topicmodeling/data_topic_modeling/documents_scores.csv')
 
     save_data = 'data_num_topics'
 
@@ -113,9 +113,9 @@ def run_topic_modeling():
     model = BERTopic(**params)
     model.fit(use_df['clean_text'])
 
-    model.save_txt(f'data_num_topics/{num_topics}/topics.txt')
-    model.dominant_topics(use_df['clean_text'], f'data_num_topics/{num_topics}/', use_df['ID'].tolist())
-    model.save_json(f'data_num_topics/{num_topics}/topics_{num_topics}.json')
+    model.save_txt(f'./topicmodeling/data_num_topics/{num_topics}/topics.txt')
+    model.dominant_topics(use_df['clean_text'], f'./data_num_topics/{num_topics}/', use_df['ID'].tolist())
+    model.save_json(f'./topicmodeling/data_num_topics/{num_topics}/topics_{num_topics}.json')
 
     num_topics = 10
     params = {
@@ -128,9 +128,9 @@ def run_topic_modeling():
     model = BERTopic(**params)
     model.fit(use_df['clean_text'])
 
-    model.save_txt(f'data_num_topics/{num_topics}/topics.txt')
-    model.dominant_topics(use_df['clean_text'], f'data_num_topics/{num_topics}/', use_df['ID'].tolist())
-    model.save_json(f'data_num_topics/{num_topics}/topics_{num_topics}.json')
+    model.save_txt(f'./topicmodeling/data_num_topics/{num_topics}/topics.txt')
+    model.dominant_topics(use_df['clean_text'], f'./data_num_topics/{num_topics}/', use_df['ID'].tolist())
+    model.save_json(f'./topicmodeling/data_num_topics/{num_topics}/topics_{num_topics}.json')
 
     num_topics = 15
     params = {
@@ -143,6 +143,6 @@ def run_topic_modeling():
     model = BERTopic(**params)
     model.fit(use_df['clean_text'])
 
-    model.save_txt(f'data_num_topics/{num_topics}/topics.txt')
-    model.dominant_topics(use_df['clean_text'], f'data_num_topics/{num_topics}/', use_df['ID'].tolist())
-    model.save_json(f'data_num_topics/{num_topics}/topics_{num_topics}.json')
+    model.save_txt(f'./topicmodeling/data_num_topics/{num_topics}/topics.txt')
+    model.dominant_topics(use_df['clean_text'], f'./data_num_topics/{num_topics}/', use_df['ID'].tolist())
+    model.save_json(f'./topicmodeling/data_num_topics/{num_topics}/topics_{num_topics}.json')
